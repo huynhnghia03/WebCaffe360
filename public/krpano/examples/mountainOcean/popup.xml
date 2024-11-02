@@ -1,0 +1,599 @@
+<krpano>
+<!--  OVERLAY  -->
+<layer name="popup-overlay" parent="" type="container" style="style-popup-overlay" align="center" edge="" keep="true" enabled="true" visible="false" bgcapture="true" alpha="1" scale="1" zorder="999"/>
+<style name="style-popup-overlay" x="0" y="0" width="100%" height="100%" vcenter="true" padding="0" bg="true" bgcolor="0x000000" bgalpha="0.8" bgborder="0 0xFFFFFF 1.0" bgroundedge="0" bgshadow="" onclick="close-popup();"/>
+<!--  ANGEBOT HOVER  -->
+<layer name="angebot-hover1" parent="popup-layer1" style="zum-angebot-hover-style" onclick="" url="logos/zum-angebot-hover.png"/>
+<layer name="angebot-hover2" parent="popup-layer2" style="zum-angebot-hover-style" onclick="" url="logos/zum-angebot-hover.png"/>
+<layer name="angebot-hover3" parent="popup-layer3" style="zum-angebot-hover-style" onclick="" url="logos/zum-angebot-hover.png"/>
+<layer name="angebot-hover4" parent="popup-layer4" style="zum-angebot-hover-style" onclick="" url="logos/zum-angebot-hover.png"/>
+<layer name="angebot-hover5" parent="popup-layer5" style="zum-angebot-hover-style" onclick="" url="logos/zum-angebot-hover.png"/>
+<layer name="angebot-hover6" parent="popup-layer6" style="zum-angebot-hover-style" onclick="" url="logos/zum-angebot-hover.png"/>
+<!--  ........................................Button Gamshag.............................................
+ <layer  name="angebot-hover7"
+          parent="popup-layer7"
+          style="zum-angebot-hover-style"
+          onclick=""
+          url="logos/zum-angebot-hover.png"
+           />
+
+            -->
+<layer name="angebot-hover8" parent="popup-layer8" style="zum-angebot-hover-style" onclick="" url="logos/zum-angebot-hover.png"/>
+<layer name="angebot-hover9" parent="popup-layer9" style="zum-angebot-hover-style" onclick="" url="logos/zum-angebot-hover.png"/>
+<layer name="angebot-hover10" parent="popup-layer10" style="zum-angebot-hover-style" onclick="" url="logos/zum-angebot-hover.png"/>
+<!--  Button saalbacher hof
+ <layer  name="angebot-hover11"
+          parent="popup-layer11"
+          style="zum-angebot-hover-style"
+          onclick=""
+          url="logos/zum-angebot-hover.png"
+           />
+
+            -->
+<layer name="angebot-hover12" parent="popup-layer12" style="zum-angebot-hover-style" onclick="" url="logos/zum-angebot-hover.png"/>
+<layer name="angebot-hover13" parent="popup-layer13" style="zum-angebot-hover-style" onclick="" url="logos/zum-angebot-hover.png"/>
+<layer name="angebot-hover14" parent="popup-layer14" style="zum-angebot-hover-style" onclick="" url="logos/zum-angebot-hover.png"/>
+<!--  STYLES  -->
+<style name="style-popup" align="center" align.mobile="bottom" edge="" keep="true" enabled="true" bgcapture="true" alpha="1" scale="1" zorder="1000" x="0" y="0" width="930" width.mobile="90%" height="485" height.mobile="85%" vcenter="true" padding="0" bg="true" bgcolor="0xFFFFFF" bgalpha="1" bgborder="1 0x000000 1.0" bgroundedge="2" bgshadow="" onclick=""/>
+<style name="zum-angebot-style" type="image" url="logos/zum-angebot.png" align="bottomright" align.mobile="bottomright" keep="true" enabled="true" visible="false" alpha="1" width="prop" height="40" height.mobile="25" x="25" x.mobile="14" y="15" y.mobile="5" zorder="1005" onover="tween(alpha, 0);" onout="tween(alpha, 1);"/>
+<style name="zum-angebot-hover-style" type="image" url="logos/zum-angebot-hover.png" align="bottomright" align.mobile="bottomright" keep="true" enabled="true" visible="true" alpha="1" zorder="1000" width="prop" height="40" height.mobile="25" x="25" x.mobile="14" y="15" y.mobile="5"/>
+<style name="style-slideshow" align="centerleft" edge="" keep="true" enabled="true" bgcapture="true" alpha="1" scale="1" x="15" y="0" width="665" width.mobile="270" height="455" height.mobile="180" vcenter="true" padding="0" bg="true" zorder="1000" bgcolor="0x000000" bgalpha="0.2" bgborder="0 0x000000 1.0" bgroundedge="0" bgshadow="" onclick=""/>
+<style name="bilder-style" type="image" keep="true" enabled="true" width="100%" height="100%" handcursor="true" maskchildren="true" scalechildren="false" align="center" scale="1" bgcolor="0x000000" bgalpha="0.0" bgborder="0 0xFFFFFF 1" bgroundedge="0" bgshadow="" zorder="1"/>
+<style name="bilder-text-style" type="text" x="0" y="0" align="bottom-center" keep="true" enabled="false" visible="true" alpha="1.0" width="100%" height="30" css="text-align:left; font-family: Arial; font-size:12px; color:#FFFFFF;" vcenter="true" padding="6" wordwrap="true" bg="true" bgcolor="0x000000" bgalpha="0.7" bgborder="0" bgroundedge="0" bgshadow="" txtshadow="" mergedalpha="true" interactivecontent="false"/>
+<style name="lauftext-style" type="image" align="topright" keep="true" enabled="true" visible="false" alpha="1" width="prop" height="390" x="10" y="10" zorder="5"/>
+<style name="vor-galerie-style" type="container" url="%FIRSTXML%/logos/pfeil-rechts-weiss.png" bgcapture="false" align="centerright" keep="true" enabled="true" visible="true" width="20" height="20" x="15" y="0" scale="1" alpha="0.7" onhover="" onover="tween(alpha, 1)" onout="tween(alpha, 0.7)"/>
+<style name="zurück-galerie-style" type="container" url="%FIRSTXML%/logos/pfeil-links-weiss.png" bgcapture="false" align="centerleft" keep="true" enabled="true" visible="true" width="20" height="20" x="15" y="0" scale="1" alpha="0.7" onhover="" onover="tween(alpha, 1)" onout="tween(alpha, 0.7)"/>
+<!--  X-Button  -->
+<style name="close-popup-style" type="container" url="%FIRSTXML%/logos/x-button.png" bgcapture="false" align="topright" keep="true" enabled="true" visible="false" width="25" height="25" x="5" x.mobile="5" y="5" y.mobile="5" scale="1" zorder="501" onhover="showtext(Schließen, popup-text-style);"/>
+<textstyle name="popup-text-style" origin="cursor" edge="bottom" xoffset="0" yoffset="-3" fadeintime="0.0" showtime="0.1" fadetime="0.0" font="Arial" fontsize="14.0" bold="true" italic="false" textcolor="0x000000" textalign="none" padding="1" css="font-family: Arial;" width="" height="" vcenter="" background="true" backgroundcolor="0xFFFFFF" backgroundalpha="0.7" border="false" bordercolor="0x000000" borderalpha="1.0" borderwidth="1.0" roundedge="0" shadow="0.0" shadowrange="4.0" shadowangle="45" shadowcolor="0xFFFFFF" shadowalpha="1.0" textshadow="1.0" textshadowrange="4.0" textshadowangle="45" textshadowcolor="0xFFFFFF" textshadowalpha="1.0" alpha="1.0" parent="" noclip="true"/>
+<!--  CLOSE POPUP  -->
+<action name="close-popup"> set(control.disablewheel, false); set(control.touchzoom, true); set(layer[popup-overlay].visible, false); set(layer[popup-layer1].visible, false); set(layer[close-popup_1].visible, false); set(layer[popup-reisecode1].visible, true); set(layer[angebot1].visible, false); set(layer[slideshow-1].visible, false); set(layer[lauftext1].visible, false); set(layer[popup-layer2].visible, false); set(layer[close-popup_2].visible, false); set(layer[popup-reisecode2].visible, true); set(layer[angebot2].visible, false); set(layer[slideshow-2].visible, false); set(layer[lauftext2].visible, false); set(layer[popup-layer3].visible, false); set(layer[close-popup_3].visible, false); set(layer[popup-reisecode3].visible, true); set(layer[angebot3].visible, false); set(layer[slideshow-3].visible, false); set(layer[lauftext3].visible, false); set(layer[popup-layer4].visible, false); set(layer[close-popup_4].visible, false); set(layer[popup-reisecode4].visible, true); set(layer[angebot4].visible, false); set(layer[slideshow-4].visible, false); set(layer[lauftext4].visible, false); set(layer[popup-layer4].visible, false); set(layer[close-popup_4].visible, false); set(layer[popup-reisecode4].visible, true); set(layer[angebot4].visible, false); set(layer[slideshow-4].visible, false); set(layer[lauftext4].visible, false); set(layer[popup-layer5].visible, false); set(layer[close-popup_5].visible, false); set(layer[popup-reisecode5].visible, true); set(layer[angebot5].visible, false); set(layer[slideshow-5].visible, false); set(layer[lauftext5].visible, false); set(layer[popup-layer6].visible, false); set(layer[close-popup_6].visible, false); set(layer[popup-reisecode6].visible, true); set(layer[angebot6].visible, false); set(layer[slideshow-6].visible, false); set(layer[lauftext6].visible, false); set(layer[popup-layer7].visible, false); set(layer[close-popup_7].visible, false); set(layer[popup-reisecode7].visible, true); set(layer[angebot7].visible, false); set(layer[slideshow-7].visible, false); set(layer[lauftext7].visible, false); set(layer[popup-layer8].visible, false); set(layer[close-popup_8].visible, false); set(layer[popup-reisecode8].visible, true); set(layer[angebot8].visible, false); set(layer[slideshow-8].visible, false); set(layer[lauftext8].visible, false); set(layer[popup-layer9].visible, false); set(layer[close-popup_9].visible, false); set(layer[popup-reisecode9].visible, true); set(layer[angebot9].visible, false); set(layer[slideshow-9].visible, false); set(layer[lauftext9].visible, false); set(layer[popup-layer10].visible, false); set(layer[close-popup_10].visible, false); set(layer[popup-reisecode10].visible, true); set(layer[angebot10].visible, false); set(layer[slideshow-10].visible, false); set(layer[lauftext10].visible, false); set(layer[popup-layer11].visible, false); set(layer[close-popup_11].visible, false); set(layer[popup-reisecode11].visible, true); set(layer[angebot11].visible, false); set(layer[slideshow-11].visible, false); set(layer[lauftext11].visible, false); set(layer[popup-layer12].visible, false); set(layer[close-popup_12].visible, false); set(layer[popup-reisecode12].visible, true); set(layer[angebot12].visible, false); set(layer[slideshow-12].visible, false); set(layer[lauftext12].visible, false); set(layer[popup-layer13].visible, false); set(layer[close-popup_13].visible, false); set(layer[popup-reisecode13].visible, true); set(layer[angebot13].visible, false); set(layer[slideshow-13].visible, false); set(layer[lauftext13].visible, false); set(layer[popup-layer14].visible, false); set(layer[close-popup_14].visible, false); set(layer[popup-reisecode14].visible, true); set(layer[angebot14].visible, false); set(layer[slideshow-14].visible, false); set(layer[lauftext14].visible, false); lauftext20].visible, false); </action>
+<!--  ........................................POPUP 1.............................................  -->
+<action name="open-popup1"> set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); set(layer[popup-overlay].visible, true); set(layer[popup-layer1].visible, true); set(layer[close-popup_1].visible, true); set(layer[popup-reisecode1].visible, true); set(layer[angebot1].visible, true); set(layer[slideshow-1].visible, true); set(layer[lauftext1].visible, true); autoslideshow_1(); </action>
+<layer name="close-popup_1" parent="popup-layer1" style="close-popup-style" onclick="close-popup();"/>
+<layer name="popup-layer1" parent="" type="container" style="style-popup" visible="false"/>
+<layer name="angebot1" parent="popup-layer1" style="zum-angebot-style" onclick="openurl('https://www.hofer-reisen.at/results?p_freetext=Hotel%20Almrausch&p_giataid=55682', _blank)"/>
+<layer name="slideshow-1" parent="popup-layer1" type="container" style="style-slideshow" visible="false"/>
+<layer name="lauftext1" parent="popup-layer1" style="lauftext-style"/>
+<action name="autoslideshow_1"> set(layer[bg1-1].visible, true); delayedcall(5,autoslideshow_1-2()); </action>
+<action name="autoslideshow_1-1"> set(layer[bg1-11].visible, false); set(layer[bg1-1].visible, true); delayedcall(5,autoslideshow_1-2()); </action>
+<action name="autoslideshow_1-2"> set(layer[bg1-1].visible, false); set(layer[bg1-2].visible, true); delayedcall(5,autoslideshow_1-3()); </action>
+<action name="autoslideshow_1-3"> set(layer[bg1-2].visible, false); set(layer[bg1-3].visible, true); delayedcall(5,autoslideshow_1-4()); </action>
+<action name="autoslideshow_1-4"> set(layer[bg1-3].visible, false); set(layer[bg1-4].visible, true); delayedcall(5,autoslideshow_1-5()); </action>
+<action name="autoslideshow_1-5"> set(layer[bg1-4].visible, false); set(layer[bg1-1].visible, true); delayedcall(5,autoslideshow_1-1()); </action>
+<!--  Lauftext  -->
+<layer name="lauftext1" url="popup-bilder/almrausch/text.jpg" style="lauftext-style" visible="true" parent="popup-layer1" url.mobile="popup-bilder/almrausch/text-res.jpg"/>
+<!--  Bilder  -->
+<layer name="bg1-1" url="popup-bilder/almrausch/foto-1.jpg" style="bilder-style" visible="true" parent="slideshow-1"/>
+<layer name="bilder-text1-1" parent="bg1-1" style="bilder-text-style" html="Aussenansicht "/>
+<layer name="vor-gb1-1" parent="bg1-1" style="vor-galerie-style" onclick="action(action1-bg1-1);"/>
+<layer name="zurück-gb1-1" parent="bg1-1" style="zurück-galerie-style" onclick="action(action2-bg1-1);"/>
+<action name="action1-bg1-1"> set(layer[bg1-1].visible, false); set(layer[bg1-2].visible, true); </action>
+<action name="action2-bg1-1"> set(layer[bg1-1].visible, false); set(layer[bg1-4].visible, true); </action>
+<layer name="bg1-2" url="popup-bilder/almrausch/foto-2.jpg" style="bilder-style" visible="false" parent="slideshow-1"/>
+<layer name="bilder-text1-2" parent="bg1-2" style="bilder-text-style" html=" Bar "/>
+<layer name="vor-gb1-2" parent="bg1-2" style="vor-galerie-style" onclick="action(action1-bg1-2);"/>
+<layer name="zurück-gb1-2" parent="bg1-2" style="zurück-galerie-style" onclick="action(action2-bg1-2);"/>
+<action name="action1-bg1-2"> set(layer[bg1-2].visible, false); set(layer[bg1-3].visible, true); </action>
+<action name="action2-bg1-2"> set(layer[bg1-2].visible, false); set(layer[bg1-1].visible, true); </action>
+<layer name="bg1-3" url="popup-bilder/almrausch/foto-3.jpg" style="bilder-style" visible="false" parent="slideshow-1"/>
+<layer name="bilder-text1-3" parent="bg1-3" style="bilder-text-style" html="Restaurant "/>
+<layer name="vor-gb1-3" parent="bg1-3" style="vor-galerie-style" onclick="action(action1-bg1-3);"/>
+<layer name="zurück-gb1-3" parent="bg1-3" style="zurück-galerie-style" onclick="action(action2-bg1-3);"/>
+<action name="action1-bg1-3"> set(layer[bg1-3].visible, false); set(layer[bg1-4].visible, true); </action>
+<action name="action2-bg1-3"> set(layer[bg1-3].visible, false); set(layer[bg1-2].visible, true); </action>
+<layer name="bg1-4" url="popup-bilder/almrausch/foto-4.jpg" style="bilder-style" visible="false" parent="slideshow-1"/>
+<layer name="bilder-text1-4" parent="bg1-4" style="bilder-text-style" html="Beispielbild, Zimmer "/>
+<layer name="vor-gb1-4" parent="bg1-4" style="vor-galerie-style" onclick="action(action1-bg1-4);"/>
+<layer name="zurück-gb1-4" parent="bg1-4" style="zurück-galerie-style" onclick="action(action2-bg1-4);"/>
+<action name="action1-bg1-4"> set(layer[bg1-4].visible, false); set(layer[bg1-1].visible, true); </action>
+<action name="action2-bg1-4"> set(layer[bg1-4].visible, false); set(layer[bg1-3].visible, true); </action>
+<!--  ........................................POPUP 2.............................................  -->
+<action name="open-popup2"> set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); set(layer[popup-overlay].visible, true); set(layer[popup-layer2].visible, true); set(layer[close-popup_2].visible, true); set(layer[popup-reisecode2].visible, true); set(layer[angebot2].visible, true); set(layer[slideshow-2].visible, true); set(layer[lauftext2].visible, true); autoslideshow_2(); </action>
+<layer name="close-popup_2" parent="popup-layer2" style="close-popup-style" onclick="close-popup();"/>
+<layer name="popup-layer2" parent="" type="container" style="style-popup" visible="false"/>
+<layer name="angebot2" parent="popup-layer2" style="zum-angebot-style" onclick="openurl('https://www.hofer-reisen.at/results?p_freetext=Hotel%20Alpenblick&p_giataid=25899#filtered', _blank)"/>
+<layer name="slideshow-2" parent="popup-layer2" type="container" style="style-slideshow" visible="false"/>
+<layer name="lauftext2" parent="popup-layer2" style="lauftext-style"/>
+<action name="autoslideshow_2"> set(layer[bg2-1].visible, true); delayedcall(5,autoslideshow_2-2()); </action>
+<action name="autoslideshow_2-1"> set(layer[bg2-4].visible, false); set(layer[bg2-1].visible, true); delayedcall(5,autoslideshow_2-2()); </action>
+<action name="autoslideshow_2-2"> set(layer[bg2-1].visible, false); set(layer[bg2-2].visible, true); delayedcall(5,autoslideshow_2-3()); </action>
+<action name="autoslideshow_2-3"> set(layer[bg2-2].visible, false); set(layer[bg2-3].visible, true); delayedcall(5,autoslideshow_2-4()); </action>
+<action name="autoslideshow_2-4"> set(layer[bg2-3].visible, false); set(layer[bg2-4].visible, true); delayedcall(5,autoslideshow_2-5()); </action>
+<action name="autoslideshow_2-5"> set(layer[bg2-4].visible, false); set(layer[bg2-1].visible, true); delayedcall(5,autoslideshow_2-1()); </action>
+<!--  Lauftext  -->
+<layer name="lauftext2" url="popup-bilder/alpenblick/text.jpg" style="lauftext-style" visible="true" parent="popup-layer2" url.mobile="popup-bilder/alpenblick/text-res.jpg"/>
+<!--  Bilder  -->
+<layer name="bg2-1" url="popup-bilder/alpenblick/foto-1.jpg" style="bilder-style" visible="true" parent="slideshow-2"/>
+<layer name="bilder-text2-1" parent="bg2-1" style="bilder-text-style" html=" Aussenansicht "/>
+<layer name="vor-gb2-1" parent="bg2-1" style="vor-galerie-style" onclick="action(action1-bg2-1);"/>
+<layer name="zurück-gb2-1" parent="bg2-1" style="zurück-galerie-style" onclick="action(action2-bg2-1);"/>
+<action name="action1-bg2-1"> set(layer[bg2-1].visible, false); set(layer[bg2-2].visible, true); </action>
+<action name="action2-bg2-1"> set(layer[bg2-1].visible, false); set(layer[bg2-4].visible, true); </action>
+<layer name="bg2-2" url="popup-bilder/alpenblick/foto-2.jpg" style="bilder-style" visible="false" parent="slideshow-2"/>
+<layer name="bilder-text2-2" parent="bg2-2" style="bilder-text-style" html=" Restaurant "/>
+<layer name="vor-gb2-2" parent="bg2-2" style="vor-galerie-style" onclick="action(action1-bg2-2);"/>
+<layer name="zurück-gb2-2" parent="bg2-2" style="zurück-galerie-style" onclick="action(action2-bg2-2);"/>
+<action name="action1-bg2-2"> set(layer[bg2-2].visible, false); set(layer[bg2-3].visible, true); </action>
+<action name="action2-bg2-2"> set(layer[bg2-2].visible, false); set(layer[bg2-1].visible, true); </action>
+<layer name="bg2-3" url="popup-bilder/alpenblick/foto-3.jpg" style="bilder-style" visible="false" parent="slideshow-2"/>
+<layer name="bilder-text2-3" parent="bg2-3" style="bilder-text-style" html=" Restaurant/Bar "/>
+<layer name="vor-gb2-3" parent="bg2-3" style="vor-galerie-style" onclick="action(action1-bg2-3);"/>
+<layer name="zurück-gb2-3" parent="bg2-3" style="zurück-galerie-style" onclick="action(action2-bg2-3);"/>
+<action name="action1-bg2-3"> set(layer[bg2-3].visible, false); set(layer[bg2-4].visible, true); </action>
+<action name="action2-bg2-3"> set(layer[bg2-3].visible, false); set(layer[bg2-2].visible, true); </action>
+<layer name="bg2-4" url="popup-bilder/alpenblick/foto-4.jpg" style="bilder-style" visible="false" parent="slideshow-2"/>
+<layer name="bilder-text2-4" parent="bg2-4" style="bilder-text-style" html=" Beispielbild, Zimmer"/>
+<layer name="vor-gb2-4" parent="bg2-4" style="vor-galerie-style" onclick="action(action1-bg2-4);"/>
+<layer name="zurück-gb2-4" parent="bg2-4" style="zurück-galerie-style" onclick="action(action2-bg2-4);"/>
+<action name="action1-bg2-4"> set(layer[bg2-4].visible, false); set(layer[bg2-1].visible, true); </action>
+<action name="action2-bg2-4"> set(layer[bg2-4].visible, false); set(layer[bg2-3].visible, true); </action>
+<!--  ........................................POPUP 3.............................................  -->
+<action name="open-popup3"> set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); set(layer[popup-overlay].visible, true); set(layer[popup-layer3].visible, true); set(layer[close-popup_3].visible, true); set(layer[popup-reisecode3].visible, true); set(layer[angebot3].visible, true); set(layer[slideshow-3].visible, true); set(layer[lauftext3].visible, true); autoslideshow_3(); </action>
+<layer name="close-popup_3" parent="popup-layer3" style="close-popup-style" onclick="close-popup();"/>
+<layer name="popup-layer3" parent="" type="container" style="style-popup" visible="false"/>
+<layer name="angebot3" parent="popup-layer3" style="zum-angebot-style" onclick="openurl('https://www.hofer-reisen.at/results?p_freetext=JUFA%20Alpenhotel%20Saalbach&p_giataid=41712', _blank)"/>
+<layer name="slideshow-3" parent="popup-layer3" type="container" style="style-slideshow" visible="false"/>
+<layer name="lauftext3" parent="popup-layer3" style="lauftext-style"/>
+<action name="autoslideshow_3"> set(layer[bg3-1].visible, true); delayedcall(5,autoslideshow_3-2()); </action>
+<action name="autoslideshow_3-1"> set(layer[bg3-4].visible, false); set(layer[bg3-1].visible, true); delayedcall(5,autoslideshow_3-2()); </action>
+<action name="autoslideshow_3-2"> set(layer[bg3-1].visible, false); set(layer[bg3-2].visible, true); delayedcall(5,autoslideshow_3-3()); </action>
+<action name="autoslideshow_3-3"> set(layer[bg3-2].visible, false); set(layer[bg3-3].visible, true); delayedcall(5,autoslideshow_3-4()); </action>
+<action name="autoslideshow_3-4"> set(layer[bg3-3].visible, false); set(layer[bg3-4].visible, true); delayedcall(5,autoslideshow_3-1()); </action>
+<!--  Lauftext  -->
+<layer name="lauftext3" url="popup-bilder/jufa-alpenhotel-saalbach/text.jpg" style="lauftext-style" visible="true" parent="popup-layer3" url.mobile="popup-bilder/jufa-alpenhotel-saalbach/text-res.jpg"/>
+<!--  Bilder  -->
+<layer name="bg3-1" url="popup-bilder/jufa-alpenhotel-saalbach/foto-1.jpg" style="bilder-style" visible="true" parent="slideshow-3"/>
+<layer name="bilder-text3-1" parent="bg3-1" style="bilder-text-style" html=" Aussenansicht "/>
+<layer name="vor-gb3-1" parent="bg3-1" style="vor-galerie-style" onclick="action(action1-bg3-1);"/>
+<layer name="zurück-gb3-1" parent="bg3-1" style="zurück-galerie-style" onclick="action(action2-bg3-1);"/>
+<action name="action1-bg3-1"> set(layer[bg3-1].visible, false); set(layer[bg3-2].visible, true); </action>
+<action name="action2-bg3-1"> set(layer[bg3-1].visible, false); set(layer[bg3-4].visible, true); </action>
+<layer name="bg3-2" url="popup-bilder/jufa-alpenhotel-saalbach/foto-2.jpg" style="bilder-style" visible="false" parent="slideshow-3"/>
+<layer name="bilder-text3-2" parent="bg3-2" style="bilder-text-style" html=" Rezeption "/>
+<layer name="vor-gb3-2" parent="bg3-2" style="vor-galerie-style" onclick="action(action1-bg3-2);"/>
+<layer name="zurück-gb3-2" parent="bg3-2" style="zurück-galerie-style" onclick="action(action2-bg3-2);"/>
+<action name="action1-bg3-2"> set(layer[bg3-2].visible, false); set(layer[bg3-3].visible, true); </action>
+<action name="action2-bg3-2"> set(layer[bg3-2].visible, false); set(layer[bg3-1].visible, true); </action>
+<layer name="bg3-3" url="popup-bilder/jufa-alpenhotel-saalbach/foto-3.jpg" style="bilder-style" visible="false" parent="slideshow-3"/>
+<layer name="bilder-text3-3" parent="bg3-3" style="bilder-text-style" html=" Beispielbild, Zimmer "/>
+<layer name="vor-gb3-3" parent="bg3-3" style="vor-galerie-style" onclick="action(action1-bg3-3);"/>
+<layer name="zurück-gb3-3" parent="bg3-3" style="zurück-galerie-style" onclick="action(action2-bg3-3);"/>
+<action name="action1-bg3-3"> set(layer[bg3-3].visible, false); set(layer[bg3-4].visible, true); </action>
+<action name="action2-bg3-3"> set(layer[bg3-3].visible, false); set(layer[bg3-2].visible, true); </action>
+<layer name="bg3-4" url="popup-bilder/jufa-alpenhotel-saalbach/foto-4.jpg" style="bilder-style" visible="false" parent="slideshow-3"/>
+<layer name="bilder-text3-4" parent="bg3-4" style="bilder-text-style" html=" Sauna"/>
+<layer name="vor-gb3-4" parent="bg3-4" style="vor-galerie-style" onclick="action(action1-bg3-4);"/>
+<layer name="zurück-gb3-4" parent="bg3-4" style="zurück-galerie-style" onclick="action(action2-bg3-4);"/>
+<action name="action1-bg3-4"> set(layer[bg3-4].visible, false); set(layer[bg3-1].visible, true); </action>
+<action name="action2-bg3-4"> set(layer[bg3-4].visible, false); set(layer[bg3-3].visible, true); </action>
+<!--  ........................................POPUP 4.............................................  -->
+<action name="open-popup4"> set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); set(layer[popup-overlay].visible, true); set(layer[popup-layer4].visible, true); set(layer[close-popup_4].visible, true); set(layer[popup-reisecode4].visible, true); set(layer[angebot4].visible, true); set(layer[slideshow-4].visible, true); set(layer[lauftext4].visible, true); autoslideshow_4(); </action>
+<layer name="close-popup_4" parent="popup-layer4" style="close-popup-style" onclick="close-popup();"/>
+<layer name="popup-layer4" parent="" type="container" style="style-popup" visible="false"/>
+<layer name="angebot4" parent="popup-layer4" style="zum-angebot-style" onclick="openurl('https://www.hofer-reisen.at/results?p_freetext=Berger%27s%20Sporthotel&p_giataid=25300', _blank)"/>
+<layer name="slideshow-4" parent="popup-layer4" type="container" style="style-slideshow" visible="false"/>
+<layer name="lauftext4" parent="popup-layer4" style="lauftext-style"/>
+<action name="autoslideshow_4"> set(layer[bg4-1].visible, true); delayedcall(5,autoslideshow_4-2()); </action>
+<action name="autoslideshow_4-1"> set(layer[bg4-5].visible, false); set(layer[bg4-1].visible, true); delayedcall(5,autoslideshow_4-2()); </action>
+<action name="autoslideshow_4-2"> set(layer[bg4-1].visible, false); set(layer[bg4-2].visible, true); delayedcall(5,autoslideshow_4-3()); </action>
+<action name="autoslideshow_4-3"> set(layer[bg4-2].visible, false); set(layer[bg4-3].visible, true); delayedcall(5,autoslideshow_4-4()); </action>
+<action name="autoslideshow_4-4"> set(layer[bg4-3].visible, false); set(layer[bg4-1].visible, true); delayedcall(5,autoslideshow_4-1()); </action>
+<!--  Lauftext  -->
+<layer name="lauftext4" url="popup-bilder/bergers-sporthotel/text.jpg" style="lauftext-style" visible="true" parent="popup-layer4" url.mobile="popup-bilder/bergers-sporthotel/text-res.jpg"/>
+<!--  Bilder  -->
+<layer name="bg4-1" url="popup-bilder/bergers-sporthotel/foto-1.jpg" style="bilder-style" visible="true" parent="slideshow-4"/>
+<layer name="bilder-text4-1" parent="bg4-1" style="bilder-text-style" html=" Aussenansicht "/>
+<layer name="vor-gb4-1" parent="bg4-1" style="vor-galerie-style" onclick="action(action1-bg4-1);"/>
+<layer name="zurück-gb4-1" parent="bg4-1" style="zurück-galerie-style" onclick="action(action2-bg4-1);"/>
+<action name="action1-bg4-1"> set(layer[bg4-1].visible, false); set(layer[bg4-2].visible, true); </action>
+<action name="action2-bg4-1"> set(layer[bg4-1].visible, false); set(layer[bg4-4].visible, true); </action>
+<layer name="bg4-2" url="popup-bilder/bergers-sporthotel/foto-2.jpg" style="bilder-style" visible="false" parent="slideshow-4"/>
+<layer name="bilder-text4-2" parent="bg4-2" style="bilder-text-style" html=" Restaurant "/>
+<layer name="vor-gb4-2" parent="bg4-2" style="vor-galerie-style" onclick="action(action1-bg4-2);"/>
+<layer name="zurück-gb4-2" parent="bg4-2" style="zurück-galerie-style" onclick="action(action2-bg4-2);"/>
+<action name="action1-bg4-2"> set(layer[bg4-2].visible, false); set(layer[bg4-3].visible, true); </action>
+<action name="action2-bg4-2"> set(layer[bg4-2].visible, false); set(layer[bg4-1].visible, true); </action>
+<layer name="bg4-3" url="popup-bilder/bergers-sporthotel/foto-3.jpg" style="bilder-style" visible="false" parent="slideshow-4"/>
+<layer name="bilder-text4-3" parent="bg4-3" style="bilder-text-style" html="Beispielbild, Zimmer "/>
+<layer name="vor-gb4-3" parent="bg4-3" style="vor-galerie-style" onclick="action(action1-bg4-3);"/>
+<layer name="zurück-gb4-3" parent="bg4-3" style="zurück-galerie-style" onclick="action(action2-bg4-3);"/>
+<action name="action1-bg4-3"> set(layer[bg4-3].visible, false); set(layer[bg4-4].visible, true); </action>
+<action name="action2-bg4-3"> set(layer[bg4-3].visible, false); set(layer[bg4-2].visible, true); </action>
+<layer name="bg4-4" url="popup-bilder/bergers-sporthotel/foto-4.jpg" style="bilder-style" visible="false" parent="slideshow-4"/>
+<layer name="bilder-text4-4" parent="bg4-4" style="bilder-text-style" html=" Wellness"/>
+<layer name="vor-gb4-4" parent="bg4-4" style="vor-galerie-style" onclick="action(action1-bg4-4);"/>
+<layer name="zurück-gb4-4" parent="bg4-4" style="zurück-galerie-style" onclick="action(action2-bg4-4);"/>
+<action name="action1-bg4-4"> set(layer[bg4-4].visible, false); set(layer[bg4-1].visible, true); </action>
+<action name="action2-bg4-4"> set(layer[bg4-4].visible, false); set(layer[bg4-3].visible, true); </action>
+<!--  ........................................POPUP 5.............................................  -->
+<action name="open-popup5"> set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); set(layer[popup-overlay].visible, true); set(layer[popup-layer5].visible, true); set(layer[close-popup_5].visible, true); set(layer[popup-reisecode5].visible, true); set(layer[angebot5].visible, true); set(layer[slideshow-5].visible, true); set(layer[lauftext5].visible, true); autoslideshow_5(); </action>
+<layer name="close-popup_5" parent="popup-layer5" style="close-popup-style" onclick="close-popup();"/>
+<layer name="popup-layer5" parent="" type="container" style="style-popup" visible="false"/>
+<layer name="angebot5" parent="popup-layer5" style="zum-angebot-style" onclick="openurl('https://www.hofer-reisen.at/results?p_freetext=B%C3%B6hmerwald&p_giataid=136180#filtered', _blank)"/>
+<layer name="slideshow-5" parent="popup-layer5" type="container" style="style-slideshow" visible="false"/>
+<layer name="lauftext5" parent="popup-layer5" style="lauftext-style"/>
+<action name="autoslideshow_5"> set(layer[bg5-1].visible, true); delayedcall(5,autoslideshow_5-2()); </action>
+<action name="autoslideshow_5-1"> set(layer[bg5-3].visible, false); set(layer[bg5-1].visible, true); delayedcall(5,autoslideshow_5-2()); </action>
+<action name="autoslideshow_5-2"> set(layer[bg5-1].visible, false); set(layer[bg5-2].visible, true); delayedcall(5,autoslideshow_5-3()); </action>
+<action name="autoslideshow_5-3"> set(layer[bg5-2].visible, false); set(layer[bg5-3].visible, true); delayedcall(5,autoslideshow_5-4()); </action>
+<action name="autoslideshow_5-4"> set(layer[bg5-3].visible, false); set(layer[bg5-1].visible, true); delayedcall(5,autoslideshow_5-1()); </action>
+<!--  Lauftext  -->
+<layer name="lauftext5" url="popup-bilder/boehmerwald/text.jpg" style="lauftext-style" visible="true" parent="popup-layer5" url.mobile="popup-bilder/boehmerwald/text-res.jpg"/>
+<!--  Bilder  -->
+<layer name="bg5-1" url="popup-bilder/boehmerwald/foto-1.jpg" style="bilder-style" visible="true" parent="slideshow-5"/>
+<layer name="bilder-text5-1" parent="bg5-1" style="bilder-text-style" html=" Aussenansicht "/>
+<layer name="vor-gb5-1" parent="bg5-1" style="vor-galerie-style" onclick="action(action1-bg5-1);"/>
+<layer name="zurück-gb5-1" parent="bg5-1" style="zurück-galerie-style" onclick="action(action2-bg5-1);"/>
+<action name="action1-bg5-1"> set(layer[bg5-1].visible, false); set(layer[bg5-2].visible, true); </action>
+<action name="action2-bg5-1"> set(layer[bg5-1].visible, false); set(layer[bg5-3].visible, true); </action>
+<layer name="bg5-2" url="popup-bilder/boehmerwald/foto-2.jpg" style="bilder-style" visible="false" parent="slideshow-5"/>
+<layer name="bilder-text5-2" parent="bg5-2" style="bilder-text-style" html=" Beispielbild, Zimmer "/>
+<layer name="vor-gb5-2" parent="bg5-2" style="vor-galerie-style" onclick="action(action1-bg5-2);"/>
+<layer name="zurück-gb5-2" parent="bg5-2" style="zurück-galerie-style" onclick="action(action2-bg5-2);"/>
+<action name="action1-bg5-2"> set(layer[bg5-2].visible, false); set(layer[bg5-3].visible, true); </action>
+<action name="action2-bg5-2"> set(layer[bg5-2].visible, false); set(layer[bg5-1].visible, true); </action>
+<layer name="bg5-3" url="popup-bilder/boehmerwald/foto-3.jpg" style="bilder-style" visible="false" parent="slideshow-5"/>
+<layer name="bilder-text5-3" parent="bg5-3" style="bilder-text-style" html=" Sauna "/>
+<layer name="vor-gb5-3" parent="bg5-3" style="vor-galerie-style" onclick="action(action1-bg5-3);"/>
+<layer name="zurück-gb5-3" parent="bg5-3" style="zurück-galerie-style" onclick="action(action2-bg5-3);"/>
+<action name="action1-bg5-3"> set(layer[bg5-3].visible, false); set(layer[bg5-1].visible, true); </action>
+<action name="action2-bg5-3"> set(layer[bg5-3].visible, false); set(layer[bg5-2].visible, true); </action>
+<!--  ........................................POPUP 6.............................................  -->
+<action name="open-popup6"> set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); set(layer[popup-overlay].visible, true); set(layer[popup-layer6].visible, true); set(layer[close-popup_6].visible, true); set(layer[popup-reisecode6].visible, true); set(layer[angebot6].visible, true); set(layer[slideshow-6].visible, true); set(layer[lauftext6].visible, true); autoslideshow_6(); </action>
+<layer name="close-popup_6" parent="popup-layer6" style="close-popup-style" onclick="close-popup();"/>
+<layer name="popup-layer6" parent="" type="container" style="style-popup" visible="false"/>
+<layer name="angebot6" parent="popup-layer6" style="zum-angebot-style" onclick="openurl('https://www.hofer-reisen.at/results?p_freetext=eva%2CVILLAGE&p_giataid=25280', _blank)"/>
+<layer name="slideshow-6" parent="popup-layer6" type="container" style="style-slideshow" visible="false"/>
+<layer name="lauftext6" parent="popup-layer6" style="lauftext-style"/>
+<action name="autoslideshow_6"> set(layer[bg6-1].visible, true); delayedcall(5,autoslideshow_6-2()); </action>
+<action name="autoslideshow_6-1"> set(layer[bg6-4].visible, false); set(layer[bg6-1].visible, true); delayedcall(5,autoslideshow_6-2()); </action>
+<action name="autoslideshow_6-2"> set(layer[bg6-1].visible, false); set(layer[bg6-2].visible, true); delayedcall(5,autoslideshow_6-3()); </action>
+<action name="autoslideshow_6-3"> set(layer[bg6-2].visible, false); set(layer[bg6-3].visible, true); delayedcall(5,autoslideshow_6-4()); </action>
+<action name="autoslideshow_6-4"> set(layer[bg6-3].visible, false); set(layer[bg6-4].visible, true); delayedcall(5,autoslideshow_6-1()); </action>
+<!--  Lauftext  -->
+<layer name="lauftext6" url="popup-bilder/eva-village/text.jpg" style="lauftext-style" visible="true" parent="popup-layer6" url.mobile="popup-bilder/eva-village/text-res.jpg"/>
+<!--  Bilder  -->
+<layer name="bg6-1" url="popup-bilder/eva-village/foto-1.jpg" style="bilder-style" visible="true" parent="slideshow-6"/>
+<layer name="bilder-text6-1" parent="bg6-1" style="bilder-text-style" html="Aussenansicht "/>
+<layer name="vor-gb6-1" parent="bg6-1" style="vor-galerie-style" onclick="action(action1-bg6-1);"/>
+<layer name="zurück-gb6-1" parent="bg6-1" style="zurück-galerie-style" onclick="action(action2-bg6-1);"/>
+<action name="action1-bg6-1"> set(layer[bg6-1].visible, false); set(layer[bg6-2].visible, true); </action>
+<action name="action2-bg6-1"> set(layer[bg6-1].visible, false); set(layer[bg6-4].visible, true); </action>
+<layer name="bg6-2" url="popup-bilder/eva-village/foto-2.jpg" style="bilder-style" visible="false" parent="slideshow-6"/>
+<layer name="bilder-text6-2" parent="bg6-2" style="bilder-text-style" html="Lobby "/>
+<layer name="vor-gb6-2" parent="bg6-2" style="vor-galerie-style" onclick="action(action1-bg6-2);"/>
+<layer name="zurück-gb6-2" parent="bg6-2" style="zurück-galerie-style" onclick="action(action2-bg6-2);"/>
+<action name="action1-bg6-2"> set(layer[bg6-2].visible, false); set(layer[bg6-3].visible, true); </action>
+<action name="action2-bg6-2"> set(layer[bg6-2].visible, false); set(layer[bg6-1].visible, true); </action>
+<layer name="bg6-3" url="popup-bilder/eva-village/foto-3.jpg" style="bilder-style" visible="false" parent="slideshow-6"/>
+<layer name="bilder-text6-3" parent="bg6-3" style="bilder-text-style" html=" Beispielbild, Zimmer "/>
+<layer name="vor-gb6-3" parent="bg6-3" style="vor-galerie-style" onclick="action(action1-bg6-3);"/>
+<layer name="zurück-gb6-3" parent="bg6-3" style="zurück-galerie-style" onclick="action(action2-bg6-3);"/>
+<action name="action1-bg6-3"> set(layer[bg6-3].visible, false); set(layer[bg6-4].visible, true); </action>
+<action name="action2-bg6-3"> set(layer[bg6-3].visible, false); set(layer[bg6-2].visible, true); </action>
+<layer name="bg6-4" url="popup-bilder/eva-village/foto-4.jpg" style="bilder-style" visible="false" parent="slideshow-6"/>
+<layer name="bilder-text6-4" parent="bg6-4" style="bilder-text-style" html=" Wellness"/>
+<layer name="vor-gb6-4" parent="bg6-4" style="vor-galerie-style" onclick="action(action1-bg6-4);"/>
+<layer name="zurück-gb6-4" parent="bg6-4" style="zurück-galerie-style" onclick="action(action2-bg6-4);"/>
+<action name="action1-bg6-4"> set(layer[bg6-4].visible, false); set(layer[bg6-1].visible, true); </action>
+<action name="action2-bg6-4"> set(layer[bg6-4].visible, false); set(layer[bg6-3].visible, true); </action>
+<!--  ........................................POPUP 7.............................................  -->
+<action name="open-popup7"> set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); set(layer[popup-overlay].visible, true); set(layer[popup-layer7].visible, true); set(layer[close-popup_7].visible, true); set(layer[popup-reisecode7].visible, true); set(layer[angebot7].visible, true); set(layer[slideshow-7].visible, true); set(layer[lauftext7].visible, true); autoslideshow_7(); </action>
+<layer name="close-popup_7" parent="popup-layer7" style="close-popup-style" onclick="close-popup();"/>
+<layer name="popup-layer7" parent="" type="container" style="style-popup" visible="false"/>
+<!--  ........................................Button gamshag.............................................
+  <layer  name="angebot7"
+          parent="popup-layer7"
+          style="zum-angebot-style"
+          onclick="openurl('https://www.hofer-reisen.at/results?p_freetext=Gamshag&amp;p_giataid=196688', _blank)"
+           />
+ -->
+<layer name="slideshow-7" parent="popup-layer7" type="container" style="style-slideshow" visible="false"/>
+<layer name="lauftext7" parent="popup-layer7" style="lauftext-style"/>
+<action name="autoslideshow_7"> set(layer[bg7-1].visible, true); delayedcall(5,autoslideshow_7-2()); </action>
+<action name="autoslideshow_7-1"> set(layer[bg7-4].visible, false); set(layer[bg7-1].visible, true); delayedcall(5,autoslideshow_7-2()); </action>
+<action name="autoslideshow_7-2"> set(layer[bg7-1].visible, false); set(layer[bg7-2].visible, true); delayedcall(5,autoslideshow_7-3()); </action>
+<action name="autoslideshow_7-3"> set(layer[bg7-2].visible, false); set(layer[bg7-3].visible, true); delayedcall(5,autoslideshow_7-4()); </action>
+<action name="autoslideshow_7-4"> set(layer[bg7-3].visible, false); set(layer[bg7-4].visible, true); delayedcall(5,autoslideshow_7-1()); </action>
+<!--  Lauftext  -->
+<layer name="lauftext7" url="popup-bilder/gamshag/text.jpg" style="lauftext-style" visible="true" parent="popup-layer7" url.mobile="popup-bilder/gamshag/text-res.jpg"/>
+<!--  Bilder  -->
+<layer name="bg7-1" url="popup-bilder/gamshag/foto-1.jpg" style="bilder-style" visible="true" parent="slideshow-7"/>
+<layer name="bilder-text7-1" parent="bg7-1" style="bilder-text-style" html=" Aussenansicht "/>
+<layer name="vor-gb7-1" parent="bg7-1" style="vor-galerie-style" onclick="action(action1-bg7-1);"/>
+<layer name="zurück-gb7-1" parent="bg7-1" style="zurück-galerie-style" onclick="action(action2-bg7-1);"/>
+<action name="action1-bg7-1"> set(layer[bg7-1].visible, false); set(layer[bg7-2].visible, true); </action>
+<action name="action2-bg7-1"> set(layer[bg7-1].visible, false); set(layer[bg7-5].visible, true); </action>
+<layer name="bg7-2" url="popup-bilder/gamshag/foto-2.jpg" style="bilder-style" visible="false" parent="slideshow-7"/>
+<layer name="bilder-text7-2" parent="bg7-2" style="bilder-text-style" html="Restaurant "/>
+<layer name="vor-gb7-2" parent="bg7-2" style="vor-galerie-style" onclick="action(action1-bg7-2);"/>
+<layer name="zurück-gb7-2" parent="bg7-2" style="zurück-galerie-style" onclick="action(action2-bg7-2);"/>
+<action name="action1-bg7-2"> set(layer[bg7-2].visible, false); set(layer[bg7-3].visible, true); </action>
+<action name="action2-bg7-2"> set(layer[bg7-2].visible, false); set(layer[bg7-1].visible, true); </action>
+<layer name="bg7-3" url="popup-bilder/gamshag/foto-3.jpg" style="bilder-style" visible="false" parent="slideshow-7"/>
+<layer name="bilder-text7-3" parent="bg7-3" style="bilder-text-style" html=" Beispielbild, Zimmer "/>
+<layer name="vor-gb7-3" parent="bg7-3" style="vor-galerie-style" onclick="action(action1-bg7-3);"/>
+<layer name="zurück-gb7-3" parent="bg7-3" style="zurück-galerie-style" onclick="action(action2-bg7-3);"/>
+<action name="action1-bg7-3"> set(layer[bg7-3].visible, false); set(layer[bg7-4].visible, true); </action>
+<action name="action2-bg7-3"> set(layer[bg7-3].visible, false); set(layer[bg7-2].visible, true); </action>
+<layer name="bg7-4" url="popup-bilder/gamshag/foto-4.jpg" style="bilder-style" visible="false" parent="slideshow-7"/>
+<layer name="bilder-text7-4" parent="bg7-4" style="bilder-text-style" html=" Wellness"/>
+<layer name="vor-gb7-4" parent="bg7-4" style="vor-galerie-style" onclick="action(action1-bg7-4);"/>
+<layer name="zurück-gb7-4" parent="bg7-4" style="zurück-galerie-style" onclick="action(action2-bg7-4);"/>
+<action name="action1-bg7-4"> set(layer[bg7-4].visible, false); set(layer[bg7-1].visible, true); </action>
+<action name="action2-bg7-4"> set(layer[bg7-4].visible, false); set(layer[bg7-3].visible, true); </action>
+<!--  ........................................POPUP 8.............................................  -->
+<action name="open-popup8"> set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); set(layer[popup-overlay].visible, true); set(layer[popup-layer8].visible, true); set(layer[close-popup_8].visible, true); set(layer[popup-reisecode8].visible, true); set(layer[angebot8].visible, true); set(layer[slideshow-8].visible, true); set(layer[lauftext8].visible, true); autoslideshow_8(); </action>
+<layer name="close-popup_8" parent="popup-layer8" style="close-popup-style" onclick="close-popup();"/>
+<layer name="popup-layer8" parent="" type="container" style="style-popup" visible="false"/>
+<layer name="angebot8" parent="popup-layer8" style="zum-angebot-style" onclick="openurl('https://www.hofer-reisen.at/results?p_freetext=LoriVita%20Residenz%20Saalbach&p_giataid=558246#filtered', _blank)"/>
+<layer name="slideshow-8" parent="popup-layer8" type="container" style="style-slideshow" visible="false"/>
+<layer name="lauftext8" parent="popup-layer8" style="lauftext-style"/>
+<action name="autoslideshow_8"> set(layer[bg8-1].visible, true); delayedcall(5,autoslideshow_8-2()); </action>
+<action name="autoslideshow_8-1"> set(layer[bg8-4].visible, false); set(layer[bg8-1].visible, true); delayedcall(5,autoslideshow_8-2()); </action>
+<action name="autoslideshow_8-2"> set(layer[bg8-1].visible, false); set(layer[bg8-2].visible, true); delayedcall(3,autoslideshow_8-3()); </action>
+<action name="autoslideshow_8-3"> set(layer[bg8-2].visible, false); set(layer[bg8-3].visible, true); delayedcall(5,autoslideshow_8-4()); </action>
+<action name="autoslideshow_8-4"> set(layer[bg8-3].visible, false); set(layer[bg8-4].visible, true); delayedcall(5,autoslideshow_8-1()); </action>
+<!--  Lauftext  -->
+<layer name="lauftext8" url="popup-bilder/lorivita-residenz-saalbach/text.jpg" style="lauftext-style" visible="true" parent="popup-layer8" url.mobile="popup-bilder/lorivita-residenz-saalbach/text-res.jpg"/>
+<!--  Bilder  -->
+<layer name="bg8-1" url="popup-bilder/lorivita-residenz-saalbach/foto-1.jpg" style="bilder-style" visible="true" parent="slideshow-8"/>
+<layer name="bilder-text8-1" parent="bg8-1" style="bilder-text-style" html=" Aussenansicht "/>
+<layer name="vor-gb8-1" parent="bg8-1" style="vor-galerie-style" onclick="action(action1-bg8-1);"/>
+<layer name="zurück-gb8-1" parent="bg8-1" style="zurück-galerie-style" onclick="action(action2-bg8-1);"/>
+<action name="action1-bg8-1"> set(layer[bg8-1].visible, false); set(layer[bg8-2].visible, true); </action>
+<action name="action2-bg8-1"> set(layer[bg8-1].visible, false); set(layer[bg8-4].visible, true); </action>
+<layer name="bg8-2" url="popup-bilder/lorivita-residenz-saalbach/foto-2.jpg" style="bilder-style" visible="false" parent="slideshow-8"/>
+<layer name="bilder-text8-2" parent="bg8-2" style="bilder-text-style" html=" Lobby "/>
+<layer name="vor-gb8-2" parent="bg8-2" style="vor-galerie-style" onclick="action(action1-bg8-2);"/>
+<layer name="zurück-gb8-2" parent="bg8-2" style="zurück-galerie-style" onclick="action(action2-bg8-2);"/>
+<action name="action1-bg8-2"> set(layer[bg8-2].visible, false); set(layer[bg8-3].visible, true); </action>
+<action name="action2-bg8-2"> set(layer[bg8-2].visible, false); set(layer[bg8-1].visible, true); </action>
+<layer name="bg8-3" url="popup-bilder/lorivita-residenz-saalbach/foto-3.jpg" style="bilder-style" visible="false" parent="slideshow-8"/>
+<layer name="bilder-text8-3" parent="bg8-3" style="bilder-text-style" html=" Beispielbild, Zimmer"/>
+<layer name="vor-gb8-3" parent="bg8-3" style="vor-galerie-style" onclick="action(action1-bg8-3);"/>
+<layer name="zurück-gb8-3" parent="bg8-3" style="zurück-galerie-style" onclick="action(action2-bg8-3);"/>
+<action name="action1-bg8-3"> set(layer[bg8-3].visible, false); set(layer[bg8-4].visible, true); </action>
+<action name="action2-bg8-3"> set(layer[bg8-3].visible, false); set(layer[bg8-2].visible, true); </action>
+<layer name="bg8-4" url="popup-bilder/lorivita-residenz-saalbach/foto-4.jpg" style="bilder-style" visible="false" parent="slideshow-8"/>
+<layer name="bilder-text8-4" parent="bg8-4" style="bilder-text-style" html=" Sauna "/>
+<layer name="vor-gb8-4" parent="bg8-4" style="vor-galerie-style" onclick="action(action1-bg8-4);"/>
+<layer name="zurück-gb8-4" parent="bg8-4" style="zurück-galerie-style" onclick="action(action2-bg8-4);"/>
+<action name="action1-bg8-4"> set(layer[bg8-4].visible, false); set(layer[bg8-1].visible, true); </action>
+<action name="action2-bg8-4"> set(layer[bg8-4].visible, false); set(layer[bg8-3].visible, true); </action>
+<!--  ........................................POPUP 9.............................................  -->
+<action name="open-popup9"> set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); set(layer[popup-overlay].visible, true); set(layer[popup-layer9].visible, true); set(layer[close-popup_9].visible, true); set(layer[popup-reisecode9].visible, true); set(layer[angebot9].visible, true); set(layer[slideshow-9].visible, true); set(layer[lauftext9].visible, true); autoslideshow_9(); </action>
+<layer name="close-popup_9" parent="popup-layer9" style="close-popup-style" onclick="close-popup();"/>
+<layer name="popup-layer9" parent="" type="container" style="style-popup" visible="false"/>
+<layer name="angebot9" parent="popup-layer9" style="zum-angebot-style" onclick="openurl('https://www.hofer-reisen.at/results?p_freetext=Das%20Neuhaus&p_giataid=26446', _blank)"/>
+<layer name="slideshow-9" parent="popup-layer9" type="container" style="style-slideshow" visible="false"/>
+<action name="autoslideshow_9"> set(layer[bg9-1].visible, true); delayedcall(5,autoslideshow_9-2()); </action>
+<action name="autoslideshow_9-1"> set(layer[bg9-4].visible, false); set(layer[bg9-1].visible, true); delayedcall(5,autoslideshow_9-2()); </action>
+<action name="autoslideshow_9-2"> set(layer[bg9-1].visible, false); set(layer[bg9-2].visible, true); delayedcall(5,autoslideshow_9-3()); </action>
+<action name="autoslideshow_9-3"> set(layer[bg9-2].visible, false); set(layer[bg9-3].visible, true); delayedcall(5,autoslideshow_9-4()); </action>
+<action name="autoslideshow_9-4"> set(layer[bg9-3].visible, false); set(layer[bg9-4].visible, true); delayedcall(5,autoslideshow_9-1()); </action>
+<!--  Lauftext  -->
+<layer name="lauftext9" url="popup-bilder/das-neuhaus/text.jpg" style="lauftext-style" visible="true" parent="popup-layer9" url.mobile="popup-bilder/das-neuhaus/text-res.jpg"/>
+<!--  Bilder  -->
+<layer name="bg9-1" url="popup-bilder/das-neuhaus/foto-1.jpg" style="bilder-style" visible="true" parent="slideshow-9"/>
+<layer name="bilder-text9-1" parent="bg9-1" style="bilder-text-style" html="Aussenansicht "/>
+<layer name="vor-gb9-1" parent="bg9-1" style="vor-galerie-style" onclick="action(action1-bg9-1);"/>
+<layer name="zurück-gb9-1" parent="bg9-1" style="zurück-galerie-style" onclick="action(action2-bg9-1);"/>
+<action name="action1-bg9-1"> set(layer[bg9-1].visible, false); set(layer[bg9-2].visible, true); </action>
+<action name="action2-bg9-1"> set(layer[bg9-1].visible, false); set(layer[bg9-5].visible, true); </action>
+<layer name="bg9-2" url="popup-bilder/das-neuhaus/foto-2.jpg" style="bilder-style" visible="false" parent="slideshow-9"/>
+<layer name="bilder-text9-2" parent="bg9-2" style="bilder-text-style" html="Restaurant "/>
+<layer name="vor-gb9-2" parent="bg9-2" style="vor-galerie-style" onclick="action(action1-bg9-2);"/>
+<layer name="zurück-gb9-2" parent="bg9-2" style="zurück-galerie-style" onclick="action(action2-bg9-2);"/>
+<action name="action1-bg9-2"> set(layer[bg9-2].visible, false); set(layer[bg9-3].visible, true); </action>
+<action name="action2-bg9-2"> set(layer[bg9-2].visible, false); set(layer[bg9-1].visible, true); </action>
+<layer name="bg9-3" url="popup-bilder/das-neuhaus/foto-3.jpg" style="bilder-style" visible="false" parent="slideshow-9"/>
+<layer name="bilder-text9-3" parent="bg9-3" style="bilder-text-style" html="Beispielbild, Zimmer"/>
+<layer name="vor-gb9-3" parent="bg9-3" style="vor-galerie-style" onclick="action(action1-bg9-3);"/>
+<layer name="zurück-gb9-3" parent="bg9-3" style="zurück-galerie-style" onclick="action(action2-bg9-3);"/>
+<action name="action1-bg9-3"> set(layer[bg9-3].visible, false); set(layer[bg9-4].visible, true); </action>
+<action name="action2-bg9-3"> set(layer[bg9-3].visible, false); set(layer[bg9-2].visible, true); </action>
+<layer name="bg9-4" url="popup-bilder/das-neuhaus/foto-4.jpg" style="bilder-style" visible="false" parent="slideshow-9"/>
+<layer name="bilder-text9-4" parent="bg9-4" style="bilder-text-style" html="Wellness"/>
+<layer name="vor-gb9-4" parent="bg9-4" style="vor-galerie-style" onclick="action(action1-bg9-4);"/>
+<layer name="zurück-gb9-4" parent="bg9-4" style="zurück-galerie-style" onclick="action(action2-bg9-4);"/>
+<action name="action1-bg9-4"> set(layer[bg9-4].visible, false); set(layer[bg9-1].visible, true); </action>
+<action name="action2-bg9-4"> set(layer[bg9-4].visible, false); set(layer[bg9-3].visible, true); </action>
+<!--  ........................................POPUP 10.............................................  -->
+<action name="open-popup10"> set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); set(layer[popup-overlay].visible, true); set(layer[popup-layer10].visible, true); set(layer[close-popup_10].visible, true); set(layer[popup-reisecode10].visible, true); set(layer[angebot10].visible, true); set(layer[slideshow-10].visible, true); set(layer[lauftext10].visible, true); autoslideshow_10(); </action>
+<layer name="close-popup_10" parent="popup-layer10" style="close-popup-style" onclick="close-popup();"/>
+<layer name="popup-layer10" parent="" type="container" style="style-popup" visible="false"/>
+<layer name="angebot10" parent="popup-layer10" style="zum-angebot-style" onclick="openurl('https://www.hofer-reisen.at/results?p_freetext=Panther&p_giataid=18645#filtered', _blank)"/>
+<layer name="slideshow-10" parent="popup-layer10" type="container" style="style-slideshow" visible="false"/>
+<layer name="lauftext10" parent="popup-layer10" style="lauftext-style"/>
+<action name="autoslideshow_10"> set(layer[bg10-1].visible, true); delayedcall(5,autoslideshow_10-2()); </action>
+<action name="autoslideshow_10-1"> set(layer[bg10-4].visible, false); set(layer[bg10-1].visible, true); delayedcall(5,autoslideshow_10-2()); </action>
+<action name="autoslideshow_10-2"> set(layer[bg10-1].visible, false); set(layer[bg10-2].visible, true); delayedcall(5,autoslideshow_10-3()); </action>
+<action name="autoslideshow_10-3"> set(layer[bg10-2].visible, false); set(layer[bg10-3].visible, true); delayedcall(5,autoslideshow_10-4()); </action>
+<action name="autoslideshow_10-4"> set(layer[bg10-3].visible, false); set(layer[bg10-4].visible, true); delayedcall(5,autoslideshow_10-1()); </action>
+<!--  Lauftext  -->
+<layer name="lauftext10" url="popup-bilder/panther/text.jpg" style="lauftext-style" visible="true" parent="popup-layer10" url.mobile="popup-bilder/panther/text-res.jpg"/>
+<!--  Bilder  -->
+<layer name="bg10-1" url="popup-bilder/panther/foto-1.jpg" style="bilder-style" visible="true" parent="slideshow-10"/>
+<layer name="bilder-text10-1" parent="bg10-1" style="bilder-text-style" html="Außenansicht "/>
+<layer name="vor-gb10-1" parent="bg10-1" style="vor-galerie-style" onclick="action(action1-bg10-1);"/>
+<layer name="zurück-gb10-1" parent="bg10-1" style="zurück-galerie-style" onclick="action(action2-bg10-1);"/>
+<action name="action1-bg10-1"> set(layer[bg10-1].visible, false); set(layer[bg10-2].visible, true); </action>
+<action name="action2-bg10-1"> set(layer[bg10-1].visible, false); set(layer[bg10-3].visible, true); </action>
+<layer name="bg10-2" url="popup-bilder/panther/foto-2.jpg" style="bilder-style" visible="false" parent="slideshow-10"/>
+<layer name="bilder-text10-2" parent="bg10-2" style="bilder-text-style" html=" Restaurant "/>
+<layer name="vor-gb10-2" parent="bg10-2" style="vor-galerie-style" onclick="action(action1-bg10-2);"/>
+<layer name="zurück-gb10-2" parent="bg10-2" style="zurück-galerie-style" onclick="action(action2-bg10-2);"/>
+<action name="action1-bg10-2"> set(layer[bg10-2].visible, false); set(layer[bg10-3].visible, true); </action>
+<action name="action2-bg10-2"> set(layer[bg10-2].visible, false); set(layer[bg10-1].visible, true); </action>
+<layer name="bg10-3" url="popup-bilder/panther/foto-3.jpg" style="bilder-style" visible="false" parent="slideshow-10"/>
+<layer name="bilder-text10-3" parent="bg10-3" style="bilder-text-style" html=" Beispielbild, Bad "/>
+<layer name="vor-gb10-3" parent="bg10-3" style="vor-galerie-style" onclick="action(action1-bg10-3);"/>
+<layer name="zurück-gb10-3" parent="bg10-3" style="zurück-galerie-style" onclick="action(action2-bg10-3);"/>
+<action name="action1-bg10-3"> set(layer[bg10-3].visible, false); set(layer[bg10-4].visible, true); </action>
+<action name="action2-bg10-3"> set(layer[bg10-3].visible, false); set(layer[bg10-2].visible, true); </action>
+<layer name="bg10-4" url="popup-bilder/panther/foto-4.jpg" style="bilder-style" visible="false" parent="slideshow-10"/>
+<layer name="bilder-text10-4" parent="bg10-4" style="bilder-text-style" html=" Beispielbild, Zimmer "/>
+<layer name="vor-gb10-4" parent="bg10-4" style="vor-galerie-style" onclick="action(action1-bg10-4);"/>
+<layer name="zurück-gb10-4" parent="bg10-4" style="zurück-galerie-style" onclick="action(action2-bg10-4);"/>
+<action name="action1-bg10-4"> set(layer[bg10-4].visible, false); set(layer[bg10-1].visible, true); </action>
+<action name="action2-bg10-4"> set(layer[bg10-4].visible, false); set(layer[bg10-3].visible, true); </action>
+<!--  ........................................POPUP 11.............................................  -->
+<action name="open-popup11"> set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); set(layer[popup-overlay].visible, true); set(layer[popup-layer11].visible, true); set(layer[close-popup_11].visible, true); set(layer[popup-reisecode11].visible, true); set(layer[angebot11].visible, true); set(layer[slideshow-11].visible, true); set(layer[lauftext11].visible, true); autoslideshow_11(); </action>
+<layer name="close-popup_11" parent="popup-layer11" style="close-popup-style" onclick="close-popup();"/>
+<layer name="popup-layer11" parent="" type="container" style="style-popup" visible="false"/>
+<!--  ........................................Button Saalbacher Hof.............................................
+
+  <layer  name="angebot11"
+          parent="popup-layer11"
+          style="zum-angebot-style"
+          onclick="openurl('https://www.hofer-reisen.at/results?p_freetext=Saalbacher%20Hof&amp;p_icon=fa%20fa-bed%20fa-fw%20giataid&amp;p_latitude=47.39152145385742&amp;p_longitude=12.635519981384277&amp;p_giataid=25287#filtered ', _blank)"
+           />
+
+ -->
+<layer name="slideshow-11" parent="popup-layer11" type="container" style="style-slideshow" visible="false"/>
+<layer name="lauftext11" parent="popup-layer11" style="lauftext-style"/>
+<action name="autoslideshow_11"> set(layer[bg11-1].visible, true); delayedcall(5,autoslideshow_11-2()); </action>
+<action name="autoslideshow_11-1"> set(layer[bg11-3].visible, false); set(layer[bg11-1].visible, true); delayedcall(5,autoslideshow_11-2()); </action>
+<action name="autoslideshow_11-2"> set(layer[bg11-1].visible, false); set(layer[bg11-2].visible, true); delayedcall(5,autoslideshow_11-3()); </action>
+<action name="autoslideshow_11-3"> set(layer[bg11-2].visible, false); set(layer[bg11-3].visible, true); delayedcall(5,autoslideshow_11-4()); </action>
+<action name="autoslideshow_11-4"> set(layer[bg11-3].visible, false); set(layer[bg11-4].visible, true); delayedcall(5,autoslideshow_11-5()); </action>
+<action name="autoslideshow_11-5"> set(layer[bg11-4].visible, false); set(layer[bg11-5].visible, true); delayedcall(5,autoslideshow_11-1()); </action>
+<!--  Lauftext  -->
+<layer name="lauftext11" url="popup-bilder/saalbacher-hof/text.jpg" style="lauftext-style" visible="true" parent="popup-layer11" url.mobile="popup-bilder/saalbacher-hof/text-res.jpg"/>
+<!--  Bilder  -->
+<layer name="bg11-1" url="popup-bilder/saalbacher-hof/foto-1.jpg" style="bilder-style" visible="true" parent="slideshow-11"/>
+<layer name="bilder-text11-1" parent="bg11-1" style="bilder-text-style" html=" Aussenansicht "/>
+<layer name="vor-gb11-1" parent="bg11-1" style="vor-galerie-style" onclick="action(action1-bg11-1);"/>
+<layer name="zurück-gb11-1" parent="bg11-1" style="zurück-galerie-style" onclick="action(action2-bg11-1);"/>
+<action name="action1-bg11-1"> set(layer[bg11-1].visible, false); set(layer[bg11-2].visible, true); </action>
+<action name="action2-bg11-1"> set(layer[bg11-1].visible, false); set(layer[bg11-3].visible, true); </action>
+<layer name="bg11-2" url="popup-bilder/saalbacher-hof/foto-2.jpg" style="bilder-style" visible="false" parent="slideshow-11"/>
+<layer name="bilder-text11-2" parent="bg11-2" style="bilder-text-style" html="Restaurant "/>
+<layer name="vor-gb11-2" parent="bg11-2" style="vor-galerie-style" onclick="action(action1-bg11-2);"/>
+<layer name="zurück-gb11-2" parent="bg11-2" style="zurück-galerie-style" onclick="action(action2-bg11-2);"/>
+<action name="action1-bg11-2"> set(layer[bg11-2].visible, false); set(layer[bg11-3].visible, true); </action>
+<action name="action2-bg11-2"> set(layer[bg11-2].visible, false); set(layer[bg11-1].visible, true); </action>
+<layer name="bg11-3" url="popup-bilder/saalbacher-hof/foto-3.jpg" style="bilder-style" visible="false" parent="slideshow-11"/>
+<layer name="bilder-text11-3" parent="bg11-3" style="bilder-text-style" html=" Beispielbild, Zimmer "/>
+<layer name="vor-gb11-3" parent="bg11-3" style="vor-galerie-style" onclick="action(action1-bg11-3);"/>
+<layer name="zurück-gb11-3" parent="bg11-3" style="zurück-galerie-style" onclick="action(action2-bg11-3);"/>
+<action name="action1-bg11-3"> set(layer[bg11-3].visible, false); set(layer[bg11-4].visible, true); </action>
+<action name="action2-bg11-3"> set(layer[bg11-3].visible, false); set(layer[bg11-2].visible, true); </action>
+<layer name="bg11-4" url="popup-bilder/saalbacher-hof/foto-4.jpg" style="bilder-style" visible="false" parent="slideshow-11"/>
+<layer name="bilder-text11-4" parent="bg11-4" style="bilder-text-style" html=" Wellness "/>
+<layer name="vor-gb11-4" parent="bg11-4" style="vor-galerie-style" onclick="action(action1-bg11-4);"/>
+<layer name="zurück-gb11-4" parent="bg11-4" style="zurück-galerie-style" onclick="action(action2-bg11-4);"/>
+<action name="action1-bg11-4"> set(layer[bg11-4].visible, false); set(layer[bg11-5].visible, true); </action>
+<action name="action2-bg11-4"> set(layer[bg11-4].visible, false); set(layer[bg11-3].visible, true); </action>
+<layer name="bg11-5" url="popup-bilder/saalbacher-hof/foto-5.jpg" style="bilder-style" visible="false" parent="slideshow-11"/>
+<layer name="bilder-text11-5" parent="bg11-5" style="bilder-text-style" html=" Wellness "/>
+<layer name="vor-gb11-5" parent="bg11-5" style="vor-galerie-style" onclick="action(action1-bg11-5);"/>
+<layer name="zurück-gb11-5" parent="bg11-5" style="zurück-galerie-style" onclick="action(action2-bg11-5);"/>
+<action name="action1-bg11-5"> set(layer[bg11-5].visible, false); set(layer[bg11-1].visible, true); </action>
+<action name="action2-bg11-5"> set(layer[bg11-5].visible, false); set(layer[bg11-4].visible, true); </action>
+<!--  ........................................POPUP 12.............................................  -->
+<action name="open-popup12"> set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); set(layer[popup-overlay].visible, true); set(layer[popup-layer12].visible, true); set(layer[close-popup_12].visible, true); set(layer[angebot12].visible, true); set(layer[slideshow-12].visible, true); set(layer[lauftext12].visible, true); autoslideshow_12(); </action>
+<layer name="close-popup_12" parent="popup-layer12" style="close-popup-style" onclick="close-popup();"/>
+<layer name="popup-layer12" parent="" type="container" style="style-popup" visible="false"/>
+<layer name="angebot12" parent="popup-layer12" style="zum-angebot-style" onclick="openurl('https://www.hofer-reisen.at/results?p_freetext=BERGLAND%20Residenz&p_giataid=90028#filtered', _blank)"/>
+<layer name="slideshow-12" parent="popup-layer12" type="container" style="style-slideshow" visible="false"/>
+<layer name="lauftext12" parent="popup-layer12" style="lauftext-style"/>
+<action name="autoslideshow_12"> set(layer[bg12-1].visible, true); delayedcall(5,autoslideshow_12-2()); </action>
+<action name="autoslideshow_12-1"> set(layer[bg12-2].visible, false); set(layer[bg12-1].visible, true); delayedcall(5,autoslideshow_12-2()); </action>
+<action name="autoslideshow_12-2"> set(layer[bg12-1].visible, false); set(layer[bg12-2].visible, true); delayedcall(5,autoslideshow_12-1()); </action>
+<!--  Lauftext  -->
+<layer name="lauftext12" url="popup-bilder/bergland-residenz/text.jpg" style="lauftext-style" visible="true" parent="popup-layer12" url.mobile="popup-bilder/bergland-residenz/text-res.jpg"/>
+<!--  Bilder  -->
+<layer name="bg12-1" url="popup-bilder/bergland-residenz/foto-1.jpg" style="bilder-style" visible="true" parent="slideshow-12"/>
+<layer name="bilder-text12-1" parent="bg12-1" style="bilder-text-style" html="Aussenansicht "/>
+<layer name="vor-gb12-1" parent="bg12-1" style="vor-galerie-style" onclick="action(action1-bg12-1);"/>
+<layer name="zurück-gb12-1" parent="bg12-1" style="zurück-galerie-style" onclick="action(action2-bg12-1);"/>
+<action name="action1-bg12-1"> set(layer[bg12-1].visible, false); set(layer[bg12-2].visible, true); </action>
+<action name="action2-bg12-1"> set(layer[bg12-1].visible, false); set(layer[bg12-2].visible, true); </action>
+<layer name="bg12-2" url="popup-bilder/bergland-residenz/foto-2.jpg" style="bilder-style" visible="false" parent="slideshow-12"/>
+<layer name="bilder-text12-2" parent="bg12-2" style="bilder-text-style" html="Beispielbild, Zimmer "/>
+<layer name="vor-gb12-2" parent="bg12-2" style="vor-galerie-style" onclick="action(action1-bg12-2);"/>
+<layer name="zurück-gb12-2" parent="bg12-2" style="zurück-galerie-style" onclick="action(action2-bg12-2);"/>
+<action name="action1-bg12-2"> set(layer[bg12-2].visible, false); set(layer[bg12-1].visible, true); </action>
+<action name="action2-bg12-2"> set(layer[bg12-2].visible, false); set(layer[bg12-1].visible, true); </action>
+<!--  ........................................POPUP 13.............................................  -->
+<action name="open-popup13"> set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); set(layer[popup-overlay].visible, true); set(layer[popup-layer13].visible, true); set(layer[close-popup_13].visible, true); set(layer[popup-reisecode13].visible, true); set(layer[angebot13].visible, true); set(layer[slideshow-13].visible, true); set(layer[lauftext13].visible, true); autoslideshow_13(); </action>
+<layer name="close-popup_13" parent="popup-layer13" style="close-popup-style" onclick="close-popup();"/>
+<layer name="popup-layer13" parent="" type="container" style="style-popup" visible="false"/>
+<layer name="angebot13" parent="popup-layer13" style="zum-angebot-style" onclick="openurl('https://www.hofer-reisen.at/results?p_freetext=TUI%20BLUE%20Fieberbrunn&p_giataid=182631', _blank)"/>
+<layer name="slideshow-13" parent="popup-layer13" type="container" style="style-slideshow" visible="false"/>
+<layer name="lauftext13" parent="popup-layer13" style="lauftext-style"/>
+<action name="autoslideshow_13"> set(layer[bg13-1].visible, true); delayedcall(5,autoslideshow_13-2()); </action>
+<action name="autoslideshow_13-1"> set(layer[bg13-4].visible, false); set(layer[bg13-1].visible, true); delayedcall(5,autoslideshow_13-2()); </action>
+<action name="autoslideshow_13-2"> set(layer[bg13-1].visible, false); set(layer[bg13-2].visible, true); delayedcall(5,autoslideshow_13-3()); </action>
+<action name="autoslideshow_13-3"> set(layer[bg13-2].visible, false); set(layer[bg13-3].visible, true); delayedcall(5,autoslideshow_13-4()); </action>
+<action name="autoslideshow_13-4"> set(layer[bg13-3].visible, false); set(layer[bg13-4].visible, true); delayedcall(5,autoslideshow_13-1()); </action>
+<!--  Lauftext  -->
+<layer name="lauftext13" url="popup-bilder/tui-blue-fieberbrunn/text.jpg" style="lauftext-style" visible="true" parent="popup-layer13" url.mobile="popup-bilder/tui-blue-fieberbrunn/text-res.jpg"/>
+<!--  Bilder  -->
+<layer name="bg13-1" url="popup-bilder/tui-blue-fieberbrunn/foto-1.jpg" style="bilder-style" visible="true" parent="slideshow-13"/>
+<layer name="bilder-text13-1" parent="bg13-1" style="bilder-text-style" html="Aussenansicht "/>
+<layer name="vor-gb13-1" parent="bg13-1" style="vor-galerie-style" onclick="action(action1-bg13-1);"/>
+<layer name="zurück-gb13-1" parent="bg13-1" style="zurück-galerie-style" onclick="action(action2-bg13-1);"/>
+<action name="action1-bg13-1"> set(layer[bg13-1].visible, false); set(layer[bg13-2].visible, true); </action>
+<action name="action2-bg13-1"> set(layer[bg13-1].visible, false); set(layer[bg13-6].visible, true); </action>
+<layer name="bg13-2" url="popup-bilder/tui-blue-fieberbrunn/foto-2.jpg" style="bilder-style" visible="false" parent="slideshow-13"/>
+<layer name="bilder-text13-2" parent="bg13-2" style="bilder-text-style" html="Restaurant "/>
+<layer name="vor-gb13-2" parent="bg13-2" style="vor-galerie-style" onclick="action(action1-bg13-2);"/>
+<layer name="zurück-gb13-2" parent="bg13-2" style="zurück-galerie-style" onclick="action(action2-bg13-2);"/>
+<action name="action1-bg13-2"> set(layer[bg13-2].visible, false); set(layer[bg13-3].visible, true); </action>
+<action name="action2-bg13-2"> set(layer[bg13-2].visible, false); set(layer[bg13-1].visible, true); </action>
+<layer name="bg13-3" url="popup-bilder/tui-blue-fieberbrunn/foto-3.jpg" style="bilder-style" visible="false" parent="slideshow-13"/>
+<layer name="bilder-text13-3" parent="bg13-3" style="bilder-text-style" html="Beispielbild, Zimmer "/>
+<layer name="vor-gb13-3" parent="bg13-3" style="vor-galerie-style" onclick="action(action1-bg13-3);"/>
+<layer name="zurück-gb13-3" parent="bg13-3" style="zurück-galerie-style" onclick="action(action2-bg13-3);"/>
+<action name="action1-bg13-3"> set(layer[bg13-3].visible, false); set(layer[bg13-4].visible, true); </action>
+<action name="action2-bg13-3"> set(layer[bg13-3].visible, false); set(layer[bg13-2].visible, true); </action>
+<layer name="bg13-4" url="popup-bilder/tui-blue-fieberbrunn/foto-4.jpg" style="bilder-style" visible="false" parent="slideshow-13"/>
+<layer name="bilder-text13-4" parent="bg13-4" style="bilder-text-style" html="Wellness"/>
+<layer name="vor-gb13-4" parent="bg13-4" style="vor-galerie-style" onclick="action(action1-bg13-4);"/>
+<layer name="zurück-gb13-4" parent="bg13-4" style="zurück-galerie-style" onclick="action(action2-bg13-4);"/>
+<action name="action1-bg13-4"> set(layer[bg13-4].visible, false); set(layer[bg13-1].visible, true); </action>
+<action name="action2-bg13-4"> set(layer[bg13-4].visible, false); set(layer[bg13-3].visible, true); </action>
+<!--  ........................................POPUP 14.............................................  -->
+<action name="open-popup14"> set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); set(layer[popup-overlay].visible, true); set(layer[popup-layer14].visible, true); set(layer[close-popup_14].visible, true); set(layer[popup-reisecode14].visible, true); set(layer[angebot14].visible, true); set(layer[slideshow-14].visible, true); set(layer[lauftext14].visible, true); autoslideshow_14(); </action>
+<layer name="close-popup_14" parent="popup-layer14" style="close-popup-style" onclick="close-popup();"/>
+<layer name="popup-layer14" parent="" type="container" style="style-popup" visible="false"/>
+<layer name="angebot14" parent="popup-layer14" style="zum-angebot-style" onclick="openurl('https://www.hofer-reisen.at/results?p_freetext=Sporthotel%20Fontana&p_giataid=24827', _blank)"/>
+<layer name="slideshow-14" parent="popup-layer14" type="container" style="style-slideshow" visible="false"/>
+<layer name="lauftext14" parent="popup-layer14" style="lauftext-style"/>
+<action name="autoslideshow_14"> set(layer[bg14-1].visible, true); delayedcall(5,autoslideshow_14-2()); </action>
+<action name="autoslideshow_14-1"> set(layer[bg14-4].visible, false); set(layer[bg14-1].visible, true); delayedcall(5,autoslideshow_14-2()); </action>
+<action name="autoslideshow_14-2"> set(layer[bg14-1].visible, false); set(layer[bg14-2].visible, true); delayedcall(5,autoslideshow_14-3()); </action>
+<action name="autoslideshow_14-3"> set(layer[bg14-2].visible, false); set(layer[bg14-3].visible, true); delayedcall(5,autoslideshow_14-4()); </action>
+<action name="autoslideshow_14-4"> set(layer[bg14-3].visible, false); set(layer[bg14-4].visible, true); delayedcall(5,autoslideshow_14-1()); </action>
+<!--  Lauftext  -->
+<layer name="lauftext14" url="popup-bilder/sporthotel-fontana/text.jpg" style="lauftext-style" visible="true" parent="popup-layer14" url.mobile="popup-bilder/sporthotel-fontana/text-res.jpg"/>
+<!--  Bilder  -->
+<layer name="bg14-1" url="popup-bilder/sporthotel-fontana/foto-1.jpg" style="bilder-style" visible="true" parent="slideshow-14"/>
+<layer name="bilder-text14-1" parent="bg14-1" style="bilder-text-style" html=" Aussenansicht "/>
+<layer name="vor-gb14-1" parent="bg14-1" style="vor-galerie-style" onclick="action(action1-bg14-1);"/>
+<layer name="zurück-gb14-1" parent="bg14-1" style="zurück-galerie-style" onclick="action(action2-bg14-1);"/>
+<action name="action1-bg14-1"> set(layer[bg14-1].visible, false); set(layer[bg14-2].visible, true); </action>
+<action name="action2-bg14-1"> set(layer[bg14-1].visible, false); set(layer[bg14-4].visible, true); </action>
+<layer name="bg14-2" url="popup-bilder/sporthotel-fontana/foto-2.jpg" style="bilder-style" visible="false" parent="slideshow-14"/>
+<layer name="bilder-text14-2" parent="bg14-2" style="bilder-text-style" html=" Restaurant "/>
+<layer name="vor-gb14-2" parent="bg14-2" style="vor-galerie-style" onclick="action(action1-bg14-2);"/>
+<layer name="zurück-gb14-2" parent="bg14-2" style="zurück-galerie-style" onclick="action(action2-bg14-2);"/>
+<action name="action1-bg14-2"> set(layer[bg14-2].visible, false); set(layer[bg14-3].visible, true); </action>
+<action name="action2-bg14-2"> set(layer[bg14-2].visible, false); set(layer[bg14-1].visible, true); </action>
+<layer name="bg14-3" url="popup-bilder/sporthotel-fontana/foto-3.jpg" style="bilder-style" visible="false" parent="slideshow-14"/>
+<layer name="bilder-text14-3" parent="bg14-3" style="bilder-text-style" html=" Beispielbild, Zimmer "/>
+<layer name="vor-gb14-3" parent="bg14-3" style="vor-galerie-style" onclick="action(action1-bg14-3);"/>
+<layer name="zurück-gb14-3" parent="bg14-3" style="zurück-galerie-style" onclick="action(action2-bg14-3);"/>
+<action name="action1-bg14-3"> set(layer[bg14-3].visible, false); set(layer[bg14-4].visible, true); </action>
+<action name="action2-bg14-3"> set(layer[bg14-3].visible, false); set(layer[bg14-2].visible, true); </action>
+<layer name="bg14-4" url="popup-bilder/sporthotel-fontana/foto-4.jpg" style="bilder-style" visible="false" parent="slideshow-14"/>
+<layer name="bilder-text14-4" parent="bg14-4" style="bilder-text-style" html="Hallenbad"/>
+<layer name="vor-gb14-4" parent="bg14-4" style="vor-galerie-style" onclick="action(action1-bg14-4);"/>
+<layer name="zurück-gb14-4" parent="bg14-4" style="zurück-galerie-style" onclick="action(action2-bg14-4);"/>
+<action name="action1-bg14-4"> set(layer[bg14-4].visible, false); set(layer[bg14-1].visible, true); </action>
+<action name="action2-bg14-4"> set(layer[bg14-4].visible, false); set(layer[bg14-3].visible, true); </action>
+</krpano>

@@ -1,0 +1,47 @@
+<krpano>
+<!--  .......................................STYLE.......................................  -->
+<!--  Zurück Button Style -->
+<style name="thumbnail-back-style" type="text" align="topcenter" keep="true" enabled="true" visible="true" alpha="1.0" width="210" height="40" css="text-align:left; font-family:Arial; font-size:14px; color:#FFFFFF; margin-left:35px; " vcenter="true" padding="5" wordwrap="true" bg="true" bgcolor="0x1d1d57" bgalpha="1" bgborder="0" bgroundedge="0" bgshadow="" txtshadow="" mergedalpha="true" interactivecontent="false" onover="tween(bgcolor, 0x2d2d71);" onout="tween(bgcolor, 0x1d1d57);"/>
+<!--  Thumbnail Container Style  -->
+<style name="style_tn_container" x="10" y="150" vcenter="true" padding="2" bg="true" bgcolor="get:menu-settings.farbe1" bgalpha="1" bgborder="0" bgroundedge="0" bgshadow=""/>
+<!--  Scroll-Container Style   -->
+<style name="style_scroll_container" x="0" y="0" vcenter="true" padding="2" bg="true" bgcolor="get:menu-settings.farbe1" bgalpha="1" bgborder="0" bgroundedge="0" bgshadow=""/>
+<!--  ...............................Thumbnail-Container 1.........................  -->
+<!--  .................KATEGORIEN..............  -->
+<layer name="sb_nt_container-g2" parent="grund" type="container" style="style_tn_container" align="topcenter" keep="true" enabled="true" visible="true" width="210" height="100" minheight="100" maxheight="310"/>
+<events name="resize_menu3" keep="true" onresize="calc(layer[sb_nt_container-g2].height, stageheight / 1.5);"/>
+<!--  Scroll-Container 2  -->
+<layer name="sb_scroll_container-g2" parent="sb_nt_container-g2" type="container" style="style_scroll_container" align="topcenter" keep="true" enabled="true" visible="true" url.flash="%FIRSTXML%/plugins/scrollarea.swf" url.html5="%FIRSTXML%/plugins/scrollarea.js" direction="v" draggable="true" capturechildren="true" parentmaskchildren="true" mwheel="true" onhover_autoscrolling="false" overscroll="1.0" friction="0.95" acceleration="0.08" returnacceleration="0.15" momentum="0.06" onscroll="" width="210" height="310"/>
+<layer name="arrow_up-g2" url="%FIRSTXML%/logos/pfeil-up-scroll.png" keep="true" enabled="true" width="prop" height="20" align="topcenter" scale="1.0" x="0" y="10" devices="mobile" alpha="0.8" parent="sb_nt_container-g2" onover="tween(alpha,1);" onout="tween(alpha,0.8);" ondown="onover(); asyncloop(pressed, layer[sb_scroll_container-g2].scrollby(0,+1));" onup="onout();"/>
+<layer name="arrow_down-g2" url="%FIRSTXML%/logos/pfeil-down-scroll.png" keep="true" enabled="true" width="prop" height="20" align="bottomcenter" scale="1.0" x="0" y="10" devices="mobile" alpha="0.8" parent="sb_nt_container-g2" onover="tween(alpha,1);" onout="tween(alpha,0.8);" ondown="onover(); asyncloop(pressed, layer[sb_scroll_container-g2].scrollby(0,-1));" onup="onout();"/>
+<!--  Button 1  -->
+<layer name="kategorie1" parent="sb_scroll_container-g2" style="thumbnail-back-style" x="0" y="10" html="[b] Hotels [/b]"/>
+<layer name="kat1-text" type="image" url="image/hotels.png" parent="kategorie1" x="5" y="0" width="20" height="20" keep="true" enabled="false" visible="true" alpha="1" align="left" onclick=""/>
+<layer name="haken1-1" type="image" url="haken-true.png" parent="kategorie1" x="10" y="0" width="20" height="20" keep="true" enabled="true" visible="true" alpha="1" align="right" onclick="switch(layer[haken1-1].visible); switch(layer[haken1-2].visible); manage_hotspot_visibility_action(hotelspot,false); "/>
+<layer name="haken1-2" type="image" url="haken-false.png" parent="kategorie1" x="10" y="0" width="20" height="20" keep="true" enabled="true" visible="false" alpha="1" align="right" onclick="switch(layer[haken1-1].visible); switch(layer[haken1-2].visible); manage_hotspot_visibility_action(hotelspot,true); "/>
+<!--  Button 2  -->
+<layer name="kategorie2" parent="sb_scroll_container-g2" style="thumbnail-back-style" x="0" y="60" html="[b] Bergbahnen [/b]"/>
+<layer name="kat2-text" type="image" url="image/bergbahn.png" parent="kategorie2" x="5" y="0" width="20" height="20" keep="true" enabled="false" visible="true" alpha="1" align="left" onclick=""/>
+<layer name="haken2-1" type="image" url="haken-true.png" parent="kategorie2" x="10" y="0" width="20" height="20" keep="true" enabled="true" visible="true" alpha="1" align="right" onclick="switch(layer[haken2-1].visible); switch(layer[haken2-2].visible); manage_hotspot_visibility_action(bergbahnspot,false); "/>
+<layer name="haken2-2" type="image" url="haken-false.png" parent="kategorie2" x="10" y="0" width="20" height="20" keep="true" enabled="true" visible="false" alpha="1" align="right" onclick="switch(layer[haken2-1].visible); switch(layer[haken2-2].visible); manage_hotspot_visibility_action(bergbahnspot,true); "/>
+<!--  Button 3  -->
+<layer name="kategorie3" parent="sb_scroll_container-g2" style="thumbnail-back-style" x="0" y="110" html="[b] Rodeln [/b]"/>
+<layer name="kat3-text" type="image" url="image/wandern.png" parent="kategorie3" x="5" y="0" width="20" height="20" keep="true" enabled="false" visible="true" alpha="1" align="left" onclick=""/>
+<layer name="haken3-1" type="image" url="haken-true.png" parent="kategorie3" x="10" y="0" width="20" height="20" keep="true" enabled="true" visible="true" alpha="1" align="right" onclick="switch(layer[haken3-1].visible); switch(layer[haken3-2].visible); manage_hotspot_visibility_action(rodelspot,false); "/>
+<layer name="haken3-2" type="image" url="haken-false.png" parent="kategorie3" x="10" y="0" width="20" height="20" keep="true" enabled="true" visible="false" alpha="1" align="right" onclick="switch(layer[haken3-1].visible); switch(layer[haken3-2].visible); manage_hotspot_visibility_action(rodelspot,true); "/>
+<!--  Button 4  -->
+<layer name="kategorie4" parent="sb_scroll_container-g2" style="thumbnail-back-style" x="0" y="160" html="[b] Skifahren [/b]"/>
+<layer name="kat4-text" type="image" url="image/rad.png" parent="kategorie4" x="5" y="0" width="20" height="20" keep="true" enabled="false" visible="true" alpha="1" align="left" onclick=""/>
+<layer name="haken4-1" type="image" url="haken-true.png" parent="kategorie4" x="10" y="0" width="20" height="20" keep="true" enabled="true" visible="true" alpha="1" align="right" onclick="switch(layer[haken4-1].visible); switch(layer[haken4-2].visible); manage_hotspot_visibility_action(skispot,false); "/>
+<layer name="haken4-2" type="image" url="haken-false.png" parent="kategorie4" x="10" y="0" width="20" height="20" keep="true" enabled="true" visible="false" alpha="1" align="right" onclick="switch(layer[haken4-1].visible); switch(layer[haken4-2].visible); manage_hotspot_visibility_action(skispot,true); "/>
+<!--  Button 5  -->
+<layer name="kategorie5" parent="sb_scroll_container-g2" style="thumbnail-back-style" x="0" y="210" html="[b] Langlaufen [/b]"/>
+<layer name="kat5-text" type="image" url="image/schwimmen.png" parent="kategorie5" x="5" y="0" width="20" height="20" keep="true" enabled="false" visible="true" alpha="1" align="left" onclick=""/>
+<layer name="haken5-1" type="image" url="haken-true.png" parent="kategorie5" x="10" y="0" width="20" height="20" keep="true" enabled="true" visible="true" alpha="1" align="right" onclick="switch(layer[haken5-1].visible); switch(layer[haken5-2].visible); manage_hotspot_visibility_action(langlaufspot,false); "/>
+<layer name="haken5-2" type="image" url="haken-false.png" parent="kategorie5" x="10" y="0" width="20" height="20" keep="true" enabled="true" visible="false" alpha="1" align="right" onclick="switch(layer[haken5-1].visible); switch(layer[haken5-2].visible); manage_hotspot_visibility_action(langlaufspot,true); "/>
+<!--  Button 6  -->
+<layer name="kategorie6" parent="sb_scroll_container-g2" style="thumbnail-back-style" x="0" y="260" html="[b] Alternativ [/b]"/>
+<layer name="kat6-text" type="image" url="image/action.png" parent="kategorie6" x="5" y="0" width="20" height="20" keep="true" enabled="false" visible="true" alpha="1" align="left" onclick=""/>
+<layer name="haken6-1" type="image" url="haken-true.png" parent="kategorie6" x="10" y="0" width="20" height="20" keep="true" enabled="true" visible="true" alpha="1" align="right" onclick="switch(layer[haken6-1].visible); switch(layer[haken6-2].visible); manage_hotspot_visibility_action(alternativspot,false); "/>
+<layer name="haken6-2" type="image" url="haken-false.png" parent="kategorie6" x="10" y="0" width="20" height="20" keep="true" enabled="true" visible="false" alpha="1" align="right" onclick="switch(layer[haken6-1].visible); switch(layer[haken6-2].visible); manage_hotspot_visibility_action(alternativspot,true); "/>
+</krpano>

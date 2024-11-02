@@ -1,0 +1,47 @@
+<krpano>
+  <!-- <skin_settings
+    layout_width="100%"
+    layout_maxwidth.normal="900"
+    controlbar_width.normal="100%"
+    controlbar_height.normal="60"
+    controlbar_offset.normal="10"
+    controlbar_overlap.normal="0"
+    design_skin_images="vtourskin.png"
+    design_bgcolor="0x0B5E55"
+    design_bgalpha="0.85"
+    design_bgborder="0 0xFFFFFF 0.0"
+    design_bgshadow="0 0 5 0x000000 0.5"
+    design_thumbborder_padding="2"
+    design_text_css="color:#FFFFFF; font-family:Arial; font-weight:bold; font-size:120%;"
+    design_text_shadow="1"/> -->
+
+  <skin_settings
+    layout_width="100%"
+    controlbar_width.normal="100%"
+    controlbar_height.normal="50"
+    controlbar_offset.normal="15"
+    controlbar_overlap.normal="0"
+
+    design_skin_images="vtourskin.png"
+    design_bgcolor="0x0A5A4A"
+    design_bgalpha="0.8"
+    design_bgborder="0 0xFFFFFF 0.0"
+    design_bgshadow="0 0 6 0x000000 0.5"
+
+    design_thumbborder_padding="0"
+    design_text_css="color:#FFFFFF; font-family:Arial; font-weight:bold; font-size:110%;"
+    design_text_shadow="1"
+
+    layout_maxwidth.mobile="100%"
+    controlbar_height.mobile="50"
+    controlbar_offset.mobile="5" />
+
+ <layer name="button_panorama" url="panorama.png" align="left" />
+  <layer name="button_music" url="music.png" align="left" />
+  <layer name="button_intro" url="voice.png" align="left" />
+  <layer name="button_info" url="info.png" align="left" />
+  <layer name="button_map" url="map.png" align="left" />
+  <layer name="button_vr" url="virtual-reality.png" align="left" />
+  <layer name="button_menu" url="menu.png" align="right" />
+<!-- <skin_settings layout_width="100%" layout_maxwidth.normal="900" layout_maxwidth.mobile="" controlbar_width.normal="-44" controlbar_width.mobile="100%" controlbar_height.normal="38" controlbar_height.mobile="34" controlbar_offset.normal="22" controlbar_offset.mobile="0" controlbar_offset_closed="-40" controlbar_overlap.normal="7" controlbar_overlap.mobile="2" design_skin_images="vtourskin.png" design_bgcolor="0x000000" design_bgalpha="0.5" design_bgborder="1 0xFFFF22 1.0" design_bgroundedge.normal="9" design_bgroundedge.mobile="1" design_bgshadow="0 0 9 0xFFFFFF 0.5" design_thumbborder_bgborder="4 0xFFFFFF 1.0" design_thumbborder_padding="2" design_thumbborder_bgroundedge="5" design_text_css="color:#FFFFFF; font-family:Arial; font-weight:bold; font-size:200%;" design_text_shadow="1"/> -->
+</krpano>

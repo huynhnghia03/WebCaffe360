@@ -1,0 +1,125 @@
+<krpano>
+<!--  HOTSPOTS VERSTECKEN IN VR  -->
+<action name="hidespot"> for(set(i,0), i LT hotspot.count, inc(i), if(hotspot[get(i)].novrspot == yes, set(hotspot[get(i)].visible,false); ); ); </action>
+<action name="showspot"> for(set(i,0), i LT hotspot.count, inc(i), if(hotspot[get(i)].novrspot == yes, set(hotspot[get(i)].visible,true); ); ); </action>
+<!--  PREV/NEXT BUTTON  -->
+<action name="prevscene">
+if(%1 != findnext, sub(i,scene.count,1)); txtadd(scenexml,'
+<krpano>',get(scene[%i].content),'</krpano>
+'); if(scenexml == xml.content, dec(i); if(i LT 0, sub(i,scene.count,1)); loadscene(get(scene[%i].name), null, MERGE, BLEND(1)); , dec(i); if(i GE 0, prevscene(findnext)); );
+</action>
+<action name="nextscene">
+if(%1 != findnext, set(i,0)); txtadd(scenexml,'
+<krpano>',get(scene[%i].content),'</krpano>
+'); if(scenexml == xml.content, inc(i); if(i == scene.count, set(i,0)); loadscene(get(scene[%i].name), null, MERGE, BLEND(1)); , inc(i); if(i LT scene.count, nextscene(findnext)); );
+</action>
+<layer name="next-b" url="../logos/pfeil-rechts-weiss.png" parent="" style="prev-next_style" align="topcenter" x="150" y="28" onover="tween(alpha,1);" onout="tween(alpha,0.3);" onup="onout();" ondown="onover();" onclick="action(nextscene)"/>
+<layer name="back-b" url="../logos/pfeil-links-weiss.png" parent="" style="prev-next_style" align="topcenter" x="-150" y="28" onover="tween(alpha,1);" onout="tween(alpha,0.3);" onup="onout();" ondown="onover();" onclick="action(prevscene)"/>
+<style name="prev-next_style" scale="1" width="20" height="20" visible="true" enable="true" keep="true" zorder="400" alpha="0.3"/>
+<!--  SOUND ...... eingebunden in der tour.xml ganz oben  -->
+<plugin name="soundinterface" url.html5="../plugins/soundinterface.js" url.flash="../plugins/soundinterface.swf" preload="true" rootpath="" volume="0.5" mute="false" panningmodel="simple" worldscale="1.0" autopause="true" autounlock="true"/>
+<!--  360 LOGO  -->
+<layer name="logo" url="../logos/360-logo.png" keep="true" enabled="true" width="100" height="prop" align="bottomright" scale="1.0" x="5" y="15" alpha="0.5" scale.normal="1.0" scale.mobile="0.7" onover="tween(alpha,1,1);" onout="tween(alpha,0.5,1);" onclick="openurl('https://360perspektiven.com/');"/>
+<!--  GYRO SENSOR  -->
+<plugin name="gyro" devices="html5" keep="true" url="../plugins/gyro2.js" enabled="true" camroll="true" friction="0.0" touch_mode="full" sensor="0" sensor_mode="1" softstart="0.5" autocalibration="false" desktopsupport="false" onavailable="gyro_available_info();" onunavailable="gyro_not_available_info();" onenable="" ondisable=""/>
+<action name="gyro_available_info"> set(layer[infotext].html, 'Gyroscope available, press the gyro button...'); set(layer[gyrobutton].visible, true); </action>
+<action name="gyro_not_available_info" xautorun.flash="onstart"> set(layer[infotext].html, 'No gyroscope available...'); </action>
+<!--  CONTROLLLEISTE UNTEN  -->
+<layer name="menu-open" keep="true" type="image" url="symbole/menu-an.png" align="bottomcenter" width="400" height="prop" scale="1.0" maskchildren="true" visible="true" bgcapture="false" zorder="5" alpha="0.6" onhover="showtext(Menü öffnen);" onover="tween(alpha, 1.0); " onout="tween(alpha, 0.6); " onclick="set(visible, false); tween(layer[menu-close].y, 0); set(layer[menu-symbol-kasten].visible, true); tween(layer[menu-symbol-kasten].alpha, 1);"/>
+<layer name="menu-close" keep="true" type="image" url="symbole/menu-aus.png" align="bottomcenter" width="400" height="prop" x="" y="-50" scale="1" maskchildren="false" visible="true" bgcapture="false" zorder="5" alpha="1" onhover="showtext(Menü schließen);" onover="" onout="" onclick="set(layer[menu-open].visible, true); tween(layer[menu-close].y, -50); set(layer[menu-symbol-kasten].visible, false); tween(layer[menu-symbol-kasten].alpha, 0); skin_showthumbs(false)"/>
+<layer name="menu-symbol-kasten" parent="menu-close" type="container" style="style-symbol-kasten" align="top" edge="bottom" keep="true" enabled="true" visible="false" alpha="0" scale="1"/>
+<style name="style-symbol-kasten" x="0" y="0" width="400" height="40" vcenter="true" padding="0" bg="true" bgcolor="0x000000" bgalpha="0" bgborder="0 0xFFFFFF 1.0" bgroundedge="0" bgshadow=""/>
+<!--  SYMBOL 1  -->
+<layer name="symbol-thumbnails-an" type="image" url="symbole/thumbnails-an.png" parent="menu-symbol-kasten" align="center" keep="true" enabled="true" visible="true" width="prop" height="100%" x="-116" y="0" scale="1" alpha="0.9" onover="tween(alpha,1.0);" onout="tween(alpha,0.9);" onhover="showtext(Navigation öffnen);" onclick="set(visible, false); set(layer[symbol-thumbnails-aus].visible, true); skin_showthumbs();"/>
+<layer name="symbol-thumbnails-aus" type="image" url="symbole/thumbnails-an.png" parent="menu-symbol-kasten" align="center" keep="true" enabled="true" visible="false" width="prop" height="100%" x="-116" y="0" scale="1" alpha="0.9" onover="tween(alpha,1.0);" onout="tween(alpha,0.9);" onhover="showtext(Navigation schließen);" onclick="set(visible, false); set(layer[symbol-thumbnails-an].visible, true); skin_showthumbs();"/>
+<!--  SYMBOL 2  -->
+<layer name="symbol-hotspots-aus" type="image" url="symbole/hotspots-aus.png" parent="menu-symbol-kasten" align="center" keep="true" enabled="true" visible="true" width="prop" height="70%" x="-68" y="0" scale="1" alpha="0.7" onover="tween(alpha,1.0);" onout="tween(alpha,0.7);" onhover="showtext(Hotspots verstecken);" onclick="set(visible, false); set(layer[symbol-hotspots-an].visible, true); weg_hotspots();"/>
+<layer name="symbol-hotspots-an" type="image" url="symbole/hotspots-an.png" parent="menu-symbol-kasten" align="center" keep="true" enabled="true" visible="false" width="prop" height="70%" x="-68" y="0" scale="1" alpha="0.7" onover="tween(alpha,1.0);" onout="tween(alpha,0.7);" onhover="showtext(Hotspots zeigen);" onclick="set(visible, false); set(layer[symbol-hotspots-aus].visible, true); da_hotspots();"/>
+<!--  SYMBOL 3  -->
+<layer name="symbol-sounds-aus" type="image" url="symbole/sound-aus.png" parent="menu-symbol-kasten" align="center" keep="true" enabled="true" visible="true" width="prop" height="70%" x="-20" y="0" scale="1" alpha="0.7" onover="tween(alpha,1.0);" onout="tween(alpha,0.7);" onhover="showtext(Sounds stoppen);" onclick="set(visible, false); set(layer[symbol-sounds-an].visible, true); pausesoundtoggle(bgsnd);"/>
+<layer name="symbol-sounds-an" type="image" url="symbole/sound-an.png" parent="menu-symbol-kasten" align="center" keep="true" enabled="true" visible="false" width="prop" height="70%" x="-20" y="0" scale="1" alpha="0.7" onover="tween(alpha,1.0);" onout="tween(alpha,0.7);" onhover="showtext(Sounds starten);" onclick="set(visible, false); set(layer[symbol-sounds-aus].visible, true); pausesoundtoggle(bgsnd);"/>
+<!--  SYMBOL 4  -->
+<layer name="symbol-autotour-aus" type="image" url="symbole/autotour-aus.png" parent="menu-symbol-kasten" align="center" keep="true" enabled="true" visible="true" width="prop" height="70%" x="20" y="0" scale="1" alpha="0.7" onover="tween(alpha,1.0);" onout="tween(alpha,0.7);" onhover="showtext(Autotour stoppen);" onclick="set(visible, false); set(layer[symbol-autotour-an].visible, true); autorotate.stop();"/>
+<layer name="symbol-autotour-an" type="image" url="symbole/autotour-an.png" parent="menu-symbol-kasten" align="center" keep="true" enabled="true" visible="false" width="prop" height="70%" x="20" y="0" scale="1" alpha="0.7" onover="tween(alpha,1.0);" onout="tween(alpha,0.7);" onhover="showtext(Autotour starten);" onclick="set(visible, false); set(layer[symbol-autotour-aus].visible, true); autorotate.start();"/>
+<!--  SYMBOL 5  -->
+<layer name="symbol-vr" type="image" url="symbole/vr.png" parent="menu-symbol-kasten" align="center" keep="true" enabled="true" visible="true" width="prop" height="70%" x="68" y="0" scale="1" alpha="0.7" onover="tween(alpha,1.0);" onout="tween(alpha,0.7);" onhover="showtext(VR Modus);" onclick="webvr.toggleVR();"/>
+<!--  SYMBOL 6  -->
+<layer name="symbol-vollbild-an" type="image" url="symbole/vollbild-an.png" parent="menu-symbol-kasten" align="center" keep="true" enabled="true" visible="true" width="prop" height="70%" x="116" y="0" scale="1" alpha="0.7" onover="tween(alpha,1.0);" onout="tween(alpha,0.7);" onhover="showtext(Vollbild);" onclick="set(visible, false); set(layer[symbol-vollbild-aus].visible, true); switch(fullscreen);"/>
+<layer name="symbol-vollbild-aus" type="image" url="symbole/vollbild-aus.png" parent="menu-symbol-kasten" align="center" keep="true" enabled="true" visible="false" width="prop" height="70%" x="116" y="0" scale="1" alpha="0.7" onover="tween(alpha,1.0);" onout="tween(alpha,0.7);" onhover="showtext(Vollbild aus);" onclick="set(visible, false); set(layer[symbol-vollbild-an].visible, true); switch(fullscreen);"/>
+<!--  THUMBNAILS
+
+
+  <layer  name="menu-thumbnail-kasten"
+          parent=""
+          type="container"
+          style="style-thumbnail-kasten"
+          align="center"
+          edge=""
+          keep="true"
+          enabled="true"
+          visible="true"
+          alpha="1"
+          scale="1"
+           />
+  <style  name="style-thumbnail-kasten"
+          x="0"
+          y="0"
+          width="800"
+          maxwidth="80%"
+          height="100"
+          vcenter="true"
+          padding="0"
+          bg="true"
+          bgcolor="0xFFFFFF"
+          bgalpha="0.5"
+          bgborder="1 0xFFFFFF 1.0"
+          bgroundedge="0"
+          bgshadow=""
+           />
+
+
+
+
+ Scroll-Container
+
+  <layer  name="scroll-thumbnail-kasten"
+          parent="menu-thumbnail-kasten"
+          type="container"
+          style="style-scroll-thumbnail-kasten"
+          align="center"
+          keep="true"
+          enabled="true"
+          visible="true"
+          url.flash="%FIRSTXML%/plugins/scrollarea.swf"
+          url.html5="%FIRSTXML%/plugins/scrollarea.js"
+          direction="h"
+          draggable="true"
+          capturechildren="true"
+          parentmaskchildren="true"
+          mwheel="true"
+          onhover_autoscrolling="false"
+          overscroll="1.0"
+          friction="0.95"
+          acceleration="0.08"
+          returnacceleration="0.15"
+          momentum="0.06"
+          onscroll=""
+          width="100%"
+          height="100%"
+           />
+
+  <style  name="style-scroll-thumbnail-kasten"
+          x="0"
+          y="0"
+          vcenter="true"
+          padding="2"
+          bg="true"
+          bgcolor="0x000000"
+          bgalpha="0.0"
+          bgborder="0"
+          bgroundedge="0"
+          bgshadow=""
+           />
+
+ -->
+</krpano>

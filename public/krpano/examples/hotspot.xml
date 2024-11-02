@@ -1,0 +1,145 @@
+<krpano>
+<plugin name="html" devices="html5" keep="true" />
+	<include url="%SWFPATH%/plugins/showtext.xml" />
+  <style name="custom_hotspot_style"
+         url="skin/vtourskin_mapspot.png"
+         scale="0.6"
+         distorted="false" />
+
+  <!-- Hotspot với Tooltip cố định -->
+ <!-- Hotspot cố định với tooltip -->
+ <hotspot name="my_hotspot"
+         type="image"
+         url="skin/vtourskin_mapspot.png"
+         keep="false"
+         preload="false"
+         ath="31.860"
+         atv="1.305"
+         depth="1000.0"
+         prealign="false"
+         torigin="world"
+         tx="0.0"
+         ty="0.0"
+         tz="0.0"
+         rotationorder="yxz"
+         rx="0.0"
+         ry="0.0"
+         rz="0.0"
+         oref="2"
+         inverserotation="false"
+         twosided="false"
+         zoom="false"
+         distorted="false"
+         flying="0.0"
+         scaleflying="true"
+         renderer="auto"
+         mipmapping="false"
+         premultiplyalpha="false"
+         depthbuffer="false"
+         depthwrite="true"
+         depthoffset="0"
+         blendmode="normal"
+         alphachannel="auto"
+         zorder2="1"
+         enabled="true"
+         capture="true"
+         capturewheel="false"
+         capturefocus="true"
+         cursor="pointer"
+         nativecontextmenu="false"
+         tabindex="false"
+         visible="true"
+         alpha="1.0"
+         autoalpha="false"
+         blending="true"
+         edge="center"
+         ox="0"
+         oy="0"
+         width=""
+         height=""
+         minwidth="0" maxwidth="0"
+         minheight="0" maxheight="0"
+         autowidth="" autoheight=""
+         scalemode="scale"
+         scale="1.0"
+         scalex="1.0" scaley="1.0"
+         rotate="0.0"
+         gridfit="auto"
+         bg="true"
+         bgcolor="0x000000"
+         bgalpha="0.0"
+         bgborder="0"
+         bgbordermode="outside"
+         bgborderblend="true"
+         bgroundedge="0"
+         bgshadow=""
+         bgcapture="false"
+         onover.addevent="tooltip1_container.visible = true;"
+         onout.addevent="tooltip1_container.visible = false;"
+         onclick.addevent="loadscene(entrada, null, MERGE);"
+         onloaded.addevent=""
+         onresize.addevent=""
+         onlayout.addevent=""
+         >
+    <!-- Tọa độ cho điểm hình cầu -->
+    <point ath="31.860" atv="1.305" />
+</hotspot>
+
+
+  <!-- Tooltip Container -->
+  <layer name="tooltip1_container"
+         type="container"
+         width="220" height="80"
+         align="center" edge="bottom"
+         visible="false"
+         keep="true"
+         bgcolor="rgba(255,255,255,0.95)"
+         border="1px solid #ddd"
+         roundedge="10"
+         shadow="2"
+         oy="-80"
+         hscale="1" vscale="1"
+         scalechildren="true"
+         direction="0">
+
+    <!-- Tooltip Image -->
+    <layer name="tooltip1_image"
+           type="image"
+           url="logo.png"
+           width="60" height="60"
+           x="10" y="10"
+           roundedge="30" />
+
+    <!-- Tooltip Text -->
+    <layer name="tooltip1_text"
+           type="text"
+           html="Hòn Bảy Cạnh"
+           textcolor="#333"
+           fontsize="18"
+           x="80" y="25" />
+  </layer>
+
+  <hotspot name="spot2" style="custom_hotspot_style" ath="49.535" atv="30.306" depth="1000">
+    <content>
+      <img src="logo.png" width="60" height="60" />
+      <text>Hòn Cau</text>
+    </content>
+  </hotspot>
+
+  <hotspot name="spot3" style="custom_hotspot_style" ath="35.671" atv="8.256" depth="1400">
+    <content>
+      <img src="logo.png" width="60" height="60" />
+      <text>Di Tích Nhà Tù Phú Hải</text>
+    </content>
+  </hotspot>
+
+  <hotspot name="spot4" style="custom_hotspot_style" ath="-44.566" atv="3.680" depth="1600">
+    <content>
+      <img src="logo.png" width="60" height="60" />
+      <text>Hòn Bảy Cạnh</text>
+    </content>
+  </hotspot>
+
+</krpano>
+
+

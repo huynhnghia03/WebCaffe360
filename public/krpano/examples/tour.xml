@@ -1,0 +1,335 @@
+<krpano version="1.19" title="">
+<autorotate enabled="true"
+  waittime="3.0"
+    speed="0.5"
+    horizon="0.0" />
+    <!-- <include url="skin/maps.xml"/> -->
+<include url="skin/vtourskin.xml"/>
+
+<!--  customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ...  -->
+
+<skin_settings
+    maps="true"
+    maps_type="google"
+    maps_bing_api_key=""
+    maps_google_api_key=""
+    maps_zoombuttons="false"
+    gyro="true"
+    webvr="true"
+    webvr_gyro_keeplookingdirection="false"
+    webvr_prev_next_hotspots="true"
+    littleplanetintro="true"
+    title="true"
+    thumbs="true"
+    thumbs_width="120"
+    thumbs_height="80"
+    thumbs_padding="10"
+    thumbs_crop="0|40|240|160"
+    thumbs_opened="false"
+    thumbs_text="true"
+    thumbs_dragging="true"
+    thumbs_onhoverscrolling="false"
+    thumbs_scrollbuttons="false"
+    thumbs_scrollindicator="false"
+    thumbs_loop="false"
+    tooltips_buttons="false"
+    tooltips_thumbs="false"
+    tooltips_hotspots="false"
+    tooltips_mapspots="true"
+    deeplinking="false"
+    loadscene_flags="MERGE"
+    loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+    loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+    loadscene_blend_next="SLIDEBLEND(0.5, 0, 0.75, linear)"
+    loadingtext="carregando..."
+    layout_width="100%"
+    layout_maxwidth="814"
+    controlbar_width="-24"
+    controlbar_height="40"
+    controlbar_offset="20"
+    controlbar_offset_closed="-40"
+    controlbar_overlap.no-fractionalscaling="10"
+    controlbar_overlap.fractionalscaling="0"
+    design_skin_images="vtourskin.png"
+    design_bgcolor="0x2D3E50"
+    design_bgalpha="0.8"
+    design_bgborder="0"
+    design_bgroundedge="1"
+    design_bgshadow="0 4 10 0x000000 0.3"
+    design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+    design_thumbborder_padding="2"
+    design_thumbborder_bgroundedge="0"
+    design_text_css="color:#FFFFFF; font-family:Arial;"
+    design_text_shadow="1"
+/>
+
+<!--
+	    For an alternative skin design either change the <skin_settings> values
+	    from above or optionally include one of the predefined designs from below.
+	 -->
+<!--  <include url="skin/vtourskin_design_flat_light.xml"  />  -->
+<!--  <include url="skin/vtourskin_design_glass.xml"       />  -->
+<!--  <include url="skin/vtourskin_design_ultra_light.xml" />  -->
+<!--  <include url="skin/vtourskin_design_117.xml"         />  -->
+<include url="skin/vtourskin_design_117round.xml"/>
+<include url="skin/navigate.xml"/>
+<!--  <include url="skin/vtourskin_design_black.xml"       />  -->
+<!--  startup action - load the first scene  -->
+<action name="startup" autorun="onstart"> if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); ); loadscene(get(startscene), null, MERGE); if(startactions !== null, startactions() ); </action>
+<scene name="aerea_geral" title="Vista Aérea Geral" onstart="" thumburl="panos/DreamPark_VR_40_D.tiles/thumb.jpg" lat="" lng="" heading="" legenda="legendas/aerea_geral.png">
+<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/DreamPark_VR_40_D.tiles/preview.jpg"/>
+<image stereo="true" stereolabels="E|D">
+<cube url="panos/DreamPark_VR_40_%t.tiles/pano_%s.jpg"/>
+<cube url="panos/DreamPark_VR_40_%t.tiles/mobile/pano_%s.jpg" devices="mobile"/>
+</image>
+<!--  place your scene hotspots here  -->
+<include url="hotspot.xml"/>
+<layer name="leaflet_map" keep="true" width="100%" height="100%" align="center" scale="1">
+    <html>
+        <![CDATA[
+            <div id="map" style="width: 100%; height: 100%;"></div>
+            <script>
+                var map = L.map('map').setView([51.505, -0.09], 13);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap'
+                }).addTo(map);
+            </script>
+        ]]>
+    </html>
+</layer>
+
+<!-- <hotspot name="spot1" style="skin_hotspotstyle_vr" ath="31.860" atv="1.305" linkedscene="entrada" url="skin/vtourskin_mapspot.png" depth="1600"/>
+<hotspot name="spot2" style="skin_hotspotstyle_vr" ath="49.535" atv="30.306" linkedscene="piscina_infantil" url="skin/vtourskin_mapspot.png" depth="1000"/>
+<hotspot name="spot3" style="skin_hotspotstyle_vr" ath="35.671" atv="8.256" linkedscene="bar_molhado" url="skin/vtourskin_mapspot.png" depth="1400"/>
+<hotspot name="spot4" style="skin_hotspotstyle_vr" ath="-44.566" atv="3.680" linkedscene="halfpipe" url="skin/vtourskin_mapspot.png" depth="1600"/>
+<hotspot name="spot5" style="skin_hotspotstyle_vr" ath="-160.517" atv="4.753" linkedscene="aerea_toboagua_riolento" url="skin/helicopter2.png" depth="1200"/>
+<hotspot name="spot6" style="skin_hotspotstyle_vr" ath="-45.183" atv="31.004" linkedscene="piscinadeondas01" url="skin/vtourskin_mapspot.png"/>
+<hotspot name="spot8" style="skin_hotspotstyle_vr" ath="-126.406" atv="-5.599" linkedscene="alto_toboaguas" url="skin/vtourskin_mapspot.png" depth="1600"/>
+<hotspot name="spot9" style="skin_hotspotstyle_vr" ath="101.447" atv="11.934" linkedscene="aerea_riolento_restaurante" url="skin/helicopter2.png"/>
+<hotspot name="spot10" style="skin_hotspotstyle_vr" ath="-2.313" atv="3.606" linkedscene="playground" url="skin/vtourskin_mapspot.png" depth="1600"/>
+<hotspot name="spot11" style="skin_hotspotstyle_vr" ath="11.042" atv="6.748" linkedscene="toboaguas_infantis" url="skin/vtourskin_mapspot.png" depth="1400"/>
+<hotspot name="spot12" style="skin_hotspotstyle_vr" ath="-92.730" atv="18.985" linkedscene="piscinadeondas02" url="skin/vtourskin_mapspot.png" depth="1200"/>
+<hotspot name="spot13" style="skin_hotspotstyle_vr" ath="-96.998" atv="10.599" linkedscene="bar_molhado02" url="skin/vtourskin_mapspot.png" depth="1400"/>
+<hotspot name="spot14" style="skin_hotspotstyle_vr" ath="57.201" atv="7.940" linkedscene="redario" url="skin/vtourskin_mapspot.png" depth="1400"/> -->
+</scene>
+<scene name="entrada" title="Estacionamento e Portal de Entrada" onstart="" thumburl="panos/DreamPark_VR_38_D.tiles/thumb.jpg" lat="" lng="" heading="" legenda="legendas/entrada.png">
+<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/DreamPark_VR_38_D.tiles/preview.jpg"/>
+<image stereo="true" stereolabels="E|D">
+<cube url="panos/DreamPark_VR_38_%t.tiles/pano_%s.jpg"/>
+<cube url="panos/DreamPark_VR_38_%t.tiles/mobile/pano_%s.jpg" devices="mobile"/>
+</image>
+<!--  place your scene hotspots here  -->
+<hotspot name="spot1" style="skin_hotspotstyle_vr" ath="-12.175" atv="6.722" linkedscene="bar_molhado"/>
+<hotspot name="spot2" style="skin_hotspotstyle_vr" ath="73.618" atv="-2.119" linkedscene="playground"/>
+<hotspot name="spot3" style="skin_hotspotstyle_vr" ath="51.369" atv="-2.617" linkedscene="toboaguas_infantis" depth="1200"/>
+<hotspot name="start" style="skin_hotspotstyle_vr" ath="0.000" atv="-90.000" linkedscene="aerea_geral" url="skin/helicopter3.png"/>
+<hotspot name="spot5" style="skin_hotspotstyle_vr" ath="-50.220" atv="-3.989" linkedscene="redario" depth="1400"/>
+</scene>
+<scene name="piscina_infantil" title="Ilha Baby" onstart="" thumburl="panos/DreamPark_VR_27_D.tiles/thumb.jpg" lat="" lng="" heading="" legenda="legendas/piscina_infantil.png">
+<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/DreamPark_VR_27_D.tiles/preview.jpg"/>
+<image stereo="true" stereolabels="E|D">
+<cube url="panos/DreamPark_VR_27_%t.tiles/pano_%s.jpg"/>
+<!-- <cube url="panos/DreamPark_VR_27_%t.tiles/mobile/pano_%s.jpg" devices="mobile"/> -->
+</image>
+<!--  place your scene hotspots here  -->
+<hotspot name="spot1" style="skin_hotspotstyle_vr" ath="-113.961" atv="-6.577" linkedscene="piscinadeondas01"/>
+<hotspot name="spot2" style="skin_hotspotstyle_vr" ath="25.695" atv="-4.335" linkedscene="bar_molhado"/>
+<hotspot name="spot3" style="skin_hotspotstyle_vr" ath="-144.522" atv="-23.685" linkedscene="aerea_toboagua_riolento" url="skin/helicopter2.png" depth="1200"/>
+<hotspot name="spot4" style="skin_hotspotstyle_vr" ath="-55.834" atv="-12.308" linkedscene="toboaguas_infantis"/>
+<hotspot name="start" style="skin_hotspotstyle_vr" ath="0.000" atv="-90.000" linkedscene="aerea_geral" url="skin/helicopter3.png"/>
+<hotspot name="spot6" style="skin_hotspotstyle_vr" ath="151.657" atv="-5.371" linkedscene="redario"/>
+</scene>
+<scene name="bar_molhado" title="Piscina Circus" onstart="" thumburl="panos/DreamPark_VR_28_D.tiles/thumb.jpg" lat="" lng="" heading="" legenda="legendas/bar_molhado.png">
+<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/DreamPark_VR_28_D.tiles/preview.jpg"/>
+<image stereo="true" stereolabels="E|D">
+<cube url="panos/DreamPark_VR_28_%t.tiles/pano_%s.jpg"/>
+<!-- <cube url="panos/DreamPark_VR_28_%t.tiles/mobile/pano_%s.jpg" devices="mobile"/> -->
+</image>
+<!--  place your scene hotspots here  -->
+<hotspot name="spot1" style="skin_hotspotstyle_vr" ath="23.870" atv="-2.791" linkedscene="entrada" depth="1200"/>
+<hotspot name="spot2" style="skin_hotspotstyle_vr" ath="-145.713" atv="-1.774" linkedscene="piscina_infantil"/>
+<hotspot name="spot3" style="skin_hotspotstyle_vr" ath="-101.566" atv="-8.886" linkedscene="piscinadeondas01" depth="1200"/>
+<hotspot name="spot4" style="skin_hotspotstyle_vr" ath="-112.672" atv="-24.643" linkedscene="aerea_toboagua_riolento" url="skin/helicopter2.png"/>
+<hotspot name="spot5" style="skin_hotspotstyle_vr" ath="-26.627" atv="-4.841" linkedscene="playground" depth="1200"/>
+<hotspot name="spot6" style="skin_hotspotstyle_vr" ath="-54.489" atv="-5.767" linkedscene="toboaguas_infantis"/>
+<hotspot name="start" style="skin_hotspotstyle_vr" ath="0.000" atv="-90.000" linkedscene="aerea_geral" url="skin/helicopter3.png"/>
+<hotspot name="spot8" style="skin_hotspotstyle_vr" ath="114.587" atv="-2.698" linkedscene="redario"/>
+</scene>
+<scene name="toboaguas_infantis" title="Ilha Kids" onstart="" thumburl="panos/DreamPark_VR_34_D.tiles/thumb.jpg" lat="" lng="" heading="" legenda="legendas/toboaguas_infantis.png">
+<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/DreamPark_VR_34_D.tiles/preview.jpg"/>
+<image stereo="true" stereolabels="E|D">
+<cube url="panos/DreamPark_VR_34_%t.tiles/pano_%s.jpg"/>
+<!-- <cube url="panos/DreamPark_VR_34_%t.tiles/mobile/pano_%s.jpg" devices="mobile"/> -->
+</image>
+<!--  place your scene hotspots here  -->
+<hotspot name="spot1" style="skin_hotspotstyle_vr" ath="-142.780" atv="-5.778" linkedscene="entrada"/>
+<hotspot name="spot2" style="skin_hotspotstyle_vr" ath="-73.999" atv="-1.385" linkedscene="bar_molhado"/>
+<hotspot name="spot3" style="skin_hotspotstyle_vr" ath="-28.625" atv="-2.958" linkedscene="piscina_infantil"/>
+<hotspot name="spot4" style="skin_hotspotstyle_vr" ath="7.790" atv="-11.156" linkedscene="halfpipe" depth="1200"/>
+<hotspot name="spot5" style="skin_hotspotstyle_vr" ath="154.371" atv="-6.961" linkedscene="playground"/>
+<hotspot name="start" style="skin_hotspotstyle_vr" ath="0" atv="-90.000" linkedscene="aerea_geral" url="skin/helicopter3.png"/>
+</scene>
+<scene name="playground" title="Villa Kids" onstart="" thumburl="panos/DreamPark_VR_31_D.tiles/thumb.jpg" lat="" lng="" heading="" legenda="legendas/playground.png">
+<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/DreamPark_VR_31_D.tiles/preview.jpg"/>
+<image stereo="true" stereolabels="E|D">
+<cube url="panos/DreamPark_VR_31_%t.tiles/pano_%s.jpg"/>
+<!-- <cube url="panos/DreamPark_VR_31_%t.tiles/mobile/pano_%s.jpg" devices="mobile"/> -->
+</image>
+<!--  place your scene hotspots here  -->
+<hotspot name="spot1" style="skin_hotspotstyle_vr" ath="-176.707" atv="-2.702" linkedscene="entrada"/>
+<hotspot name="spot2" style="skin_hotspotstyle_vr" ath="-148.826" atv="-5.006" linkedscene="bar_molhado"/>
+<hotspot name="spot3" style="skin_hotspotstyle_vr" ath="-110.023" atv="-3.894" linkedscene="toboaguas_infantis"/>
+<hotspot name="start" style="skin_hotspotstyle_vr" ath="0" atv="-90.000" linkedscene="aerea_geral" url="skin/helicopter3.png"/>
+</scene>
+<scene name="halfpipe" title="Uai Pipe" onstart="" thumburl="panos/DreamPark_VR_29_D.tiles/thumb.jpg" lat="" lng="" heading="" legenda="legendas/halfpipe.png">
+<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/DreamPark_VR_29_D.tiles/preview.jpg"/>
+<image stereo="true" stereolabels="E|D">
+<cube url="panos/DreamPark_VR_29_%t.tiles/pano_%s.jpg"/>
+<!-- <cube url="panos/DreamPark_VR_29_%t.tiles/mobile/pano_%s.jpg" devices="mobile"/> -->
+</image>
+<!--  place your scene hotspots here  -->
+<hotspot name="spot1" style="skin_hotspotstyle_vr" ath="10.079" atv="0.020" linkedscene="bar_molhado" url="skin/vtourskin_mapspot.png" depth="1200"/>
+<hotspot name="spot2" style="skin_hotspotstyle_vr" ath="-11.104" atv="-3.653" linkedscene="entrada" url="skin/vtourskin_mapspot.png" depth="1600"/>
+<hotspot name="spot3" style="skin_hotspotstyle_vr" ath="33.230" atv="0.581" linkedscene="piscina_infantil" url="skin/vtourskin_mapspot.png" depth="1200"/>
+<hotspot name="spot4" style="skin_hotspotstyle_vr" ath="54.881" atv="9.640" linkedscene="piscinadeondas01" url="skin/vtourskin_mapspot.png"/>
+<hotspot name="spot5" style="skin_hotspotstyle_vr" ath="76.002" atv="-7.546" linkedscene="aerea_toboagua_riolento" url="skin/helicopter2.png" depth="1400"/>
+<hotspot name="spot6" style="skin_hotspotstyle_vr" ath="-37.393" atv="-0.179" linkedscene="playground" url="skin/vtourskin_mapspot.png" depth="1400"/>
+<hotspot name="spot7" style="skin_hotspotstyle_vr" ath="-18.602" atv="1.782" linkedscene="toboaguas_infantis" url="skin/vtourskin_mapspot.png" depth="1200"/>
+<hotspot name="spot8" style="skin_hotspotstyle_vr" ath="90.825" atv="5.712" linkedscene="piscinadeondas02" url="skin/vtourskin_mapspot.png"/>
+<hotspot name="spot9" style="skin_hotspotstyle_vr" ath="126.396" atv="1.965" linkedscene="bar_molhado02" url="skin/vtourskin_mapspot.png" depth="1200"/>
+<hotspot name="spot10" style="skin_hotspotstyle_vr" ath="126.956" atv="-10.433" linkedscene="alto_toboaguas" url="skin/vtourskin_mapspot.png" depth="1600"/>
+<hotspot name="spot11" style="skin_hotspotstyle_vr" ath="47.947" atv="-9.119" linkedscene="aerea_riolento_restaurante" url="skin/helicopter2.png" depth="1400"/>
+<hotspot name="start" style="skin_hotspotstyle_vr" ath="0.000" atv="-90.000" linkedscene="aerea_geral" url="skin/helicopter3.png"/>
+<hotspot name="spot13" style="skin_hotspotstyle_vr" ath="20.864" atv="-0.948" linkedscene="redario" url="skin/vtourskin_mapspot.png" depth="1600"/>
+</scene>
+<scene name="aerea_toboagua_riolento" title="Áerea - Ilha Radical, Simulador de Surfe e Rio Lento" onstart="" thumburl="panos/DreamPark_VR_30_D.tiles/thumb.jpg" lat="" lng="" heading="" legenda="legendas/aerea_toboagua_riolento.png">
+<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/DreamPark_VR_30_D.tiles/preview.jpg"/>
+<image stereo="true" stereolabels="E|D">
+<cube url="panos/DreamPark_VR_30_%t.tiles/pano_%s.jpg"/>
+<!-- <cube url="panos/DreamPark_VR_30_%t.tiles/mobile/pano_%s.jpg" devices="mobile"/> -->
+</image>
+<!--  place your scene hotspots here  -->
+<hotspot name="spot1" style="skin_hotspotstyle_vr" ath="155.877" atv="-3.028" linkedscene="entrada" url="skin/vtourskin_mapspot.png" depth="1600"/>
+<hotspot name="spot2" style="skin_hotspotstyle_vr" ath="149.486" atv="1.257" linkedscene="piscina_infantil" url="skin/vtourskin_mapspot.png" depth="1200"/>
+<hotspot name="spot3" style="skin_hotspotstyle_vr" ath="110.175" atv="2.956" linkedscene="piscinadeondas01" url="skin/vtourskin_mapspot.png"/>
+<hotspot name="spot4" style="skin_hotspotstyle_vr" ath="6.939" atv="-11.956" linkedscene="alto_toboaguas" url="skin/vtourskin_mapspot.png" depth="1400"/>
+<hotspot name="spot6" style="skin_hotspotstyle_vr" ath="95.947" atv="-5.844" linkedscene="halfpipe" url="skin/vtourskin_mapspot.png" depth="1400"/>
+<hotspot name="spot7" style="skin_hotspotstyle_vr" ath="171.909" atv="-4.986" linkedscene="aerea_riolento_restaurante" url="skin/helicopter2.png"/>
+<hotspot name="spot8" style="skin_hotspotstyle_vr" ath="73.413" atv="4.265" linkedscene="piscinadeondas02" url="skin/vtourskin_mapspot.png"/>
+<hotspot name="spot9" style="skin_hotspotstyle_vr" ath="132.285" atv="-3.649" linkedscene="toboaguas_infantis" url="skin/vtourskin_mapspot.png" depth="1400"/>
+<hotspot name="spot10" style="skin_hotspotstyle_vr" ath="54.207" atv="-2.265" linkedscene="bar_molhado02" url="skin/vtourskin_mapspot.png" depth="1200"/>
+<hotspot name="start" style="skin_hotspotstyle_vr" ath="0.000" atv="-90.000" linkedscene="aerea_geral" url="skin/helicopter3.png"/>
+</scene>
+<scene name="aerea_riolento_restaurante" title="Aérea – Praça de Alimentação e Rio Lento" onstart="" thumburl="panos/DreamPark_VR_37_D.tiles/thumb.jpg" lat="" lng="" heading="" legenda="legendas/aerea_riolento_restaurante.png">
+<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/DreamPark_VR_37_D.tiles/preview.jpg"/>
+<image stereo="true" stereolabels="E|D">
+<cube url="panos/DreamPark_VR_37_%t.tiles/pano_%s.jpg"/>
+<!-- <cube url="panos/DreamPark_VR_37_%t.tiles/mobile/pano_%s.jpg" devices="mobile"/> -->
+</image>
+<!--  place your scene hotspots here  -->
+<hotspot name="spot1" style="skin_hotspotstyle_vr" ath="24.144" atv="-5.292" linkedscene="toboaguas_infantis" url="skin/vtourskin_mapspot.png" depth="1400"/>
+<hotspot name="spot2" style="skin_hotspotstyle_vr" ath="46.687" atv="-7.213" linkedscene="entrada" url="skin/vtourskin_mapspot.png" depth="1600"/>
+<hotspot name="spot3" style="skin_hotspotstyle_vr" ath="-84.267" atv="-13.188" linkedscene="aerea_toboagua_riolento" url="skin/helicopter2.png"/>
+<hotspot name="spot4" style="skin_hotspotstyle_vr" ath="-70.134" atv="-11.422" linkedscene="alto_toboaguas" url="skin/vtourskin_mapspot.png" depth="1600"/>
+<hotspot name="spot5" style="skin_hotspotstyle_vr" ath="-34.798" atv="-8.974" linkedscene="piscinadeondas02" url="skin/vtourskin_mapspot.png" depth="1200"/>
+<hotspot name="spot6" style="skin_hotspotstyle_vr" ath="4.570" atv="4.977" linkedscene="piscina_infantil" url="skin/vtourskin_mapspot.png"/>
+<hotspot name="spot7" style="skin_hotspotstyle_vr" ath="-54.072" atv="-8.482" linkedscene="bar_molhado02" url="skin/vtourskin_mapspot.png" depth="1400"/>
+<hotspot name="start" style="skin_hotspotstyle_vr" ath="0" atv="-90.000" linkedscene="aerea_geral" url="skin/helicopter3.png"/>
+</scene>
+<scene name="piscinadeondas01" title="Vista da Praia e Área Vip" onstart="" thumburl="panos/DreamPark_VR_33_D.tiles/thumb.jpg" lat="" lng="" heading="" legenda="legendas/piscinadeondas.png">
+<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/DreamPark_VR_33_D.tiles/preview.jpg"/>
+<image stereo="true" stereolabels="E|D">
+<cube url="panos/DreamPark_VR_33_%t.tiles/pano_%s.jpg"/>
+<!-- <cube url="panos/DreamPark_VR_33_%t.tiles/mobile/pano_%s.jpg" devices="mobile"/> -->
+</image>
+<!--  place your scene hotspots here  -->
+<hotspot name="spot1" style="skin_hotspotstyle_vr" ath="-175.944" atv="-10.073" linkedscene="halfpipe"/>
+<hotspot name="spot2" style="skin_hotspotstyle_vr" ath="-116.175" atv="-5.082" linkedscene="playground" depth="1600"/>
+<hotspot name="spot3" style="skin_hotspotstyle_vr" ath="-65.106" atv="-7.253" linkedscene="bar_molhado" depth="1600"/>
+<hotspot name="spot4" style="skin_hotspotstyle_vr" ath="-44.440" atv="-5.085" linkedscene="piscina_infantil" depth="1400"/>
+<hotspot name="spot5" style="skin_hotspotstyle_vr" ath="95.332" atv="-9.584" linkedscene="alto_toboaguas" depth="1600"/>
+<hotspot name="spot6" style="skin_hotspotstyle_vr" ath="32.725" atv="-16.656" linkedscene="aerea_toboagua_riolento" url="skin/helicopter2.png" depth="1200"/>
+<hotspot name="spot7" style="skin_hotspotstyle_vr" ath="-27.469" atv="-19.181" linkedscene="aerea_riolento_restaurante" url="skin/helicopter2.png" depth="1200"/>
+<hotspot name="spot8" style="skin_hotspotstyle_vr" ath="110.417" atv="-4.671" linkedscene="bar_molhado02" depth="1200"/>
+<hotspot name="spot10" style="skin_hotspotstyle_vr" ath="-95.106" atv="-2.936" linkedscene="toboaguas_infantis" depth="1200"/>
+<hotspot name="spot11" style="skin_hotspotstyle_vr" ath="93.095" atv="1.309" linkedscene="piscinadeondas02"/>
+<hotspot name="start" style="skin_hotspotstyle_vr" ath="0" atv="-90.000" linkedscene="aerea_geral" url="skin/helicopter3.png"/>
+</scene>
+<scene name="piscinadeondas02" title="Vista da Praia e Área Vip" onstart="" thumburl="panos/DreamPark_VR_41_D.tiles/thumb.jpg" lat="" lng="" heading="" legenda="legendas/piscinadeondas.png">
+<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/DreamPark_VR_41_D.tiles/preview.jpg"/>
+<image stereo="true" stereolabels="E|D">
+<cube url="panos/DreamPark_VR_41_%t.tiles/pano_%s.jpg"/>
+<!-- <cube url="panos/DreamPark_VR_41_%t.tiles/mobile/pano_%s.jpg" devices="mobile"/> -->
+</image>
+<!--  place your scene hotspots here  -->
+<hotspot name="spot1" style="skin_hotspotstyle_vr" ath="-125.691" atv="4.069" linkedscene="bar_molhado02"/>
+<hotspot name="spot2" style="skin_hotspotstyle_vr" ath="7.739" atv="4.656" linkedscene="piscinadeondas01"/>
+<hotspot name="spot3" style="skin_hotspotstyle_vr" ath="-172.040" atv="-11.919" linkedscene="alto_toboaguas" depth="1400"/>
+<hotspot name="spot4" style="skin_hotspotstyle_vr" ath="99.061" atv="-15.067" linkedscene="aerea_toboagua_riolento" url="skin/helicopter2.png" depth="1200"/>
+<hotspot name="spot5" style="skin_hotspotstyle_vr" ath="52.494" atv="-12.424" linkedscene="aerea_riolento_restaurante" url="skin/helicopter2.png" depth="1200"/>
+<hotspot name="spot6" style="skin_hotspotstyle_vr" ath="-1.457" atv="-3.504" linkedscene="toboaguas_infantis" depth="1400"/>
+<hotspot name="spot7" style="skin_hotspotstyle_vr" ath="-42.929" atv="-7.038" linkedscene="halfpipe" depth="1200"/>
+<hotspot name="start" style="skin_hotspotstyle_vr" ath="0" atv="-90.000" linkedscene="aerea_geral" url="skin/helicopter3.png"/>
+</scene>
+<scene name="bar_molhado02" title="Área Extra Vip" onstart="" thumburl="panos/DreamPark_VR_39_D.tiles/thumb.jpg" lat="" lng="" heading="" legenda="legendas/bar_molhado02.png">
+<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/DreamPark_VR_39_D.tiles/preview.jpg"/>
+<image stereo="true" stereolabels="E|D">
+<cube url="panos/DreamPark_VR_39_%t.tiles/pano_%s.jpg"/>
+<!-- <cube url="panos/DreamPark_VR_39_%t.tiles/mobile/pano_%s.jpg" devices="mobile"/> -->
+</image>
+<!--  place your scene hotspots here  -->
+<hotspot name="spot1" style="skin_hotspotstyle_vr" ath="4.624" atv="-16.725" linkedscene="alto_toboaguas" depth="1200"/>
+<hotspot name="spot2" style="skin_hotspotstyle_vr" ath="-151.068" atv="0.205" linkedscene="piscinadeondas01" depth="1200"/>
+<hotspot name="spot3" style="skin_hotspotstyle_vr" ath="165.482" atv="-8.671" linkedscene="halfpipe" depth="1400"/>
+<hotspot name="spot4" style="skin_hotspotstyle_vr" ath="-167.390" atv="-7.502" linkedscene="toboaguas_infantis" depth="1600"/>
+<hotspot name="spot5" style="skin_hotspotstyle_vr" ath="-97.041" atv="-16.148" linkedscene="aerea_toboagua_riolento" url="skin/helicopter2.png" depth="1200"/>
+<hotspot name="spot6" style="skin_hotspotstyle_vr" ath="-117.039" atv="2.244" linkedscene="piscinadeondas02"/>
+<hotspot name="start" style="skin_hotspotstyle_vr" ath="0" atv="-90.000" linkedscene="aerea_geral" url="skin/helicopter3.png"/>
+</scene>
+<scene name="alto_toboaguas" title="Deck Radical" onstart="" thumburl="panos/DreamPark_VR_35_D.tiles/thumb.jpg" lat="" lng="" heading="" legenda="legendas/alto_toboaguas.png">
+<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/DreamPark_VR_35_D.tiles/preview.jpg"/>
+<image stereo="true" stereolabels="E|D">
+<cube url="panos/DreamPark_VR_35_%t.tiles/pano_%s.jpg"/>
+<!-- <cube url="panos/DreamPark_VR_35_%t.tiles/mobile/pano_%s.jpg" devices="mobile"/> -->
+</image>
+<!--  place your scene hotspots here  -->
+<hotspot name="spot1" style="skin_hotspotstyle_vr" ath="-10.702" atv="3.582" linkedscene="piscinadeondas01" url="skin/vtourskin_mapspot.png" depth="1400"/>
+<hotspot name="spot2" style="skin_hotspotstyle_vr" ath="16.055" atv="-2.849" linkedscene="aerea_toboagua_riolento" url="skin/helicopter2.png" depth="1200"/>
+<hotspot name="spot3" style="skin_hotspotstyle_vr" ath="-27.074" atv="-0.921" linkedscene="halfpipe" url="skin/vtourskin_mapspot.png" depth="1400"/>
+<hotspot name="spot4" style="skin_hotspotstyle_vr" ath="-7.530" atv="-2.881" linkedscene="entrada" url="skin/vtourskin_mapspot.png" depth="1800"/>
+<hotspot name="spot5" style="skin_hotspotstyle_vr" ath="-16.246" atv="-1.379" linkedscene="toboaguas_infantis" url="skin/vtourskin_mapspot.png" depth="1800"/>
+<hotspot name="spot6" style="skin_hotspotstyle_vr" ath="7.208" atv="-4.104" linkedscene="aerea_riolento_restaurante" url="skin/helicopter2.png" depth="1400"/>
+<hotspot name="spot7" style="skin_hotspotstyle_vr" ath="-40.416" atv="9.654" linkedscene="bar_molhado02" url="skin/vtourskin_mapspot.png"/>
+<hotspot name="start" style="skin_hotspotstyle_vr" ath="0.000" atv="-90.000" linkedscene="aerea_geral" url="skin/helicopter3.png"/>
+<hotspot name="spot9" style="skin_hotspotstyle_vr" ath="0.499" atv="1.811" linkedscene="redario" url="skin/vtourskin_mapspot.png" depth="1800"/>
+</scene>
+<scene name="redario" title="Redário e Guarda-volumes" onstart="" thumburl="panos/DreamPark_VR_36_D.tiles/thumb.jpg" lat="" lng="" heading="" legenda="legendas/redario.png">
+<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/DreamPark_VR_36_D.tiles/preview.jpg"/>
+<image stereo="true" stereolabels="E|D">
+<cube url="panos/DreamPark_VR_36_%t.tiles/pano_%s.jpg"/>
+<!-- <cube url="panos/DreamPark_VR_36_%t.tiles/mobile/pano_%s.jpg" devices="mobile"/> -->
+</image>
+<!--  place your scene hotspots here  -->
+<hotspot name="start" style="skin_hotspotstyle_vr" ath="0.000" atv="-90.000" linkedscene="aerea_geral" url="skin/helicopter3.png"/>
+<hotspot name="spot2" style="skin_hotspotstyle_vr" ath="115.396" atv="-13.588" linkedscene="entrada"/>
+<hotspot name="spot3" style="skin_hotspotstyle_vr" ath="73.277" atv="-4.915" linkedscene="bar_molhado"/>
+<hotspot name="spot4" style="skin_hotspotstyle_vr" ath="55.023" atv="-8.519" linkedscene="piscina_infantil"/>
+</scene>
+<layer name="logo" url="logo.png" align="top" keep="true" x="0" y="10" alpha="1" enabled="false" width="15%" height="prop" minwidth="144" minheight="85" maxwidth="576" maxheight="340"/>
+<layer name="logo1111" url="logo1111.png" onclick="openurl('http://www.onzeonze.com.br');" align="rightbottom" keep="true" x="0" y="0"/>
+</krpano>

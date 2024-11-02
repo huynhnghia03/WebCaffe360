@@ -1,0 +1,27 @@
+﻿<krpano>
+
+	 <!-- grid preview pano -->
+	<preview type="grid(cube,64,64,512,0xCCCCCC,0xF6F6F6,0x999999);" />
+
+	 <!-- view/fov settings -->
+	<view hlookat="0" vlookat="0" fovtype="VFOV" fov="90" fovmin="30" fovmax="150" />
+  <image>
+        <sphere url="/images/test.png" />
+    </image>
+<!-- <scene name="scene_f0-toancanh" title="f0-toancanh" onstart="" thumburl="/images/test.png" lat="8.68324655" lng="106.60624855" alt="172.90" heading="0.0">
+<control bouncinglimits="true"/>
+<view hlookat="93.63" vlookat="19.40" fovtype="MFOV" fov="120.00" maxpixelzoom="1.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="/images/test.png"/>
+<image>
+<cube url="/images/test.png"/>
+</image> -->
+<!-- <hotspot name="scene_f1-honcau" title="Hòn Cau" titleen="Hon Cau Island" ath="29.21" atv="0.5" icon="honcau.png" t_height="100" radial="0" t_align="right" style="vrhotspot" onclick="loadscene(scene_f1-honcau,null,MERGE,BLEND(1));)"/>
+<hotspot name="s_scene_f3-honbay510" title="Hòn Bảy Cạnh" titleen="Bay Canh Island" ath="50.99" atv="-0.34" icon="baycanh.png" t_height="100" radial="0" t_align="left" style="vrhotspot" onclick="loadscene(scene_f3-honbay,null,MERGE,BLEND(1));)"/>
+<hotspot name="s_scene_f4-hoanghon2730" title="Hoàng Hôn Côn Đảo" titleen="Con Dao Sunset" ath="273.12" atv="-0.44" icon="hoanghon.png" t_height="100" radial="0" t_align="left" style="vrhotspot" onclick="loadscene(scene_f4-hoanghon,null,MERGE,BLEND(1));)"/>
+<hotspot name="s_scene_f7-honba131-1" title="Hòn Bà" titleen="Hon Ba Island" ath="171.84" atv="-3.93" icon="honba.png" t_height="100" radial="0" t_align="left" style="vrhotspot" onclick="loadscene(scene_f7-honba,null,MERGE,BLEND(1));)"/>
+<hotspot name="s_scene_s82121" title="Di Tích Nhà Tù Phú Hải" titleen="Phu Hai Prison Relic " ath="20.98" atv="20.99" icon="nhatuphuhai.png" t_height="100" radial="0" t_align="left" style="vrhotspot" onclick="loadscene(scene_s8,null,MERGE,BLEND(1));)"/>
+<hotspot name="scene_s11" title="Bảo Tàng Côn Đảo" titleen="Con Dao Museum" ath="4.63" atv="9.43" icon="baotang.png" t_height="100" radial="0" t_align="right" style="vrhotspot" onclick="loadscene(scene_s11,null,MERGE,BLEND(1));)"/>
+<hotspot name="s_scene_s243374" title="Nghĩa Trang Hàng Dương" titleen="Hang Duong cemetery" ath="336.6" atv="4" icon="nghiatrang.png" t_height="100" radial="0" t_align="left" style="vrhotspot" onclick="loadscene(scene_s24,null,MERGE,BLEND(1));)"/> -->
+</scene>
+
+</krpano>

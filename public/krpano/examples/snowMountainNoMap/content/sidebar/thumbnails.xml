@@ -1,0 +1,78 @@
+<krpano>
+<!--  .......................................STYLE.......................................  -->
+<!--  Thumbnail Style  - BILDKASTEN  -->
+
+<style name="style_tn" width="180" height="100" vcenter="true" padding="2" bg="true" bgcolor="get:menu-settings.farbe1" bgalpha="0.8" bgborder="2 0x940e0d 0.9" bgroundedge="5" bgshadow=""/>
+<!--  Thumbnail-Text Style  -->
+<style name="thumbnail-text-style" type="text" align="center" keep="true" enabled="false" visible="true" alpha="1.0" width="180" height="30" css="text-align:center; font-family: Arial; font-size:14px; color:#333333;" vcenter="false" padding="6" wordwrap="true" bg="true" bgcolor="get:menu-settings.farbe1" bgalpha="0.8" bgborder="0" bgroundedge="0" bgshadow="" txtshadow="" mergedalpha="true" interactivecontent="false"/>
+<!--  Thumbnail Container   -->
+<style name="style_tn_container-text" x="0" y="155" width="210" height="150" vcenter="true" padding="2" bg="true" bgcolor="0xFFFFFF" bgalpha="1" bgborder="0" bgroundedge="0" bgshadow=""/>
+<!--  Zurück Button Style -->
+<!-- <style name="thumbnail-back-style" type="text" align="topcenter" keep="true" enabled="true" visible="false" alpha="1.0" width="210" height="40" css="text-align:center; font-family: Arial; font-size:14px; color:#FFFFFF;" vcenter="true" padding="0" wordwrap="true" bg="true" bgcolor="0x940e0d" bgalpha="1" bgborder="0" bgroundedge="0" bgshadow="" txtshadow="" mergedalpha="true" interactivecontent="false" onover="tween(bgcolor, 0xa71110);" onout="tween(bgcolor, 0x940e0d);"/> -->
+<!--  Thumbnail Gruppentext Style TEXT KASTEN -->
+<!-- <style name="thumbnail-gruppentext-style" type="text" align="topcenter" keep="true" enabled="true" visible="true" alpha="1" width="210" height="40" css="text-align:left; font-family: Arial; font-size:12px; color:#333333; font-weight:bold;" vcenter="true" padding="5" wordwrap="true" bg="true" bgcolor="0x333333" bgalpha="0.3" bgborder="0" bgroundedge="0" bgshadow="" txtshadow="" mergedalpha="true" interactivecontent="false" onover="tween(bgcolor, 0x940e0d); " onout="tween(bgcolor, 0x333333); "/> -->
+<!--  Thumbnail Container Style  -->
+<style name="style_tn_container" x="0" y="80" vcenter="true" padding="2" bg="true" bgcolor="get:menu-settings.farbe1" bgalpha="0.8" bgborder="0" bgroundedge="0" bgshadow=""/>
+<!--  Scroll-Container Style 2  -->
+<style name="style_scroll_container" x="0" y="0" vcenter="true" padding="2" bg="true" bgcolor="get:menu-settings.farbe1" bgalpha="0.0" bgborder="0" bgroundedge="0" bgshadow=""/>
+<!--  ...............................EBENE 1 .........................  -->
+<layer name="sb-tn-conatainer-gruppen" parent="grund" type="container" style="style_tn_container-text" align="topcenter" keep="true" enabled="true" visible="true"/>
+<!-- <layer name="thumbnail-gruppentext4" parent="sb-tn-conatainer-gruppen" style="thumbnail-gruppentext-style" x="0" y="0" html="360° AMMERGAUER ALPEN" onclick="set(layer[sb-tn-conatainer-gruppen].visible, false); set(layer[sb_nt_container-g1].visible, true); set(layer[thumbnail-back1].visible, true); "/> -->
+<!-- <layer name="pfeil4" type="image" url="%FIRSTXML%/logos/pfeil-rechts.png" parent="thumbnail-gruppentext4" x="10" y="0" width="15" height="15" keep="true" enabled="false" visible="true" alpha="1" align="right"/> -->
+<!--  ...............................EBENE 1 .........................
+
+  <layer  name="thumbnail-gruppentext1"
+          parent="sb-tn-conatainer-gruppen"
+          style="thumbnail-gruppentext-style"
+          x="0"
+          y="50"
+          html="OUTDOORACTIVE"
+
+
+          onclick="open-lightboxlayer('https://www.outdooractive.com/de/')"/>
+
+
+ <layer name="pfeil1" type="image" url="%FIRSTXML%/logos/pfeil-rechts.png" parent="thumbnail-gruppentext1" x="10" y="0"
+        width="15" height="15" keep="true" enabled="false" visible="true" alpha="1" align="right" />
+
+
+ -->
+<!-- <layer name="thumbnail-gruppentext3" parent="sb-tn-conatainer-gruppen" style="thumbnail-gruppentext-style" x="0" y="50" html="LOCANDY" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/kultur/kulturmeile/details')"/>
+<layer name="pfeil3" type="image" url="%FIRSTXML%/logos/pfeil-rechts.png" parent="thumbnail-gruppentext3" x="10" y="0" width="15" height="15" keep="true" enabled="false" visible="true" alpha="1" align="right"/>
+<layer name="thumbnail-gruppentext6" parent="sb-tn-conatainer-gruppen" style="thumbnail-gruppentext-style" x="0" y="100" html="WEBCAMS" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/webcams')"/>
+<layer name="pfeil6" type="image" url="%FIRSTXML%/logos/pfeil-rechts.png" parent="thumbnail-gruppentext6" x="10" y="0" width="15" height="15" keep="true" enabled="false" visible="true" alpha="1" align="right"/> -->
+<!--  ............................. PANOS ........................   -->
+<!--  Zurück Button 1  -->
+<!-- <layer name="thumbnail-back1" parent="grund" style="thumbnail-back-style" x="0" y="155" html="[b] Zurück [/b]" onclick="set(layer[sb-tn-conatainer-gruppen].visible, true); set(layer[thumbnail-back1].visible, false); set(layer[sb_nt_container-g1].visible, false);"/> -->
+<!-- <layer name="pfeil-z1" type="image" url="%FIRSTXML%/logos/pfeil-links-mweiss.png" parent="thumbnail-back1" x="10" y="0" width="15" height="15" keep="true" enabled="false" visible="true" alpha="1" align="left"/> -->
+<layer name="sb_nt_container-g1" parent="grund" type="container" style="style_tn_container" align="topcenter" keep="true" enabled="true" visible="true" width="210" height="600" minheight="400" maxheight="560" />
+<events name="resize_menu1" keep="true" onresize="calc(layer[sb_nt_container-g1].height, stageheight );"/>
+<!--  Scroll-Container 2  -->
+<layer name="sb_scroll_container-g1" parent="sb_nt_container-g1" type="container" style="style_scroll_container" align="topcenter" keep="true" enabled="true" visible="true" url.flash="../../../../plugins/scrollarea.swf" url.html5="../../../../plugins/scrollarea.js" direction="v" draggable="true" capturechildren="true" parentmaskchildren="true" mwheel="true" onhover_autoscrolling="false" overscroll="1.0" friction="0.95" acceleration="0.08" returnacceleration="0.15" momentum="0.06" onscroll="" width="210" height="890"/>
+<layer name="arrow_up" url="%FIRSTXML%/logos/pfeil-up-weiss.png" keep="true" enabled="true" width="prop" height="20" align="topcenter" scale="1.0" x="0" y="10" alpha="0.8" parent="sb_nt_container-g1" onover="tween(alpha,1);" onout="tween(alpha,0.8);" ondown="onover(); asyncloop(pressed, layer[sb_scroll_container-g1].scrollby(0,+1));" onup="onout();"/>
+<layer name="arrow_down" url="%FIRSTXML%/logos/pfeil-down-weiss.png" keep="true" enabled="true" width="prop" height="20" align="bottomcenter" scale="1.0" x="0" y="10" alpha="0.8" parent="sb_nt_container-g1" onover="tween(alpha,1);" onout="tween(alpha,0.8);" ondown="onover(); asyncloop(pressed, layer[sb_scroll_container-g1].scrollby(0,-1));" onup="onout();"/>
+<!--  Thumbnail 1  -->
+<layer name="scene_BAD_KOHLGRUB" parent="sb_scroll_container-g1" type="container" url="image/thumb1.jpg" style="style_tn" align="topcenter" keep="true" bgborder="2 0x555555 0.9" enabled="true" visible="true" x="0" y="10" onclick="loadscene(get(name),null, MERGE, BLEND(1));" onover="tween(layer[thumbnail-text1].bgalpha, 1);" onout="tween(layer[thumbnail-text1].bgalpha, 0.8);"/>
+<layer name="thumbnail-text1" parent="scene_BAD_KOHLGRUB" style="thumbnail-text-style" x="0" y="20" html="[b]BAD KOHLGRUB[/b]"/>
+<!--  Thumbnail 2  -->
+<layer name="scene_BAD_BAYERSOIEN_KAPELLE" parent="sb_scroll_container-g1" type="container" url="image/thumb2.jpg" style="style_tn" align="topcenter" keep="true" enabled="true" visible="true" x="0" y="120" onclick="loadscene(get(name),null, MERGE, BLEND(1));" onover="tween(layer[thumbnail-text2].bgalpha, 1);" onout="tween(layer[thumbnail-text2].bgalpha, 0.8);"/>
+<layer name="thumbnail-text2" parent="scene_BAD_BAYERSOIEN_KAPELLE" style="thumbnail-text-style" x="0" y="20" html="[b]BAD BAYERSOIEN[/b]"/>
+<!--  Thumbnail 3  -->
+<layer name="scene_SAULGRUB_UEBERSICHT" parent="sb_scroll_container-g1" type="container" url="image/thumb3.jpg" style="style_tn" align="topcenter" keep="true" enabled="true" visible="true" x="0" y="230" onclick="loadscene(get(name),null, MERGE, BLEND(1));" onover="tween(layer[thumbnail-text3].bgalpha, 1);" onout="tween(layer[thumbnail-text3].bgalpha, 0.8);"/>
+<layer name="thumbnail-text3" parent="scene_SAULGRUB_UEBERSICHT" style="thumbnail-text-style" x="0" y="20" html="[b]SAULGRUB[/b]"/>
+<!--  Thumbnail 4  -->
+<layer name="scene_UNTERAMMERGAU_-_PULVERMOOS" parent="sb_scroll_container-g1" type="container" url="image/thumb4.jpg" style="style_tn" align="topcenter" keep="true" enabled="true" visible="true" x="0" y="340" onclick="loadscene(get(name),null, MERGE, BLEND(1));" onover="tween(layer[thumbnail-text4].bgalpha, 1);" onout="tween(layer[thumbnail-text4].bgalpha, 0.8);"/>
+<layer name="thumbnail-text4" parent="scene_UNTERAMMERGAU_-_PULVERMOOS" style="thumbnail-text-style" x="0" y="20" html="[b]UNTERAMMERGAU[/b]"/>
+<!--  Thumbnail 5  -->
+<layer name="scene_OBERAMMERGAU" parent="sb_scroll_container-g1" type="container" url="image/thumb5.jpg" style="style_tn" align="topcenter" keep="true" enabled="true" visible="true" x="0" y="450" onclick="loadscene(get(name),null, MERGE, BLEND(1));" onover="tween(layer[thumbnail-text5].bgalpha, 1);" onout="tween(layer[thumbnail-text5].bgalpha, 0.8);"/>
+<layer name="thumbnail-text5" parent="scene_OBERAMMERGAU" style="thumbnail-text-style" x="0" y="20" html="[b]OBERAMMERGAU[/b]"/>
+<!--  Thumbnail 6  -->
+<layer name="scene_OBERAMMERGAU_-_KOFEL" parent="sb_scroll_container-g1" type="container" url="image/thumb6.jpg" style="style_tn" align="topcenter" keep="true" enabled="true" visible="true" x="0" y="560" onclick="loadscene(get(name),null, MERGE, BLEND(1));" onover="tween(layer[thumbnail-text6].bgalpha, 1);" onout="tween(layer[thumbnail-text6].bgalpha, 0.8);"/>
+<layer name="thumbnail-text6" parent="scene_OBERAMMERGAU_-_KOFEL" style="thumbnail-text-style" x="0" y="20" html="[b]KOFEL[/b]"/>
+<!--  Thumbnail 7  -->
+<layer name="scene_ETTAL_BENEDIKTINERABTEI_UEBERSICHT" parent="sb_scroll_container-g1" type="container" url="image/thumb7.jpg" style="style_tn" align="topcenter" keep="true" enabled="true" visible="true" x="0" y="670" onclick="loadscene(get(name),null, MERGE, BLEND(1));" onover="tween(layer[thumbnail-text7].bgalpha, 1);" onout="tween(layer[thumbnail-text7].bgalpha, 0.8);"/>
+<layer name="thumbnail-text7" parent="scene_ETTAL_BENEDIKTINERABTEI_UEBERSICHT" style="thumbnail-text-style" x="0" y="20" html="[b]ETTAL[/b]"/>
+<!--  Thumbnail 8  -->
+<layer name="scene_BENEDIKTINERABTEI_ETTAL" parent="sb_scroll_container-g1" type="container" url="image/thumb8.jpg" style="style_tn" align="topcenter" keep="true" enabled="true" visible="true" x="0" y="780" onclick="loadscene(get(name),null, MERGE, BLEND(1));" onover="tween(layer[thumbnail-text8].bgalpha, 1);" onout="tween(layer[thumbnail-text8].bgalpha, 0.8);"/>
+<layer name="thumbnail-text8" parent="scene_BENEDIKTINERABTEI_ETTAL" style="thumbnail-text-style" x="0" y="20" html="[b]KLOSTER ETTAL[/b]"/>
+</krpano>

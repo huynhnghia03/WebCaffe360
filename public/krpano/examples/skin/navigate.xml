@@ -1,0 +1,274 @@
+<!-- <krpano version="1.19" title="">
+    <skin_settings maps="false" gyro="true" littleplanetintro="false" />
+
+    <scene name="scene1" title="Toàn Cảnh Trên Cao" thumburl="maps.png" >
+        <image>
+            <sphere url="panos/scene1.jpg" />
+        </image>
+    </scene>
+
+    <scene name="scene2" title="Hoàng Hôn Côn Đảo" thumburl="maps.png" >
+        <image>
+            <sphere url="panos/scene2.jpg" />
+        </image>
+    </scene>
+
+    <scene name="scene3" title="Hòn Cau" thumburl="maps.png" >
+        <image>
+            <sphere url="panos/scene3.jpg" />
+        </image>
+    </scene>
+
+    <layer name="menu" type="container" align="righttop" width="300" height="80%"
+        bgcolor="0x000000" bgalpha="0.6" css="overflow-y:auto;"
+        x="-300" y="10" children="true" />
+
+    <layer name="menu-item1" url="maps.png" align="center"
+        width="90%" height="100" margin="5"
+        onclick="loadscene('scene1');"
+        onover="tween(scale, 1.1);"
+        onout="tween(scale, 1);"
+        caption="Toàn Cảnh Trên Cao Côn Đảo"
+        x="0" y="10" />
+
+    <layer name="menu-item2" url="maps.png" align="center"
+        width="90%" height="100" margin="5"
+        onclick="loadscene('scene2');"
+        onover="tween(scale, 1.1);"
+        onout="tween(scale, 1);"
+        caption="Hoàng Hôn Côn Đảo"
+        x="0" y="10" />
+
+    <layer name="menu-item3" url="maps.png" align="center"
+        width="90%" height="100" margin="5"
+        onclick="loadscene('scene3');"
+        onover="tween(scale, 1.1);"
+        onout="tween(scale, 1);"
+        caption="Hòn Cau - Toàn cảnh trên cao"
+        x="0" y="10" />
+
+    <action name="setLanguage">
+        if(%1 == 'vi',
+            set(txt_hello, 'Xin chào!'),
+            set(txt_hello, 'Hello!')
+        );
+        update_text();
+    </action>
+
+    <layer name="btn-lang-vi" type="button" align="leftbottom"
+        x="10" y="10" width="50" height="30" bgcolor="0xff0000"
+        onclick="setLanguage('vi');" caption="Tiếng Việt" />
+
+    <layer name="btn-lang-en" type="button" align="leftbottom"
+        x="70" y="10" width="50" height="30" bgcolor="0x0000ff"
+        onclick="setLanguage('en');" caption="English" />
+
+    <layer name="mobile-menu" devices="tablet|phone" width="100%" height="50%"
+        bgcolor="0x000000" bgalpha="0.8" align="lefttop" css="overflow-y:auto;" />
+</krpano> -->
+
+<!--
+	krpano - contextmenu example
+	- customize the context menu
+	- add a setting for changing the control mode
+	- add settings for changing the viewing projection
+	- add a logo image (html code) into the contextmenu (HTML5 only)
+-->
+<krpano>
+
+	<include url="%SWFPATH%/plugins/comboboxConfig.xml" />
+
+	<action name="comboboxexamples" autorun="onstart">
+	add_scene_items()
+	</action>
+	<combobox name="cbscenes" design="vtour" width="200px" align="righttop" x="50" y="50" onloaded="add_scene_items();" />
+<action name="add_scene_items" scope="local">
+  for (set(i, 0), i LT scene.count, inc(i),
+    caller.additem(
+      calc(
+        '[div style=[dq]'+'display:flex;flex-direction:column;align-items:center;margin-bottom:5px;[dq]/]' +
+        '[img src=[dq]' + scene[get(i)].thumburl + '[dq] style=[dq]'+'border:2px solid rgba(255,255,255,0.9);width:170px;height:120px;border-radius:10px;margin-bottom:5px;[dq]/]' +
+        '[span style=[dq]'+'color:#fff;font-size:16px;font-family:sans-serif;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;[dq]/]' +
+        scene[get(i)].title + '[/span]' +
+        '[/div]'
+      ),
+      calc('loadscene(' + i + ', null, MERGE, BLEND(0.5))')
+    )
+  );
+</action>
+
+
+	<!-- static example -->
+	<!-- <combobox name="cbsettings" design="vtour" align="righttop" x="10" y="10" onchange="selectItemByName(0);">
+		<item name="item0" caption="SETTINGS" />
+		<item name="item1" caption="Drag Control"       onclick="set(control.mouse,drag); set(control.touch,drag);" />
+		<item name="item2" caption="Move Control"       onclick="set(control.mouse,moveto); set(control.touch,moveto);" />
+		<item name="item3" caption="Normal View"        onclick="cm_normal_view();" />
+		<item name="item4" caption="Fisheye View"       onclick="cm_fisheye_view();" />
+		<item name="item5" caption="Stereographic View" onclick="cm_stereographic_view();" />
+		<item name="item6" caption="Architectural View" onclick="cm_architectural_view();" />
+		<item name="item7" caption="Pannini View"       onclick="cm_pannini_view();" />
+		<item name="item8" caption="Little Planet View" onclick="cm_littleplanet_view();" />
+	</combobox> -->
+
+	<!-- full dynamic example -->
+	<!-- <action name="rebuild_design_selection" autorun="onstart" scope="local" args="design"  onchange="selectItemByName(0);">
+		removeComboboxLayer(cbdesigns);
+		addComboboxLayer(cbdesigns, get(design));
+		set(layer[cbdesigns].align, 'center');
+		layer[cbdesigns].additem('Select Combobox Design');
+		for(set(i,0), i LT combobox_design.count, inc(i),
+			layer[cbdesigns].additem( get(combobox_design[get(i)].name), calc('rebuild_design_selection(' + combobox_design[get(i)].name + ');')  );
+		);
+	</action> -->
+
+
+	<!-- some custom example designs -->
+	<combobox_design name="rounded" margin="3" open_close_speed="0.25">
+		<style name="combobox_container_style"
+			bgcolor="0xFFFFFF"
+			bgalpha="0.95"
+			bgborder="1 0xFFFFFF 0.5"
+			bgroundedge="5"
+			bgshadow="2 4 20 0x000000 0.5"
+      border-radius='10px'
+			/>
+		<style name="combobox_marker_style"
+			css="color:#999999;"
+			bg="false"
+			txtshadow=""
+			/>
+		<style name="combobox_item_style"
+			css="color:#222222;"
+			padding="4 4"
+			bg="false"
+			bgcolor="0xCCCCCC"
+			bgalpha="1.0"
+			bgroundedge="3"
+			txtshadow=""
+			onoveritem="set(css, 'color:#2277FF;');"
+			onoutitem="set(css, 'color:#222222;');"
+			/>
+	</combobox_design>
+
+	<combobox_design name="classic" margin="0" open_close_speed="0.25">
+		<style name="combobox_container_style"
+			bgcolor="0xFFFFFF"
+			bgalpha="1.0"
+			bgborder="2 0x333333 0.5"
+			bgroundedge="0"
+			bgshadow=""
+			height="50"
+       border-radius='10px'
+			/>
+		<style name="combobox_marker_style"
+			css="color:#222222;"
+			bg="false"
+			txtshadow=""
+			/>
+		<style name="combobox_item_style"
+			css="color:#222222;"
+			padding="7"
+			bg="false"
+			bgcolor="0x777777"
+			bgalpha="1.0"
+			bgroundedge="0"
+			txtshadow=""
+			onoveritem="set(bg,true); set(css, 'color:#FFFFFF;');"
+			onoutitem="set(bg,false); set(css, 'color:#222222;');"
+			/>
+	</combobox_design>
+
+	<combobox_design name="glas" margin="2" open_close_speed="0.25">
+		<style name="combobox_container_style"
+			bgcolor="0xEEEEEE"
+			bgalpha="0.5"
+			bgborder="1 0x333333 0.5"
+			bgroundedge="5"
+			bgshadow="0 4 10 0x000000 0.3"
+			height="50"
+       border-radius='10px'
+			/>
+		<style name="combobox_marker_style"
+			css="color:#222222;"
+			alpha="0.7"
+			bg="false"
+			txtshadow=""
+			/>
+		<style name="combobox_item_style"
+			css="color:#222222;"
+			padding="4"
+			bg="false"
+			bgborder="1 0x333333 0.0"
+			bgcolor="0xFFFFFF"
+			bgalpha="1"
+			bgroundedge="3"
+			txtshadow="0 0 4 0xFFFFFF 1"
+			onoveritem="set(bg,true); set(bgborder, '1 0x333333 0.5');"
+			onoutitem="set(bg,false); set(bgborder, '1 0x333333 0.0');"
+			/>
+	</combobox_design>
+
+
+	<!-- include a contextmenu with projections from an other example -->
+	<!-- <include url="../animated-hotspots/contextmenu.xml" /> -->
+
+
+	<!-- use the panos/scenes from the corfu example -->
+	<!-- <scene name="achilleion-hof-unten" title="Achilleion - Garden" thumburl="../demotour-corfu/panos/achilleion-hof-unten.tiles/thumb.jpg">
+		<view hlookat="-1" vlookat="11" fov="120" />
+		<preview url="../demotour-corfu/panos/achilleion-hof-unten.tiles/preview.jpg" />
+		<image>
+			<cube url="../demotour-corfu/panos/achilleion-hof-unten.tiles/mobile_%s.jpg" />
+		</image>
+	</scene>
+
+	<scene name="canaldemure5" title="Canal d&#180;Amour" thumburl="../demotour-corfu/panos/canaldemure5.tiles/thumb.jpg">
+		<view hlookat="-118" vlookat="4" fov="120" />
+		<preview url="../demotour-corfu/panos/canaldemure5.tiles/preview.jpg" />
+		<image>
+			<cube url="../demotour-corfu/panos/canaldemure5.tiles/mobile_%s.jpg" />
+		</image>
+	</scene>
+
+	<scene name="kalamaki-strand" title="Kalamaki Beach" thumburl="../demotour-corfu/panos/kalamaki-strand.tiles/thumb.jpg">
+		<view hlookat="18" vlookat="1" fov="120" />
+		<preview url="../demotour-corfu/panos/kalamaki-strand.tiles/preview.jpg" />
+		<image>
+			<cube url="../demotour-corfu/panos/kalamaki-strand.tiles/mobile_%s.jpg" />
+		</image>
+	</scene>
+
+	<scene name="kassiopi-felsen" title="Kassiopi Beach" thumburl="../demotour-corfu/panos/kassiopi-felsen.tiles/thumb.jpg">
+		<view hlookat="-4" vlookat="18" fov="120" />
+		<preview url="../demotour-corfu/panos/kassiopi-felsen.tiles/preview.jpg" />
+		<image>
+			<cube url="../demotour-corfu/panos/kassiopi-felsen.tiles/mobile_%s.jpg" />
+		</image>
+	</scene>
+
+	<scene name="korfu-stadt-alte-festung-ganz-oben" title="Corfu Old Fortress" thumburl="../demotour-corfu/panos/korfu-stadt-alte-festung-ganz-oben.tiles/thumb.jpg">
+		<view hlookat="123" vlookat="17" fov="120" />
+		<preview url="../demotour-corfu/panos/korfu-stadt-alte-festung-ganz-oben.tiles/preview.jpg" />
+		<image>
+			<cube url="../demotour-corfu/panos/korfu-stadt-alte-festung-ganz-oben.tiles/mobile_%s.jpg" />
+		</image>
+	</scene>
+
+	<scene name="pantokrator-antenne" title="Pantokrator - Station" thumburl="../demotour-corfu/panos/pantokrator-antenne.tiles/thumb.jpg">
+		<view hlookat="-3" vlookat="4" fov="120" />
+		<preview url="../demotour-corfu/panos/pantokrator-antenne.tiles/preview.jpg" />
+		<image>
+			<cube url="../demotour-corfu/panos/pantokrator-antenne.tiles/mobile_%s.jpg" />
+		</image>
+	</scene>
+
+	<scene name="pantokrator-kloster" title="Pantokrator - Monastery" thumburl="../demotour-corfu/panos/pantokrator-kloster.tiles/thumb.jpg">
+		<view hlookat="0" vlookat="0" fov="120" />
+		<preview url="../demotour-corfu/panos/pantokrator-kloster.tiles/preview.jpg" />
+		<image>
+			<cube url="../demotour-corfu/panos/pantokrator-kloster.tiles/mobile_%s.jpg" />
+		</image>
+	</scene> -->
+
+</krpano>

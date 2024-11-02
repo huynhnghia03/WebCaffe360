@@ -1,0 +1,54 @@
+<krpano>
+<!--  OVERLAY für Popup  -->
+<layer name="popup-overlay" parent="" type="container" style="style-popup-overlay" align="center" edge="" keep="true" enabled="true" visible="false" bgcapture="true" alpha="1" scale="1" zorder="999"/>
+<style name="style-popup-overlay" x="0" y="0" width="100%" height="100%" vcenter="true" padding="0" bg="true" bgcolor="0x000000" bgalpha="0.7" bgborder="0 0xFFFFFF 1.0" bgroundedge="0" bgshadow="" onclick="close-popup-zahnradbahn(); "/>
+<!--  LAYER für Popup  -->
+<layer name="popup-layer" parent="popup-overlay" type="container" style="style-popup-layer" align="center" edge="" keep="true" enabled="true" visible="true" bgcapture="true" alpha="1" scale="1"/>
+<style name="style-popup-layer" x="0" y="0" width="600" height="510" vcenter="true" padding="0" bg="true" bgcolor="0xf7f5f3" bgalpha="1.0" bgborder="1 0xFFFFFF 1.0" bgroundedge="5" bgshadow=""/>
+<events name="resize_popup" keep="true" onresize="calc(layer[popup-layer].height, stageheight / 1.2); calc(layer[popup-layer].width, stagewidth / 1.2);" devices="mobile"/>
+<!--  MOBILE SCALE -->
+<events name="orientation-popup" keep="true" onresize="Orientation-popup();" devices="mobile"/>
+<action name="Orientation-popup">
+if(stagewidth LT stageheight,
+<!--  PORTRAIT  -->
+set(layer[zahnradbahn-bild].x, 0); set(layer[zahnradbahn-bild].y, 175); set(layer[zahnradbahn-bild].edge, center); set(layer[zahnradbahn-bild].scale, 0.7); set(layer[popup-logo-layer].align, topleft); set(layer[popup-logo-layer].x, -5); set(layer[popup-logo-layer].y, 5); set(layer[popup-logo-layer].scale, 1.0); set(layer[zahnradbahn-h1].scale, 0.8); set(layer[zahnradbahn-h1].align, topright); set(layer[zahnradbahn-h1].x, 10); set(layer[zahnradbahn-h1].y, 75); set(layer[zahnradbahn-text].edge, center); set(layer[zahnradbahn-text].align, centercenter); set(layer[zahnradbahn-text].x, 5); set(layer[zahnradbahn-text].y, -50); set(layer[zahnradbahn-text].scale, 0.8); set(layer[mehr-infos-zahnradbahn1].x, 50); set(layer[mehr-infos-zahnradbahn1].y, 15); set(layer[mehr-infos-zahnradbahn1].align, centerleft); set(layer[fahrplan1].x, 50); set(layer[fahrplan1].y, 55); set(layer[fahrplan1].align, centerleft); set(layer[preise1].x, 170); set(layer[preise1].y, 55); set(layer[preise1].align, centerleft); ,
+<!--  LANDSCAPE  -->
+set(layer[zahnradbahn-bild].x, -40); set(layer[zahnradbahn-bild].y, 130); set(layer[zahnradbahn-bild].edge, bottomright); set(layer[zahnradbahn-bild].scale, 1.0); set(layer[popup-logo-layer].align, topcenter); set(layer[popup-logo-layer].x, 0); set(layer[popup-logo-layer].y, 5); set(layer[popup-logo-layer].scale, 0.7); set(layer[zahnradbahn-h1].scale, 0.7); set(layer[zahnradbahn-h1].align, topleft); set(layer[zahnradbahn-h1].x, 15); set(layer[zahnradbahn-h1].y, 20); set(layer[zahnradbahn-text].edge, center); set(layer[zahnradbahn-text].align, centercenter); set(layer[zahnradbahn-text].x, 100); set(layer[zahnradbahn-text].y, -7); set(layer[zahnradbahn-text].scale, 0.8); set(layer[mehr-infos-zahnradbahn1].x, 0); set(layer[mehr-infos-zahnradbahn1].y, 55); set(layer[mehr-infos-zahnradbahn1].align, centercenter); set(layer[fahrplan1].x, 0); set(layer[fahrplan1].y, 97); set(layer[fahrplan1].align, centercenter); set(layer[preise1].x, 120); set(layer[preise1].y, 97); set(layer[preise1].align, centercenter); );
+</action>
+<!--  X-Button  -->
+<layer name="close-popup-layer" parent="popup-layer" style="close-popup-layer-style"/>
+<style name="close-popup-layer-style" type="container" url="image/close.png" bgcapture="false" align="topright" keep="true" enabled="true" visible="true" width="35" height="35" x="10" y="10" scale="1" zorder="501" onover=" set(layer[close-popup-layer].visible, false); set(layer[close-popup-layer2].visible, true);" onout=" set(layer[close-popup-layer].visible, true); set(layer[close-popup-layer2].visible,false);" onclick="close-popup-zahnradbahn();"/>
+<layer name="close-popup-layer2" parent="popup-layer" style="close-popup-layer-style2"/>
+<style name="close-popup-layer-style2" type="container" url="image/close-hover.png" bgcapture="false" align="topright" keep="true" enabled="true" visible="false" width="35" height="35" x="10" y="10" scale="1" zorder="501" onover=" set(layer[close-popup-layer].visible, false); set(layer[close-popup-layer2].visible, true);" onout=" set(layer[close-popup-layer].visible, true); set(layer[close-popup-layer2].visible,false);" onclick="close-popup-zahnradbahn();"/>
+<!--  Kopfzeile mit Logo  -->
+<layer name="popup-logo-layer" parent="popup-layer" style="popup-logo-layer-style"/>
+<style name="popup-logo-layer-style" type="container" url="image/logo-bahnen.png" bgcapture="false" align="topcenter" keep="true" enabled="true" visible="true" width="100" height="prop" x="0" y="25" scale="1" zorder="501" onover="" onout="" onclick=""/>
+<!--  MEHR INFOS STYLE  -->
+<style name="mehr-infos-style" type="container" bgcapture="false" align="centercenter" edge="topleft" keep="true" enabled="true" visible="false" width="prop" height="37" x="15" y="120" scale="1" zorder="501" onclick=""/>
+<!--  FAHRPLAN  -->
+<layer name="fahrplan1" parent="popup-layer" style="fahrplan-style" url="image/fahrplan1.png" onclick="openurl('https://www.pilatus.ch/informieren/fahrplan')"/>
+<layer name="fahrplan2" parent="popup-layer" style="fahrplan-style" visible="false" url="image/fahrplan2.png" onclick="openurl('https://www.pilatus.ch/informieren/fahrplan')"/>
+<style name="fahrplan-style" type="container" bgcapture="false" align="centercenter" edge="topleft" keep="true" enabled="true" visible="true" width="prop" height="37" x="15" y="160" scale="1" zorder="501" onover="set(layer[fahrplan1].visible, false); set(layer[fahrplan2].visible, true);" onout="set(layer[fahrplan2].visible, false); set(layer[fahrplan1].visible, true);" onclick=""/>
+<!--  PREISE  -->
+<layer name="preise1" parent="popup-layer" style="preise-style" url="image/preise1.png" onclick="openurl('https://www.pilatus.ch/buchen/preise')"/>
+<layer name="preise2" parent="popup-layer" style="preise-style" visible="false" url="image/preise2.png" onclick="openurl('https://www.pilatus.ch/buchen/preise')"/>
+<style name="preise-style" type="container" bgcapture="false" align="centercenter" edge="topleft" keep="true" enabled="true" visible="true" width="prop" height="37" x="123" y="160" scale="1" zorder="501" onover="set(layer[preise1].visible, false); set(layer[preise2].visible, true);" onout="set(layer[preise2].visible, false); set(layer[preise1].visible, true);" onclick=""/>
+<!--  ÜBERSCHRIFT STYLE  -->
+<style name="popup-h1-style" type="container" bgcapture="false" align="topcenter" edge="" keep="true" enabled="true" visible="false" width="prop" height="40" x="0" y="125" scale="1" zorder="500" onover="" onout="" onclick=""/>
+<!--  TEXT STYLE  -->
+<style name="popup-text-style" type="container" bgcapture="false" align="centercenter" edge="topleft" keep="true" enabled="true" visible="false" width="255" height="prop" x="15" y="-25" scale="1" zorder="501" onover="" onout="" onclick=""/>
+<!--  BILD STYLE  -->
+<style name="popup-bild-style" type="container" bgcapture="false" align="centercenter" edge="bottomright" keep="true" enabled="true" visible="false" width="255" height="prop" x="-15" y="120" scale="1" zorder="501" onover="" onout="" onclick=""/>
+<!--  .....................ZAHNRADBAHN.....................  -->
+<action name="open-popup-zahnradbahn"> set(layer[popup-overlay].visible, true); set(layer[zahnradbahn-bild].visible, true); set(layer[mehr-infos-zahnradbahn1].visible, true); set(layer[zahnradbahn-h1].visible, true); set(layer[zahnradbahn-text].visible, true); set(control.disablewheel, true); set(control.touchzoom, false); set(plugin[gyro].enabled, false); </action>
+<action name="close-popup-zahnradbahn"> set(control.disablewheel, false); set(layer[popup-overlay].visible, false); set(layer[zahnradbahn-bild].visible, false); set(layer[mehr-infos-zahnradbahn1].visible, false); set(layer[zahnradbahn-h1].visible, false); set(layer[zahnradbahn-text].visible, false); set(control.disablewheel, false); set(control.touchzoom, true); set(plugin[gyro].enabled, true); </action>
+<!--  ÜBERSCHRIFT  -->
+<layer name="zahnradbahn-h1" parent="popup-layer" style="popup-h1-style" url="image/zahnradbahn-h1.png"/>
+<!--  BILD  -->
+<layer name="zahnradbahn-bild" parent="popup-layer" style="popup-bild-style" url="image/zahnradbahn-bild.jpg"/>
+<!--  TEXT  -->
+<layer name="zahnradbahn-text" parent="popup-layer" style="popup-text-style" url="image/zahnradbahn-text.png"/>
+<!--  MEHR INFOS  -->
+<layer name="mehr-infos-zahnradbahn1" parent="popup-layer" style="mehr-infos-style" url="image/mehr-info1.png" onover="set(layer[mehr-infos-zahnradbahn1].visible, false); set(layer[mehr-infos-zahnradbahn2].visible, true);" onout="set(layer[mehr-infos-zahnradbahn2].visible, false); set(layer[mehr-infos-zahnradbahn1].visible, true);" onclick="openurl('https://www.pilatus.ch/entdecken/zahnradbahn')"/>
+<layer name="mehr-infos-zahnradbahn2" parent="popup-layer" style="mehr-infos-style" url="image/mehr-info2.png" visible="false" onover="set(layer[mehr-infos-zahnradbahn1].visible, false); set(layer[mehr-infos-zahnradbahn2].visible, true);" onout="set(layer[mehr-infos-zahnradbahn2].visible, false); set(layer[mehr-infos-zahnradbahn1].visible, true);" onclick="openurl('https://www.pilatus.ch/entdecken/zahnradbahn')"/>
+</krpano>

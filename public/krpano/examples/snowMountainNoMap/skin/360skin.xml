@@ -1,0 +1,27 @@
+<krpano>
+<!--  HOTSPOTS VERSTECKEN IN VR  -->
+<action name="hidespot"> for(set(i,0), i LT hotspot.count, inc(i), if(hotspot[get(i)].novrspot == yes, set(hotspot[get(i)].visible,false); ); ); </action>
+<action name="showspot"> for(set(i,0), i LT hotspot.count, inc(i), if(hotspot[get(i)].novrspot == yes, set(hotspot[get(i)].visible,true); ); ); </action>
+<!--  PREV/NEXT BUTTON  -->
+<action name="prevscene">
+if(%1 != findnext, sub(i,scene.count,1)); txtadd(scenexml,'
+<krpano>',get(scene[%i].content),'</krpano>
+'); if(scenexml == xml.content, dec(i); if(i LT 0, sub(i,scene.count,1)); loadscene(get(scene[%i].name), null, MERGE, BLEND(1)); , dec(i); if(i GE 0, prevscene(findnext)); );
+</action>
+<action name="nextscene">
+if(%1 != findnext, set(i,0)); txtadd(scenexml,'
+<krpano>',get(scene[%i].content),'</krpano>
+'); if(scenexml == xml.content, inc(i); if(i == scene.count, set(i,0)); loadscene(get(scene[%i].name), null, MERGE, BLEND(1)); , inc(i); if(i LT scene.count, nextscene(findnext)); );
+</action>
+<layer name="next-b" url="../logos/pfeil-rechts-weiss.png" parent="" style="prev-next_style" align="topcenter" x="150" y="28" onover="tween(alpha,1);" onout="tween(alpha,0.8);" onup="onout();" ondown="onover();" onclick="action(nextscene)"/>
+<layer name="back-b" url="../logos/pfeil-links-weiss.png" parent="" style="prev-next_style" align="topcenter" x="-150" y="28" onover="tween(alpha,1);" onout="tween(alpha,0.8);" onup="onout();" ondown="onover();" onclick="action(prevscene)"/>
+<style name="prev-next_style" scale="1" width="20" height="20" visible="true" enable="true" keep="true" zorder="400" alpha="0.8"/>
+<!--  SOUND ...... eingebunden in der tour.xml ganz oben  -->
+<plugin name="soundinterface" url.html5="../../../plugins/soundinterface.js" url.flash="../../../plugins/soundinterface.swf" preload="true" rootpath="" volume="0.5" mute="false" panningmodel="simple" worldscale="1.0" autopause="true" autounlock="true"/>
+<!--  360 LOGO  -->
+<layer name="logo" url="../logos/360-logo.png" keep="true" enabled="true" width="100" height="prop" align="topright" scale="1.0" x="5" y="15" alpha="0.5" scale.normal="1.0" scale.mobile="0.7" onover="tween(alpha,1,1);" onout="tween(alpha,0.5,1);" onclick="openurl('https://360perspektiven.com/');"/>
+<!--  GYRO SENSOR  -->
+<plugin name="gyro" devices="html5" keep="true" url="gyro2.js" enabled="true" camroll="true" friction="0.0" touch_mode="full" sensor="0" sensor_mode="1" softstart="0.5" autocalibration="false" desktopsupport="false" onavailable="gyro_available_info();" onunavailable="gyro_not_available_info();" onenable="" ondisable=""/>
+<action name="gyro_available_info"> set(layer[infotext].html, 'Gyroscope available, press the gyro button...'); set(layer[gyrobutton].visible, true); </action>
+<action name="gyro_not_available_info" xautorun.flash="onstart"> set(layer[infotext].html, 'No gyroscope available...'); </action>
+</krpano>

@@ -1,0 +1,45 @@
+<krpano>
+<include url="../../../../plugins/showtext.xml"/>
+<!--  Sidebar FARBEN & LOGOS  -->
+<menu-settings farbe1="0xFFFFFF" farbe2="0x000000" farbe3="0x7fa2bb" farbe4="0x1C628B" farbe5="0xd4dfe7" sb-logo="%SWFPATH%/examples/snowMountainNoMap/content/sidebar/logo.png"/>
+<!--  .................................. ON OFF SCHALTER ............................  -->
+<!--  Menütaste X  -->
+
+<layer name="sidebar-aus-layer" type="container" keep="true" enabled="true" visible="true" alpha="1" align="lefttop" width="37" height="37" x="10" y="10" bgcolor="0xFFFFFF" bgalpha="0.0" bgcapture="true" zorder="51" parent="" bgroundedge="0 0 0 0" bgshadow="2 2 3 0 0xFFFFFF 0.0" onhover="" onout="" onclick="sidebar_verstecken();"/>
+<!--  Menütaste OPEN  -->
+
+<layer name="sidebar-an-layer" type="container" keep="true" enabled="true" visible="true" alpha="1" align="lefttop" width="37" height="37" x="10" y="10" bgcolor="0xFFFFFF" bgalpha="0.0" bgcapture="true" zorder="52" parent="" bgroundedge="0 0 0 0" bgshadow="2 2 3 0 0xFFFFFF 0.0" onhover="" onout="" onclick="sidebar_zeigen();"/>
+<!--     X    -->
+
+<style name="x_button" type="container" keep="true" enabled="false" visible="true" alpha="1" align="center" zorder="51" parent="sidebar-aus-layer" width="25" height="2.5" bgcolor="0xFFFFFF" bgalpha="1" bgshadow="1 1 2 0xFFFFFF 0.0" bgcapture="false" bgroundedge="2 2 2 2" x="0"/>
+<!--  Menütaste fixieren  -->
+<layer name="kreuz_1" style="x_button" rotate="0" y="-12" width="25"/>
+<layer name="kreuz_2" style="x_button" rotate="0" y="-4" width="25"/>
+<layer name="kreuz_3" style="x_button" rotate="0" y="4" width="25"/>
+<action name="sidebar_zeigen"> set(layer[sidebar-an-layer].visible, false); tween(layer[kreuz_2].alpha, 0,0.2); tween(layer[kreuz_1].rotate, 45,0.2); tween(layer[kreuz_3].rotate, -45,0.2); tween(layer[kreuz_1].y, -10,0.2); tween(layer[kreuz_3].y, -10,0.2); tween(layer[kreuz_1].x, -10,0.2); tween(layer[kreuz_3].x, -10,0.2); tween(layer[sidebar-an-layer].x, 220); tween(layer[sidebar-aus-layer].x, 220); </action>
+<action name="sidebar_verstecken"> set(layer[sidebar-an-layer].visible, true); tween(layer[kreuz_1].rotate, 0,0.2); tween(layer[kreuz_3].rotate, 0,0.2); tween(layer[kreuz_1].y, -12,0.2); tween(layer[kreuz_3].y, 4,0.2); tween(layer[kreuz_1].x, 50,0.2); tween(layer[kreuz_3].x, 50,0.2); tween(layer[kreuz_2].alpha, 1,0.2); tween(layer[kreuz_2].x, 50,0.2); tween(layer[sidebar-an-layer].x, 10); tween(layer[sidebar-aus-layer].x, -50); </action>
+<!--  'SHOW TEXT' Style  -->
+<textstyle name="sidebar-close-text" origin="cursor" edge="bottom" xoffset="55" yoffset="20" fadeintime="0.0" showtime="0.1" fadetime="0.0" font="Arial" fontsize="12.0" bold="true" italic="false" textcolor="0x000000" textalign="none" padding="1" css="font-family: Arial;" width="" height="" vcenter="" background="false" backgroundcolor="0x000000" backgroundalpha="0.0" border="true" bordercolor="0x000000" borderalpha="1.0" borderwidth="1.0" roundedge="0" shadow="0.0" shadowrange="4.0" shadowangle="45" shadowcolor="0xFFFFFF" shadowalpha="1.0" textshadow="1.0" textshadowrange="4.0" textshadowangle="45" textshadowcolor="0xFFFFFF" textshadowalpha="1.0" alpha="1.0" parent="" noclip="true"/>
+<!--  ...........................SIDEBAR STYLES........................... -->
+<!--  Body Style  -->
+<style name="sb-container" keep="true" enabled="true" visible="true" alpha="1" x="-220" y="-10" align="lefttop" zorder="51" parent="sidebar-aus-layer" width="210" height="100" bgcolor="get:menu-settings.farbe1" bgalpha="1" bgroundedge="0 0 0 0"/>
+<!--  Logo Style  -->
+<!-- <style name="style_logo" width="prop" height="60" x="-3" y="10" normalscale="0.5" mobilescale="0.7" keep="true" enabled="true" visible="true" alpha="1" align="centertop" maskchildren="false" onclick="open-lightboxlayer(); plugin[easy_html_lightbox].open_url('https://www.mooncity-vienna.at/','','','','','layer[lightbox-layer]'); action(sb_hide);"/> -->
+<!--  Trennlinien Text Style  -->
+<style name="style_linientext" x="10" y="-50" html="_____________________________________" css="text-align:center; font-family:Arial; font-size:8px; color:#333333;" vcenter="true" padding="2" wordwrap="true" bg="false" bgcolor="get:menu-settings.farbe1" bgalpha="1.0" bgborder="0" bgroundedge="0" bgshadow="" txtshadow="" mergedalpha="true" interactivecontent="false" onautosized=""/>
+<!--  Button-Container Style  -->
+<style name="style_b_container" x="0" y="10" width="180" height="25" vcenter="true" padding="2" bg="true" bgcolor="get:menu-settings.farbe1" bgalpha="0.0" bgborder="0" bgroundedge="0" bgshadow=""/>
+<!--  ................................SIDEBAR INHALT...........................  -->
+<!--  Body  -->
+<layer name="grund" style="sb-container" type="container" maskchildren="false"/>
+<!--  Logo  -->
+<!-- <layer name="sb_logo" parent="grund" style="style_logo" type="container" url="get:menu-settings.sb-logo"/> -->
+<!--  Trennlinien (Text)  -->
+<layer name="sb_linientext" parent="grund" style="style_linientext" type="text" align="topcenter" keep="true" enabled="false" visible="true"/>
+<!--  Menü Button-Container  -->
+<layer name="sb_b_container" parent="grund" type="container" style="style_b_container" align="topcenter" keep="true" enabled="true" visible="true"/>
+<!--  .............................   THUMBNAILS   ................................  -->
+<include url="thumbnails.xml"/>
+<!--  .............................   BUTTONS   ................................  -->
+<include url="buttons.xml"/>
+</krpano>

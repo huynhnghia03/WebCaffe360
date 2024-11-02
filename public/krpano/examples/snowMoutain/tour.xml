@@ -1,0 +1,500 @@
+<krpano version="1.20" title="Virtual Tour" tourlink="https://360perspektiven.com/projekte/pilatus/?startscene=">
+<include url="skin/vtourskin.xml"/>
+<include url="skin/360skin.xml"/>
+<include url="content/hotspots/hotspots.xml"/>
+<include url="content/popup/popup.xml"/>
+<include url="content/floorplan/floorplan.xml"/>
+<include url="plugins/showtext.xml"/>
+<include url="plugins/webvr.xml"/>
+<include url="plugins/youtube-player.xml"/>
+<include url="plugins/toolbox/toolbox.xml"/>
+<!--  Popup   -->
+<plugin name="popup" url="plugins/popup.js" keep="true" devices="html5" font_name="Tahoma" data_url="https://www.pilatus.ch/index.php?type=6836&tx_mxnmap_ajax%5bcontroller%5d=Ajax&tx_mxnmap_ajax%5baction%5d=api?type=6836&tx_mxnmap_ajax%5bcontroller%5d=Ajax&tx_mxnmap_ajax%5baction%5d=api&L=0"/>
+<!--  context menu   -->
+<contextmenu versioninfo="false" fullscreen="false">
+<item name="ws1" caption="PILATUS © 360 Perspektiven GmbH" onclick="openurl('https://360perspektiven.com/', _blank)"/>
+<item name="ws2" caption="WEBSITE - PILATUS" onclick="openurl('https://www.pilatus.ch/', _blank)"/>
+<item name="ws3" caption="FACEBOOK - 360° Perspektiven" onclick="openurl('https://www.facebook.com/360perspektiven', _blank)"/>
+<item name="im" caption="Impressum" onclick="openurl('https://360perspektiven.com/impressum/', _blank)"/>
+<item name="nv" caption="Normal View" onclick="skin_view_normal();" showif="view.vlookatrange == 180" separator="true"/>
+<item name="lp" caption="Little Planet View" onclick="skin_view_littleplanet();" showif="view.vlookatrange == 180" devices="flash|webgl"/>
+<item name="sh1" caption="Teile diese Ansicht per Mail" onclick="txtadd(mailtourl,'mailto: ?subject=Beeindruckendes 360° Erlebnis Pilatus&body=',get(tourlink),get(xml.scene)); openurl(get(mailtourl),_self);"/>
+<item name="sh2" caption="Teile diese Ansicht in Facebook" onclick="txtadd(tourlinkwithparams,get(tourlink),get(xml.scene)); social.share(facebook,get(tourlinkwithparams));"/>
+</contextmenu>
+<social share="txtadd(urltext,get(social.%1),%2);openurl(get(urltext),_blank);" facebook="http://facebook.com/share.php?u=" twitter="http://twitter.com/intent/tweet?status="/>
+<!--  startup action - load the first scene  -->
+<action name="startup" autorun="onstart"> if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); ); loadscene(get(startscene), null, MERGE); if(startactions !== null, startactions() ); landscape-mobile(); </action>
+<!--  startup action - load the first scene ONLY VR BRILLE -->
+<action name="startup" autorun="onstart" devices="mobilevr"> if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); ); loadscene(get(startscene), null, MERGE); if(startactions !== null, startactions() ); </action>
+<!--  Gyro IPhone   -->
+<layer name="gyro-overlay" parent="" type="container" style="gyro-overlay-style" align="center" keep="true" enabled="true" visible="true" devices="ios"/>
+<style name="gyro-overlay-style" alpha="1.0" width="100%" height="100%" x="0" y="0" bg="true" bgcolor="0xFFFFFF" bgalpha="0.8" bgborder="0" bgbordercolor="0xFFFFFF" bgroundedge="0" bgcapture="true" zorder="999" onover="" onout="" onclick="switch(plugin[skin_gyro].enabled); if(plugin[skin_gyro].enabled, skin_showmap(false)); tween(visible, false); "/>
+<layer name="gyro-iphone" url="logos/logo-p.png" devices="ios" keep="true" enabled="true" visible="true" parent="gyro-overlay" width="300" height="prop" align="center" scale="1.0" alpha="1" zorder="1000" onclick="switch(plugin[skin_gyro].enabled); if(plugin[skin_gyro].enabled, skin_showmap(false)); tween(layer[gyro-overlay].visible, false);"/>
+<!--  ..............................TITEL...............................  -->
+<action name="skin_update_scene_infos">
+if(title, txtadd(layer[titel-text].html,
+<b>Aktueller Standpunkt:</b>
+<br/>
+, get(scene[get(xml.scene)].title) ); , copy(layer[titel-text].html, scene[get(xml.scene)].title ); );
+</action>
+<!--  Titel   -->
+<layer name="titel-text" parent="" style="style_titeltext" type="text" align="topcenter" keep="true" enabled="false" visible="true"/>
+<!--  Titel Style  -->
+<style name="style_titeltext" x="0" y="20" html="" css="text-align:center; font-family:Arial; font-size:13px; color:#ffffff;" vcenter="true" padding="2" wordwrap="true" bg="false" bgcolor="0xFFFFFF" bgalpha="1.0" bgborder="0" bgroundedge="0" bgshadow="" txtshadow="2 2 7 0x000000 0.8" mergedalpha="true" interactivecontent="false" onautosized="" zorder="1"/>
+<!--  MOBILE SCALE -->
+<events name="orientation" keep="true" onresize="Orientation();" devices="mobile"/>
+<action name="Orientation">
+if(stagewidth LT stageheight,
+<!--  PORTRAIT  -->
+set(layer[titel-text].align, topcenter); set(layer[titel-text].y, 70); set(layer[next-b].align, topcenter); set(layer[next-b].y, 75); set(layer[back-b].align, topcenter); set(layer[back-b].y, 75); set(layer[logo].align, topright); set(layer[skin_scroll_container].y, -35); ,
+<!--  LANDSCAPE  -->
+set(layer[titel-text].align, topcenter); set(layer[titel-text].y, 20); set(layer[next-b].align, topcenter); set(layer[next-b].y, 28); set(layer[back-b].align, topcenter); set(layer[back-b].y, 28); set(layer[logo].align, topright); set(layer[skin_scroll_container].y, 0); set(layer[rotate-device-bild].visible, false); );
+</action>
+<!--  LANDSCAPE BILD  -->
+<layer name="rotate-device-bild" url="logos/rotate_device.png" keep="true" enabled="true" visible="false" width="200" height="prop" align="center" x="0" y="0" alpha="1" scale="1.0" onover="tween(alpha,1,1);" onout="tween(alpha,0.5,1);"/>
+<action name="landscape-mobile" devices="handheld"> set(layer[rotate-device-bild].visible, true); wait(4.0); set(layer[rotate-device-bild].visible, false); </action>
+<action name="landscape-brille" devices="mobilevr"> set(layer[rotate-device-bild].visible, false); </action>
+<!--  PILATUS KARTE Links  -->
+<layer name="p-map" url="logos/nadir.png" keep="true" enabled="true" width="160" width.mobile="200" height="prop" align="lefttop" scale="1.0" zorder="300" x="10" y="10" alpha="1" scale.normal="1.0" scale.mobile="0.7" onover="tween(scale,1.1);" onout="tween(scale,1);" onclick="openurl('https://www.pilatus.ch/',_self);"/>
+<!--  Standart VoV  -->
+<view limitview="range" hlookatmin="-180" hlookatmax="180" vlookatmin="-90" vlookatmax="90" fovmax="110" fovtype="HFOV" maxpixelzoom="1.5"/>
+<textstyle name="DEFAULT" origin="cursor" edge="bottom" xoffset="0" yoffset="0" fadeintime="0.0" showtime="0.1" fadetime="0.0" font="Arial" fontsize="14.0" bold="true" italic="false" textcolor="0xFFFFFF" textalign="center" padding="3" css="text-shadow: 0px 0px 2px black;" width="" height="" vcenter="" background="true" backgroundcolor="0xFFFFFF" backgroundalpha="0.0" border="true" bordercolor="0xFFFFFF" borderalpha="0.0" borderwidth="1.0" roundedge="0" shadow="0.0" shadowrange="4.0" shadowangle="45" shadowcolor="0x000000" shadowalpha="1.0" textshadow="10" textshadowrange="4.0" textshadowangle="45" textshadowcolor="0x000000" textshadowalpha="1.0" alpha="1.0" parent="" noclip="true"/>
+<!--  ..............................HOTSPOT HOVER EVENT..............................  -->
+<events name="hover-hotspot" keep="true" onviewchanged="hover-hotspot();"/>
+<action name="hover-hotspot"> for(set(i,0), i LT hotspot.count, inc(i), getlooktodistance(d, hotspot[get(i)].ath, hotspot[get(i)].atv); if(d LT 8, highlight_hotspot(get(i), get(hotspot[get(i)].name)); , background_hotspot(get(i), get(hotspot[get(i)].name)); ); ); </action>
+<action name="highlight_hotspot"> if(hotspot[%1].ishighlighted != true, set(activehotspot,%2); set(hotspot[%1].ishighlighted, true); callwith(hotspot[%2], onover); callwith(plugin[%2], onover); set(plugin[%2].hovering, true); ); </action>
+<action name="background_hotspot"> if(hotspot[%1].ishighlighted, set(hotspot[%1].ishighlighted, false); callwith(hotspot[%2], onout); callwith(plugin[%2], onout); set(plugin[%2].hovering, false); set(activehotspot,null); ); </action>
+<!--  ..............................HOTSPOT VR..............................  -->
+<action name="weg_hotspots"> for(set(i,0), i LT hotspot.count, inc(i), set(hotspot[get(i)].visible,false); ); </action>
+<action name="da_hotspots"> for(set(i,0), i LT hotspot.count, inc(i), copy(hs,hotspot[get(i)]); if(hs.name != 'vr_cursor' AND hs.name != 'skin_webvr_prev_scene' AND hs.name != 'skin_webvr_next_scene', set(hotspot[get(i)].visible,true); ); ); </action>
+<!--  .....................................HIDDEN LAYER FÜR KARTE............................... -->
+<layer name="hidden" parent="" type="container" style="style-lightbox-overlay" align="center" edge="" keep="true" enabled="true" visible="false" bgcapture="false" alpha="1" scale="0.90" zorder="999"/>
+<!--  ..............................LIGHTBOX...............................  -->
+<action name="iframe_embed"> removelayer(%1); addlayer(%1); set(layer[%1].parent, %2); set(layer[%1].align, lefttop); set(layer[%1].width, 100%); set(layer[%1].height, 100%); if(device.html5, txtadd(iframecode, '[iframe id="krpano_iframe_',%1,'" width="100%" height="100%" src="',%3,'" frameborder="0" allow-same-origin allowfullscreen][/iframe]'); copy(layer[%1].html, iframecode); set(layer[%1].padding, 0); set(layer[%1].url, 'textfield.swf'); set(layer[%1].interactivecontent, true); set(layer[%1].onloaded, iframe_resize(%1); ); set(layer[child].visible, true); set(layer[parent-hintergrund].visible, true); sidebar_verstecken(); , showlog(); trace(error,'Iframe is not working in flash mode!'); ); </action>
+<action name="iframe_resize" type="Javascript" devices="html5">
+<![CDATA[ document.querySelector("#krpano_iframe_"+args[1]).parentNode.style.height="100%"; ]]>
+</action>
+<!--  LAYER für Lightbox  -->
+<layer name="child" parent="" type="container" style="style-lightbox-overlay" align="center" edge="" keep="true" enabled="true" visible="false" bgcapture="false" alpha="1" scale="0.90" zorder="999"/>
+<layer name="parent" parent="" type="container" style="style-lightbox-overlay" align="center" edge="" keep="true" enabled="true" visible="false" bgcapture="false" alpha="1" scale="1" zorder="999"/>
+<layer name="parent-hintergrund" parent="" type="container" style="style-lightbox-overlay-parent-hintergrund" align="center" edge="" keep="true" enabled="true" visible="false" bgcapture="true" alpha="1" scale="1" zorder="998"/>
+<!--  STYLE für Lightbox  -->
+<style name="style-lightbox-overlay" x="0" y="0" width="95%" height="95%" vcenter="true" padding="0" visible="true" bg="true" bgcolor="0x000000" bgalpha="0.5" bgborder="0 0xFFFFFF 1.0" bgroundedge="0" bgshadow=""/>
+<style name="style-lightbox-overlay-parent-hintergrund" x="0" y="0" width="100%" height="100%" vcenter="true" padding="0" visible="true" bg="true" bgcolor="0x000000" bgalpha="0.5" bgborder="0 0xFFFFFF 1.0" bgroundedge="0" bgshadow=""/>
+<!--  X-Button  -->
+<layer name="close-lightbox-layer" parent="child" style="close-lightbox-layer-style"/>
+<style name="close-lightbox-layer-style" type="container" url="%FIRSTXML%/logos/x-button-weiss.png" bgcapture="false" align="topright" keep="true" enabled="true" visible="true" width="25" height="25" x="-25" y="-25" scale="1" zorder="501" onhover="showtext(Schließen);" onclick="set(layer[child].visible, false); set(layer[parent-hintergrund].visible, false); tween(layer[lightbox-layer].scale, 0); sidebar_zeigen();"/>
+<!--  SOMMER/WINTER  -->
+<layer name="sommer-button" url="logos/sommer-winter2.png" keep="true" enabled="true" align="topright" align.mobile="bottomright" alpha="1" width="prop" height="70" x="5" y="5" scale="1.0" scale.mobile="0.7" onclick="openurl('https://360perspektiven.com/projekte/pilatus/de', _self)"/>
+<!--  ..............................PANOS...............................  -->
+<scene name="scene_ANSICHT_PILATUS_KULM_NORDSEITE_WINTER" title="Ansicht Oberhaupt" onstart="updateradar();" thumburl="../../panos/ANSICHT_PILATUS_KULM_NORDSEITE_WINTER.tiles/thumb.jpg" lat="46.98033889" lng="8.25532222" heading="0.0">
+<action name="updateradar"> set(layer[activespot].parent, spot2); set(layer[spot2].scale, 1.4); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); </action>
+<view hlookat="32.073" vlookat="21.931" fov="100.000"/>
+<preview url="../../panos/ANSICHT_PILATUS_KULM_NORDSEITE_WINTER.tiles/preview.jpg"/>
+<image prealign="0|0.0|0">
+<cube url="../../panos/ANSICHT_PILATUS_KULM_NORDSEITE_WINTER.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5248,10496"/>
+</image>
+<!--  NADIR   -->
+<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="300px" width.mobile="150px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" onclick="iframe_embed(parent, child, https://www.pilatus.ch/);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<!--  hotspots  -->
+<hotspot name="scene_ansicht_pilatus_kulm_winter" style="hss2" ath="52.322" atv="32.980"/>
+<hotspot name="text-1" style="hotspottextstyle" ath="52.322" atv="32.980" visible="true" html="[b]Ansicht Pilatus Kulm[/b]"/>
+<hotspot name="scene_u__bersicht_fra__nkmu__ntegg_winter" style="hss2" ath="-169.970" atv="29.441"/>
+<hotspot name="text-2" style="hotspottextstyle" ath="-169.970" atv="29.441" visible="true" html="[b]Übersicht Fräkmüntegg[/b]"/>
+<hotspot name="scene_u__bersicht_pilatus_nordseite_winter" style="hss2" ath="-127.092" atv="-4.972"/>
+<hotspot name="text-3" style="hotspottextstyle" ath="-127.092" atv="-4.972" visible="true" html="[b]Übersicht Pilatus Nordseite[/b]"/>
+<hotspot name="scene_u__bersicht_krienseregg_WINTER" style="hss2" ath="-149.420" atv="19.551" tag="Übersicht Krienseregg"/>
+<hotspot name="text-4" style="hotspottextstyle" ath="-149.420" atv="19.551" visible="true" html="[b]Übersicht Krienseregg[/b]"/>
+<hotspot name="scene_U__BERSICHT_STATION_KRIENS_WINTER" style="hss2" ath="-140.305" atv="11.517" tag="Station Kriens"/>
+<hotspot name="text-5" style="hotspottextstyle" ath="-140.305" atv="11.517" visible="true" html="[b]Übersicht Kriens[/b]"/>
+<hotspot name="scene_HOTEL_PILATUS_KULM_-__FOYER" style="hss2" ath="76.313" atv="27.842" tag="Pilatus Kulm HOTELS" url="spots/hotel.png" marker_id="21"/>
+<hotspot name="text-7" style="hotspottextstyle" ath="76.313" atv="27.842" visible="true" html="[b]Pilatus Kulm Hotels[/b]"/>
+<hotspot name="info2" style="hss3" ath="-127.288" atv="13.214" tag="Luzern" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="iframe_embed(parent, child, https://www.pilatus.ch/entdecken/luzern/);"/>
+<hotspot name="text-10" style="hotspottextstyle" ath="-127.288" atv="13.214" visible="true" html="[b]Luzern[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="poly-seilbahn1" style="hss5">
+<point ath="1.327" atv="54.858"/>
+<point ath="-168.970" atv="32.441"/>
+</hotspot>
+<hotspot name="poly-seilbahn2" style="hss5">
+<point ath="-166.970" atv="31.441"/>
+<point ath="-155.227" atv="24.470"/>
+</hotspot>
+<hotspot name="poly-seilbahn3" style="hss5">
+<point ath="-155.227" atv="24.470"/>
+<point ath="-144.420" atv="15.551"/>
+</hotspot>
+</scene>
+<!--  30   -->
+<scene name="scene_U__BERSICHT_PILATUS_NORDSEITE_WINTER" title="Übersicht Pilatus [br]Nordseite" onstart="updateradar();" thumburl="../../panos/U__BERSICHT_PILATUS_NORDSEITE_WINTER.tiles/thumb.jpg" lat="46.99021944" lng="8.25804167" heading="0.0">
+<action name="updateradar"> set(layer[activespot].parent, hidden); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); </action>
+<view hlookat="-229.161" vlookat="0.492" fov="100.000"/>
+<preview url="../../panos/U__BERSICHT_PILATUS_NORDSEITE_WINTER.tiles/preview.jpg"/>
+<image prealign="0|0.0|0">
+<cube url="../../panos/U__BERSICHT_PILATUS_NORDSEITE_WINTER.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
+</image>
+<!--  NADIR   -->
+<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="300px" width.mobile="150px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" onclick="iframe_embed(parent, child, https://www.pilatus.ch/);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<!--  HOTSPOTS   -->
+<hotspot name="scene_ansicht_pilatus_kulm_winter" style="hss2" ath="131.363" atv="-21.529" tag="Pilatus Kulm - 2132m. ü. M"/>
+<hotspot name="text-2" style="hotspottextstyle" ath="131.363" atv="-21.529" visible="true" html="[b]Pilatus Kulm - 2132 m. ü. M[/b]"/>
+<hotspot name="scene_U__BERSICHT_FRA__NKMU__NTEGG_WINTER" style="hss2" ath="-140.548" atv="24.837" tag="Übersicht Fräkmüntegg"/>
+<hotspot name="text-3" style="hotspottextstyle" ath="-140.548" atv="24.837" visible="true" html="[b]Übersicht Fräkmüntegg[/b]"/>
+<hotspot name="scene_U__BERSICHT_KRIENSEREGG_WINTER" style="hss2" ath="-55.150" atv="13.214" tag="Übersicht Krienseregg"/>
+<hotspot name="text-4" style="hotspottextstyle" ath="-55.150" atv="13.214" visible="true" html="[b]Übersicht Krienseregg[/b]"/>
+<hotspot name="info4" style="hss3" ath="-76.525" atv="27.158" tag="Offene Anlagen" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" url="spots/panorama-gondel.png" marker_id="29" onhover="showtext(Panorama-Gondelbahn);" onclick="autorotate.stop(); plugin[popup].show_popup(29);"/>
+<hotspot name="text-12" style="hotspottextstyle" ath="-76.525" atv="27.158" visible="true" html="[b]Panorama-Gondelbahn[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="scene_U__BERSICHT_STATION_KRIENS_WINTER" style="hss2" ath="-42.150" atv="11.214" tag="Station Kriens"/>
+<hotspot name="text-7" style="hotspottextstyle" ath="-42.150" atv="11.214" visible="true" html="[b]Station Kriens[/b]"/>
+<hotspot name="info2" style="hss3" ath="-24.150" atv="7.214" tag="Luzern" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="iframe_embed(parent, child, https://www.pilatus.ch/entdecken/luzern/);"/>
+<hotspot name="text-10" style="hotspottextstyle" ath="-24.150" atv="7.214" visible="true" html="[b]Luzern[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="poly-dragonride1" style="hss5">
+<point ath="131.363" atv="-16.529"/>
+<point ath="-147.548" atv="30.837"/>
+</hotspot>
+<hotspot name="poly-seilbahn1" style="hss5">
+<point ath="-140.548" atv="31.837"/>
+<point ath="-77.525" atv="27.58"/>
+</hotspot>
+<hotspot name="poly-seilbahn2" style="hss5">
+<point ath="-76.25" atv="27.158"/>
+<point ath="-50.150" atv="14.214"/>
+</hotspot>
+</scene>
+<!--  31   -->
+<!--  32   -->
+<scene name="scene_ANSICHT_PILATUS_KULM_WINTER" title="Ansicht Pilatus Kulm" onstart="updateradar();" thumburl="../../panos/ANSICHT_PILATUS_KULM_WINTER.tiles/thumb.jpg" lat="46.97876111" lng="8.25457778" heading="0.0">
+<action name="updateradar"> set(layer[activespot].parent, spot2); set(layer[spot2].scale, 1.4); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); </action>
+<view hlookat="-5.130" vlookat="18.931" fov="100.000"/>
+<preview url="../../panos/ANSICHT_PILATUS_KULM_WINTER.tiles/preview.jpg"/>
+<image prealign="0|0.0|0">
+<cube url="../../panos/ANSICHT_PILATUS_KULM_WINTER.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
+</image>
+<!--  NADIR   -->
+<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="300px" width.mobile="150px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" onclick="iframe_embed(parent, child, https://www.pilatus.ch/);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<!--  hotspots  -->
+<hotspot name="scene_ansicht_pilatus_kulm_nordseite_winter" style="hss2" ath="31.507" atv="-15.538"/>
+<hotspot name="text-1" style="hotspottextstyle" ath="31.507" atv="-15.538" visible="true" html="[b]Ansicht Pilatus Kulm Nordseite[/b]"/>
+<hotspot name="scene_u__bersicht_krienseregg_WINTER" style="hss2" ath="14.525" atv="14.686"/>
+<hotspot name="text-5" style="hotspottextstyle" ath="14.525" atv="14.686" visible="true" html="[b]Krienseregg[/b]"/>
+<hotspot name="scene_U__BERSICHT_STATION_KRIENS_WINTER" style="hss2" ath="19.783" atv="14.160"/>
+<hotspot name="text-6" style="hotspottextstyle" ath="19.783" atv="14.160" visible="true" html="[b]Kriens[/b]"/>
+<hotspot name="scene_luftseilbahn_dragon_ride" style="hss1" ath="35.034" atv="16.60" url="spots/dragon-ride.png" marker_id="30" onclick="autorotate.stop(); plugin[popup].show_popup(30);"/>
+<hotspot name="text-4" style="hotspottextstyle" ath="35.034" atv="16.60" visible="true" html="[b]Luftseilbahn «DRAGON RIDE»[/b]"/>
+<hotspot name="info1" style="hss3" ath="-50.669" atv="19.360" tag="Offene Anlagen" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" url="spots/hotel-restaurants.png" marker_id="23" onclick="autorotate.stop(); plugin[popup].show_popup(23);"/>
+<hotspot name="text-2" style="hotspottextstyle" ath="-50.669" atv="19.360" visible="true" html="[b]Restaurant Pilatus-Kulm[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info2" style="hss3" ath="48.591" atv="16.979" tag="Offene Anlagen" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" url="spots/hotel-restaurants.png" marker_id="24" onclick="autorotate.stop(); plugin[popup].show_popup(24);"/>
+<hotspot name="text-3" style="hotspottextstyle" ath="48.591" atv="16.979" visible="true" html="[b]Restaurant Bellevue[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="scene_HOTEL_PILATUS_KULM_-__FOYER" style="hss2" ath="-24.508" atv="20.593" tag="Pilatus Kulm HOTELS" url="spots/hotel.png" marker_id="21"/>
+<hotspot name="text-7" style="hotspottextstyle" ath="-24.508" atv="20.593" visible="true" html="[b]Pilatus Kulm Hotels[/b]"/>
+<!--
+      <hotspot name="scene_oberhaupt_aussichtsplattform" style="hss1" ath="-10.279" atv="3.945" tag="Oberhaupt Aussichtsplattform"
+    url="spots/aussichtspunkte.png" marker_id="10" />
+        <hotspot name="text-8" style="hotspottextstyle" ath="-10.279" atv="3.945" visible="true" html="[b]Oberhaupt Aussichtsplattform [br] Sonnenuntergang[/b]" />
+ -->
+<!--
+      <hotspot name="scene_esel_aussichtsplattform" style="hss1" ath="75.499" atv="-10.251" tag="Esel Aussichtsplattform"
+      url="spots/aussichtspunkte.png" marker_id="61" />
+        <hotspot name="text-10" style="hotspottextstyle" ath="75.499" atv="-10.251" visible="true" html="[b]Esel Aussichtsplattform [br] Sonnenaufgang[/b]" />
+ -->
+<hotspot name="info3" style="hss3" ath="-37.855" atv="25.632" tag="Seminare" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="iframe_embed(parent, child, https://www.pilatus.ch/entdecken/seminare/seminar/);"/>
+<hotspot name="text-11" style="hotspottextstyle" ath="-37.855" atv="25.632" visible="true" html="[b]Seminare[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info4" style="hss3" ath="-0.051" atv="23.203" tag="Seminare" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="iframe_embed(parent, child, https://www.pilatus.ch/entdecken/dragon-world);"/>
+<hotspot name="text-12" style="hotspottextstyle" ath="-0.051" atv="23.203" visible="true" html="[b]Dragon World[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="poly-seilbahn1" style="hss5">
+<point ath="34.00" atv="16.78"/>
+<point ath="28.75" atv="19.10"/>
+</hotspot>
+<hotspot name="poly-seilbahn2" style="hss5">
+<point ath="7.23" atv="16.68"/>
+<point ath="14.28" atv="14.51"/>
+<point ath="18.79" atv="14.42"/>
+</hotspot>
+</scene>
+<!--  33   -->
+<scene name="scene_U__BERSICHT_PILATUS_LAUELENEGG_WINTER" title="Fräkmüntegg - Schneeschuhtrail" onstart="updateradar();" thumburl="../../panos/U__BERSICHT_PILATUS_LAUELENEGG_WINTER.tiles/thumb.jpg" lat="46.99001389" lng="8.24246944" heading="0.0">
+<action name="updateradar"> set(layer[activespot].parent, spot3); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.4); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); </action>
+<view hlookat="-501.496" vlookat="6.076" fov="100.000"/>
+<preview url="../../panos/U__BERSICHT_PILATUS_LAUELENEGG_WINTER.tiles/preview.jpg"/>
+<image prealign="0|0.0|0">
+<cube url="../../panos/U__BERSICHT_PILATUS_LAUELENEGG_WINTER.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
+</image>
+<!--  NADIR   -->
+<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="300px" width.mobile="150px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" onclick="iframe_embed(parent, child, https://www.pilatus.ch/);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<!--  hotspots  -->
+<hotspot name="scene_ansicht_pilatus_kulm_winter" style="hss2" ath="-120.080" atv="-27.923"/>
+<hotspot name="text-1" style="hotspottextstyle" ath="-120.080" atv="-27.923" visible="true" html="[b]Ansicht Pilatus Kulm Nordseite[/b]"/>
+<hotspot name="scene_u__bersicht_fra__nkmu__ntegg_winter" style="hss2" ath="175.318" atv="1.839"/>
+<hotspot name="text-2" style="hotspottextstyle" ath="175.318" atv="1.839" visible="true" html="[b]Übersicht Fräkmüntegg[/b]"/>
+<hotspot name="scene_PANORAMA-GONDELBAHN_WINTER" style="hss2" ath="142.485" atv="7.320"/>
+<hotspot name="text-3" style="hotspottextstyle" ath="142.485" atv="7.320" visible="true" html="[b]Mülimäs - Schlittelpiste[/b]"/>
+<hotspot name="info4" style="hss3" ath="-120.080" atv="20.923" tag="Schneeschuhlaufen" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="iframe_embed(parent, child, https://www.pilatus.ch/entdecken/schneeschuhlaufen);"/>
+<hotspot name="text-4" style="hotspottextstyle" ath="-120.080" atv="20.923" visible="true" html="[b]Schneeschuhlaufen[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+</scene>
+<!--  34   -->
+<scene name="scene_U__BERSICHT_FRA__NKMU__NTEGG_WINTER" title="Übersicht Fräkmüntegg" onstart="updateradar();" thumburl="../../panos/U__BERSICHT_FRA__NKMU__NTEGG_WINTER.tiles/thumb.jpg" lat="46.98974444" lng="8.25257222" heading="0.0">
+<action name="updateradar"> set(layer[activespot].parent, spot3); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.4); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); </action>
+<view hlookat="34.683" vlookat="13.389" fov="100.000"/>
+<preview url="../../panos/U__BERSICHT_FRA__NKMU__NTEGG_WINTER.tiles/preview.jpg"/>
+<image prealign="0|0.0|0">
+<cube url="../../panos/U__BERSICHT_FRA__NKMU__NTEGG_WINTER.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
+</image>
+<!--  NADIR   -->
+<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="300px" width.mobile="150px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" onclick="iframe_embed(parent, child, https://www.pilatus.ch/);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<!--  hotspots  -->
+<hotspot name="scene_u__bersicht_pilatus_lauelenegg_winter" style="hss2" ath="-1.540" atv="0.491"/>
+<hotspot name="text-1" style="hotspottextstyle" ath="-1.540" atv="0.491" visible="true" html="[b]Fräkmüntegg - Schneeschuhtrail[/b]"/>
+<hotspot name="scene_ansicht_pilatus_kulm_nordseite_winter" style="hss2" ath="-140.286" atv="-41.625"/>
+<hotspot name="text-2" style="hotspottextstyle" ath="-140.286" atv="-41.625" visible="true" html="[b]Übersicht Pilatus Kulm Nordseite[/b]"/>
+<hotspot name="scene_panorama-gondelbahn_winter" style="hss2" ath="58.161" atv="6.093"/>
+<hotspot name="text-3" style="hotspottextstyle" ath="58.161" atv="6.093" visible="true" html="[b]Mülimäs - Schlittelpiste[/b]"/>
+<hotspot name="scene_luftseilbahn_dragon_ride" style="hss1" ath="-84.945" atv="-17.785" url="spots/dragon-ride.png" marker_id="30" onclick="autorotate.stop(); plugin[popup].show_popup(30);"/>
+<hotspot name="text-4" style="hotspottextstyle" ath="-84.945" atv="-17.785" visible="true" html="[b]Luftseilbahn «DRAGON RIDE»[/b]"/>
+<hotspot name="scene_u__bersicht_krienseregg_WINTER" style="hss2" ath="72.966" atv="6.963" tag="Übersicht Krienseregg"/>
+<hotspot name="text-5" style="hotspottextstyle" ath="72.966" atv="6.963" visible="true" html="[b]Übersicht Krienseregg[/b]"/>
+<hotspot name="info6" style="hss3" ath="84.161" atv="2.093" tag="Luzern" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="autorotate.stop(); iframe_embed(parent, child, https://www.pilatus.ch/entdecken/luzern/);"/>
+<hotspot name="text-6" style="hotspottextstyle" ath="84.161" atv="2.093" visible="true" html="[b]Luzern[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info7" style="hss3" ath="36.525" atv="16.862" tag="Offene Anlagen" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" url="spots/hotel-restaurants.png" marker_id="25" onclick="autorotate.stop(); plugin[popup].show_popup(25);"/>
+<hotspot name="text-7" style="hotspottextstyle" ath="36.525" atv="16.8562" visible="true" html="[b]Restaurant Fräkmüntegg[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info8" style="hss3" ath="31.785" atv="26.335" tag="Fräkmüntegg" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="iframe_embed(parent, child, https://www.pilatus.ch/entdecken/fraekmuentegg/);"/>
+<hotspot name="text-8" style="hotspottextstyle" ath="31.785" atv="26.335" visible="true" html="[b]Fräkmüntegg[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info9" style="hss3" ath="51.913050832881424" atv="19.646961898028124" tag="Snow & Fun" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="iframe_embed(parent, child, https://www.pilatus.ch/entdecken/snow-fun);"/>
+<hotspot name="text-9" style="hotspottextstyle" ath="51.913050832881424" atv="19.646961898028124" visible="true" html="[b]Snow & Fun[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info10" style="hss3" ath="2.913050832881424" atv="22.646961898028124" tag="Snow & Fun" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="iframe_embed(parent, child, https://www.pilatus.ch/entdecken/schneeschuhlaufen);"/>
+<hotspot name="text-10" style="hotspottextstyle" ath="2.913050832881424" atv="22.646961898028124" visible="true" html="[b]Schneeschuhlaufen[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info11" style="hss3" ath="35.913" atv="10.646" tag="Offene Anlagen" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" url="spots/panorama-gondel.png" marker_id="29" onclick="autorotate.stop(); plugin[popup].show_popup(29);"/>
+<hotspot name="text-11" style="hotspottextstyle-info" ath="35.913" atv="10.646" visible="true" html="[b]Panorama-Gondelbahn[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="poly-dragonride1" style="hss5">
+<point ath="13.22" atv="15.71"/>
+<point ath="-25.70" atv="1.02"/>
+<point ath="-36.15" atv="-3.40"/>
+<point ath="-51.24" atv="-8.83"/>
+<point ath="-75.74" atv="-16.94"/>
+<point ath="-79.59" atv="-18.16"/>
+<point ath="-100.50" atv="-22.32"/>
+<point ath="-122.06" atv="-26.52"/>
+<point ath="-129.93" atv="-27.50"/>
+</hotspot>
+<hotspot name="poly-dragonride2" style="hss5">
+<point ath="28.27" atv="13.20"/>
+<point ath="32.30" atv="12.57"/>
+<point ath="40.06" atv="13.39"/>
+</hotspot>
+</scene>
+<!--  35   -->
+<scene name="scene_PANORAMA-GONDELBAHN_WINTER" title="Mülimäs - Schlittelpiste" onstart="updateradar();" thumburl="../../panos/PANORAMA-GONDELBAHN_WINTER.tiles/thumb.jpg" lat="46.99717778" lng="8.25453611" heading="0.0">
+<action name="updateradar"> set(layer[activespot].parent, spot5); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.4); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); </action>
+<view hlookat="56.039" vlookat="-0.379" fov="100.000"/>
+<preview url="../../panos/PANORAMA-GONDELBAHN_WINTER.tiles/preview.jpg"/>
+<image prealign="0|0.0|0">
+<cube url="../../panos/PANORAMA-GONDELBAHN_WINTER.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
+</image>
+<!--  NADIR   -->
+<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="300px" width.mobile="150px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" onclick="iframe_embed(parent, child, https://www.pilatus.ch/);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<!--  hotspots  -->
+<hotspot name="scene_u__bersicht_fra__nkmu__ntegg_winter" style="hss2" ath="46.495" atv="-12.093"/>
+<hotspot name="text-1" style="hotspottextstyle" ath="46.495" atv="-12.093" visible="true" html="[b]Übersicht Fräkmüntegg[/b]"/>
+<hotspot name="scene_ansicht_pilatus_kulm_winter" style="hss2" ath="32.446" atv="-25.790"/>
+<hotspot name="text-2" style="hotspottextstyle" ath="32.446" atv="-25.790" visible="true" html="[b]Ansicht Pilatus Kulm[/b]"/>
+<hotspot name="scene_u__bersicht_krienseregg_winter" style="hss2" ath="-121.114" atv="4.444"/>
+<hotspot name="text-3" style="hotspottextstyle" ath="-121.114" atv="4.444" visible="true" html="[b]Übersicht Krienseregg[/b]"/>
+<hotspot name="scene_U__BERSICHT_PILATUS_LAUELENEGG_WINTER" style="hss2" ath="75.495" atv="-7.093"/>
+<hotspot name="text-4" style="hotspottextstyle" ath="75.495" atv="-7.093" visible="true" html="[b]Fräkmüntegg - Schneeschuhtrail[/b]"/>
+<hotspot name="info4" style="hss3" ath="-53.576" atv="16.912" tag="Offene Anlagen" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" url="spots/panorama-gondel.png" marker_id="29" onhover="showtext(Panorama-Gondelbahn);" onclick="autorotate.stop(); plugin[popup].show_popup(29);"/>
+<hotspot name="text-12" style="hotspottextstyle" ath="-53.576" atv="16.912" visible="true" html="[b]Panorama-Gondelbahn[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info5" style="hss3" ath="53.495" atv="6.093" tag="Snow & Fun" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="iframe_embed(parent, child, https://www.pilatus.ch/entdecken/snow-fun);"/>
+<hotspot name="text-5" style="hotspottextstyle" ath="53.495" atv="6.093" visible="true" html="[b]Snow & Fun[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="poly-bahn1" style="hss5">
+<point ath="54.22" atv="-7.71"/>
+<point ath="46.70" atv="-6.02"/>
+<point ath="31.15" atv="0.40"/>
+<point ath="-13.24" atv="13.83"/>
+<point ath="-65.74" atv="18.94"/>
+</hotspot>
+<hotspot name="poly-bahn2" style="hss5">
+<point ath="-65.74" atv="18.94"/>
+<point ath="-81.59" atv="17.16"/>
+<point ath="-99.50" atv="13.32"/>
+<point ath="-114.06" atv="11.52"/>
+<point ath="-120.93" atv="11.50"/>
+</hotspot>
+</scene>
+<!--  36   -->
+<scene name="scene_U__BERSICHT_KRIENSEREGG_WINTER" title="Übersicht Krienseregg" onstart="updateradar();" thumburl="../../panos/U__BERSICHT_KRIENSEREGG_WINTER.tiles/thumb.jpg" lat="47.01263056" lng="8.26434444" heading="0.0">
+<action name="updateradar"> set(layer[activespot].parent, spot4); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.4); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); </action>
+<view hlookat="-232.282" vlookat="11.326" fov="100.000"/>
+<preview url="../../panos/U__BERSICHT_KRIENSEREGG_WINTER.tiles/preview.jpg"/>
+<image prealign="0|0.0|0">
+<cube url="../../panos/U__BERSICHT_KRIENSEREGG_WINTER.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5248,10496"/>
+</image>
+<!--  NADIR   -->
+<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="300px" width.mobile="150px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" onclick="iframe_embed(parent, child, https://www.pilatus.ch/);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<!--  hotspots  -->
+<hotspot name="scene_u__bersicht_fra__nkmu__ntegg_winter" style="hss2" ath="-42.600" atv="-11.549"/>
+<hotspot name="text-1" style="hotspottextstyle" ath="-42.600" atv="-11.549" visible="true" html="[b]Übersicht Fräkmüntegg[/b]"/>
+<hotspot name="scene_ansicht_pilatus_kulm_nordseite_winter" style="hss2" ath="-56.395" atv="-19.949"/>
+<hotspot name="text-2" style="hotspottextstyle" ath="-56.395" atv="-19.949" visible="true" html="[b]Übersicht Pilatus Kulm Nordseite[/b]"/>
+<hotspot name="scene_u__bersicht_station_kriens_winter" style="hss2" ath="109.359" atv="-10.358"/>
+<hotspot name="text-3" style="hotspottextstyle" ath="109.359" atv="-10.358" visible="true" html="[b]Übersicht Talstation Kriens[/b]"/>
+<hotspot name="info4" style="hss4" ath="118.739" atv="19.111" tag="Offene Anlagen" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" url="spots/info.png" marker_id="7" onclick="autorotate.stop(); iframe_embed(parent, child, https://www.pilatus.ch/entdecken/pilu-land);"/>
+<hotspot name="text-7" style="hotspottextstyle-info" ath="118.739" atv="19.111" visible="true" html="[b]Pilu-Land[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info2" style="hss3" ath="132.146" atv="1.005" tag="Offene Anlagen" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" url="spots/hotel-restaurants.png" marker_id="26" onclick="autorotate.stop(); plugin[popup].show_popup(26);"/>
+<hotspot name="text-5" style="hotspottextstyle-info" ath="132.146" atv="1.005" visible="true" html="[b]Restaurant Krienseregg[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info3" style="hss3" ath="61.699" atv="-1.178" tag="Offene Anlagen" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" url="spots/panorama-gondel.png" marker_id="29" onclick="autorotate.stop(); plugin[popup].show_popup(29);"/>
+<hotspot name="text-6" style="hotspottextstyle-info" ath="61.699" atv="-1.178" visible="true" html="[b]Panorama-Gondelbahn[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="poly-seilbahn1" style="hss5">
+<point ath="108.427" atv="-1.511"/>
+<point ath="-31.699" atv="0.75"/>
+</hotspot>
+<hotspot name="poly-seilbahn2" style="hss5">
+<point ath="-31.699" atv="0.75"/>
+<point ath="-39.362" atv="0.611"/>
+<point ath="-42.600" atv="-8.549"/>
+</hotspot>
+<hotspot name="poly-seilbahn3" style="hss5">
+<point ath="-42.600" atv="-8.549"/>
+<point ath="-54.921" atv="-15.760"/>
+</hotspot>
+</scene>
+<!--  37   -->
+<scene name="scene_U__BERSICHT_STATION_KRIENS_WINTER" title="Ansicht Kriens" onstart="updateradar();" thumburl="../../panos/U__BERSICHT_STATION_KRIENS_WINTER.tiles/thumb.jpg" lat="" lng="" heading="">
+<action name="updateradar"> set(layer[activespot].parent, spot7); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.4); </action>
+<view hlookat="11.032" vlookat="12.288" fov="100.000"/>
+<preview url="../../panos/U__BERSICHT_STATION_KRIENS_WINTER.tiles/preview.jpg"/>
+<image>
+<cube url="../../panos/U__BERSICHT_STATION_KRIENS_WINTER.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5248,10496"/>
+</image>
+<!--  NADIR   -->
+<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="300px" width.mobile="150px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" onclick="iframe_embed(parent, child, https://www.pilatus.ch/);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<!--  hotspots  -->
+<hotspot name="scene_u__bersicht_krienseregg_winter" style="hss2" ath="141.061" atv="-14.946"/>
+<hotspot name="text-1" style="hotspottextstyle" ath="141.061" atv="-14.946" visible="true" html="[b]Übersicht Krienseregg[/b]"/>
+<hotspot name="scene_ansicht_pilatus_kulm_winter" style="hss2" ath="125.467" atv="-20.620"/>
+<hotspot name="text-2" style="hotspottextstyle" ath="125.467" atv="-20.620" visible="true" html="[b]Ansicht Pilatus Kulm[/b]"/>
+<hotspot name="info6" style="hss3" ath="30.292" atv="13.327" tag="Schlitten- und Schneeschuhvermietung" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="autorotate.stop(); iframe_embed(parent, child, https://www.pilatus.ch/entdecken/snow-fun);"/>
+<hotspot name="text-8" style="hotspottextstyle-info" ath="30.292" atv="13.327" visible="true" html="[b]Schlitten- und Schneeschuhvermietung[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info1" style="hss3" ath="-15.521" atv="17.565" tag="Coffee & Shops" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="autorotate.stop(); iframe_embed(parent, child, https://www.pilatus.ch/buchen/shops-souvenirs);"/>
+<hotspot name="text-3" style="hotspottextstyle-info" ath="-15.521" atv="17.565" visible="true" html="[b]Coffee & Shops[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info2" style="hss3" ath="-64.910" atv="18.711" tag="Kriens" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="iframe_embed(parent, child, https://www.pilatus.ch/entdecken/kriens/);"/>
+<hotspot name="text-4" style="hotspottextstyle-info" ath="-64.910" atv="18.711" visible="true" html="[b]Kriens[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info3" style="hss3" ath="0.413" atv="19.652" tag="Fahrplan" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="iframe_embed(parent, child, https://www.pilatus.ch/informieren/fahrplan/);"/>
+<hotspot name="text-5" style="hotspottextstyle-info" ath="0.413" atv="19.652" visible="true" html="[b]Fahrplan[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info4" style="hss3" ath="12.280" atv="15.922" tag="Offene Anlagen" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="iframe_embed(parent, child, https://www.pilatus.ch/live);"/>
+<hotspot name="text-6" style="hotspottextstyle-info" ath="12.280" atv="15.922" visible="true" html="[b]Offene Anlagen[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info5" style="hss3" ath="60" atv="-5" tag="Panorama Gondel" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" url="spots/panorama-gondel.png" marker_id="29" onclick="autorotate.stop(); plugin[popup].show_popup(29);"/>
+<hotspot name="text-7" style="hotspottextstyle-info" ath="60" atv="-5" visible="true" html="[b]Panorama-Gondelbahn[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="poly-bahn1" style="hss5">
+<point ath="10.22" atv="8.71"/>
+<point ath="14.70" atv="7.80"/>
+<point ath="28.15" atv="3.40"/>
+<point ath="61.24" atv="-8.20"/>
+<point ath="78.74" atv="-13.20"/>
+<point ath="85.22" atv="-14.30"/>
+<point ath="112.70" atv="-13.02"/>
+<point ath="137.15" atv="-9.40"/>
+<point ath="142.24" atv="-14.83"/>
+</hotspot>
+</scene>
+<!--  27
+
+  <scene name="scene_ESEL_AUSSICHTSPLATTFORM" title="Esel Aussichtsplattform [br] Sonnenaufgang" onstart="updateradar();" thumburl="../../panos/ESEL_AUSSICHTSPLATTFORM.tiles/thumb.jpg" lat="" lng="" heading="">
+
+    <action name="updateradar">
+      set(layer[activespot].parent, spot2);
+
+      set(layer[spot2].scale, 1.4);
+      set(layer[spot3].scale, 1.0);
+      set(layer[spot4].scale, 1.0);
+      set(layer[spot5].scale, 1.0);
+      set(layer[spot6].scale, 1.0);
+      set(layer[spot7].scale, 1.0);
+    </action>
+
+    <view hlookat="350.581" vlookat="11.104" fovtype="MFOV" fov="100" />
+
+    <preview url="../../panos/ESEL_AUSSICHTSPLATTFORM.tiles/preview.jpg" />
+
+    <image prealign="0|0.0|0">
+      <cube url="../../panos/ESEL_AUSSICHTSPLATTFORM.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,1024,1792,3712,7424" />
+    </image>
+
+    <hotspot name="scene_oberhaupt_aussichtsplattform" style="hss1" ath="-114.562" atv="5.048"  tag="Oberhaupt Aussichtsplattform"
+    url="spots/aussichtspunkte.png" marker_id="10" />
+    <hotspot name="text-5" style="hotspottextstyle" ath="-114.562" atv="5.048"  visible="true" html="[b]Oberhaupt Aussichtsplattform [br] Sonnenuntergang[/b]" />
+
+    <hotspot name="scene_ANSICHT_PILATUS_KULM_NORDSEITE_WINTER" style="hss2" ath="-145.864" atv="-4.009" tag="Pilatus Kulm - 2132 m. ü. M" />
+    <hotspot name="text-6" style="hotspottextstyle" ath="-145.864" atv="-4.009" visible="true" html="[b]Pilatus Kulm - 2132 m. ü. M[/b]" />
+
+
+      <hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="300px" width.mobile="150px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" onclick="iframe_embed(parent, child, https://www.pilatus.ch/);" novrspot="yes" zorder="2"
+      onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" />
+
+
+        <hotspot name="wetter1" style="hss8" ath="161.093" atv="-16.267" tag="Wetter" novrspot="yes"
+      onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"
+      onclick="iframe_embed(parent, child, https://pilatus.roundshot.com/);"/>
+      <hotspot name="text-10" style="hotspottextstyle-info" ath="161.093" atv="-16.267" visible="true" html="[b]Wetter[/b]"
+        novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+
+
+  </scene>
+
+ -->
+<!--  28
+
+  <scene name="scene_OBERHAUPT_AUSSICHTSPLATTFORM" title="Oberhaupt Aussichtsplattform [br] Sonnenuntergang" onstart="updateradar();" thumburl="../../panos/OBERHAUPT_AUSSICHTSPLATTFORM.tiles/thumb.jpg" lat="" lng="" heading="">
+
+    <action name="updateradar">
+      set(layer[activespot].parent, spot2);
+
+      set(layer[spot2].scale, 1.4);
+      set(layer[spot3].scale, 1.0);
+      set(layer[spot4].scale, 1.0);
+      set(layer[spot5].scale, 1.0);
+      set(layer[spot6].scale, 1.0);
+      set(layer[spot7].scale, 1.0);
+    </action>
+
+    <view hlookat="54.898" vlookat="0.723" fovtype="MFOV" fov="100" />
+
+    <preview url="../../panos/OBERHAUPT_AUSSICHTSPLATTFORM.tiles/preview.jpg" />
+
+    <image prealign="0|0.0|0">
+      <cube url="../../panos/OBERHAUPT_AUSSICHTSPLATTFORM.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,1024,1792,3712,7424" />
+    </image>
+
+    <hotspot name="scene_esel_aussichtsplattform" style="hss1" ath="-70.476" atv="-10.491" tag="Esel Aussichtsplattform"
+      url="spots/aussichtspunkte.png" marker_id="61"/>
+    <hotspot name="text-5" style="hotspottextstyle" ath="-70.476" atv="-10.491" visible="true" html="[b]Esel Aussichtsplattform [br] Sonnenaufgang[/b]" />
+
+    <hotspot name="scene_ANSICHT_PILATUS_KULM_NORDSEITE_WINTER" style="hss2" ath="-7.177" atv="-5.556" tag="Pilatus Kulm - 2132 m. ü. M" />
+    <hotspot name="text-7" style="hotspottextstyle" ath="-7.177" atv="-5.556" visible="true" html="[b]Pilatus Kulm - 2132 m. ü. M[/b]" />
+
+
+      <hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="300px" width.mobile="150px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" onclick="iframe_embed(parent, child, https://www.pilatus.ch/);" novrspot="yes" zorder="2"
+      onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" />
+
+
+  </scene>
+  -->
+<!--  23   -->
+<scene name="scene_HOTEL_PILATUS_KULM_-__FOYER" title="Hotel Pilatus Kulm - Foyer" onstart="updateradar();" thumburl="../../panos/HOTEL_PILATUS_KULM_-__FOYER.tiles/thumb.jpg" lat="" lng="" heading="">
+<action name="updateradar"> set(layer[activespot].parent, spot2); set(layer[spot2].scale, 1.4); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); </action>
+<view hlookat="-112.536" vlookat="-1.471" fovtype="MFOV" fov="100"/>
+<preview url="../../panos/HOTEL_PILATUS_KULM_-__FOYER.tiles/preview.jpg"/>
+<image prealign="0|0.0|0">
+<cube url="../../panos/HOTEL_PILATUS_KULM_-__FOYER.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,768,1664,3200,6400"/>
+</image>
+<hotspot name="scene_ansicht_pilatus_kulm_winter" style="hss2" ath="-6.902" atv="2.232" tag="Restaurant Pilatus Kulm - Terrasse"/>
+<hotspot name="text-1" style="hotspottextstyle" ath="-6.902" atv="2.232" visible="true" html="[b]Pilatus Kulm Übersicht[/b]"/>
+<!--  NADIR   -->
+<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="300px" width.mobile="150px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" onclick="iframe_embed(parent, child, https://www.pilatus.ch/);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info1" style="hss3" ath="91.395" atv="2.162" tag="Seminare" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" url="spots/info.png" marker_id="21" onclick="autorotate.stop(); iframe_embed(parent, child, https://my.matterport.com/show/?m=HRPufrkDxd3);"/>
+<hotspot name="text-2" style="hotspottextstyle-info" ath="91.395" atv="2.162" visible="true" html="[b]Seminare[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info2" style="hss3" ath="118.220" atv="-1.969" tag="Restaurant Pilatus-Kulm" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" url="spots/hotel-restaurants.png" marker_id="23" onclick="autorotate.stop(); iframe_embed(parent, child, https://my.matterport.com/show/?m=NULaPdVvFSo);"/>
+<hotspot name="text-3" style="hotspottextstyle-info" ath="118.220" atv="-1.969" visible="true" html="[b]Restaurant Pilatus-Kulm[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info3" style="hss3" ath="-166.352" atv="1.106" tag="Rundgang Hotel Räumlichkeiten" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="iframe_embed(parent, child, https://my.matterport.com/show/?m=NULaPdVvFSo);"/>
+<hotspot name="text-4" style="hotspottextstyle-info" ath="-166.352" atv="1.106" visible="true" html="[b]Rundgang Hotel Räumlichkeiten[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+<hotspot name="info4" style="hss3" ath="-59.122" atv="-2.017" tag="Restaurant Pilatus-Kulm" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" url="spots/hotel-restaurants.png" marker_id="23" onclick="autorotate.stop(); plugin[popup].show_popup(23);"/>
+<hotspot name="text-5" style="hotspottextstyle-info" ath="-59.122" atv="-2.017" visible="true" html="[b]Restaurant Pilatus-Kulm[/b]" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););"/>
+</scene>
+</krpano>

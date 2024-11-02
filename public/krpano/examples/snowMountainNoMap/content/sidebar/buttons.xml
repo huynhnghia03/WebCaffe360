@@ -1,0 +1,236 @@
+<krpano>
+<!--  'SHOW TEXT' Style  -->
+
+<textstyle name="sidebar-button" origin="cursor" edge="bottom" xoffset="0" yoffset="-3" fadeintime="0.0" showtime="0.1" fadetime="0.0" font="Arial" fontsize="12.0" bold="true" italic="false" textcolor="0x333333" textalign="none" padding="1" css="font-family: Arial;" width="" height="" vcenter="" background="true" backgroundcolor="0xFFFFFF" backgroundalpha="0.7" border="false" bordercolor="0x000000" borderalpha="1.0" borderwidth="1.0" roundedge="0" shadow="0.0" shadowrange="4.0" shadowangle="45" shadowcolor="0xFFFFFF" shadowalpha="1.0" textshadow="1.0" textshadowrange="4.0" textshadowangle="45" textshadowcolor="0xFFFFFF" textshadowalpha="1.0" alpha="1.0" parent="" noclip="true"/>
+<!--  Button 1 - AUTOTOUR  -->
+<layer name="button-1A" parent="sb_b_container" type="container" url="autorotation-stop.png" align="topcenter" keep="true" enabled="true" visible="true" alpha="1" zorder="99" width="35" height="prop" x="-50" y="5" onhover="showtext(Autotour stoppen, sidebar-button);" onclick="set(layer[button-1A].visible, false); autorotate.stop();"/>
+<layer name="button-1B" parent="sb_b_container" type="container" url="autorotation-start.png" align="topcenter" keep="true" enabled="true" visible="true" alpha="1" zorder="98" width="35" height="prop" x="-50" y="5" onhover="showtext(Autotour starten, sidebar-button);" onclick="set(layer[button-1A].visible, true); autorotate.start();"/>
+<!--  Button 2 - HOTSPOTS  -->
+<layer name="button-2A" parent="sb_b_container" type="container" url="hotspots-verstecken.png" align="topcenter" keep="true" enabled="true" visible="true" alpha="1" zorder="99" width="35" height="prop" x="0" y="5" onhover="showtext(Hotspots verstecken, sidebar-button);" onclick="set(layer[button-2A].visible, false); hide_hotspots();"/>
+<layer name="button-2B" parent="sb_b_container" type="container" url="hotspots-anzeigen.png" align="topcenter" keep="true" enabled="true" visible="true" alpha="1" zorder="98" width="35" height="prop" x="0" y="5" onhover="showtext(Hotspots zeigen, sidebar-button);" onclick="set(layer[button-2A].visible, true); show_hotspots();"/>
+<action name="hide_hotspots"> for(set(i,0), i LT hotspot.count, inc(i), set(hotspot[get(i)].visible,false); ); </action>
+<action name="show_hotspots"> for(set(i,0), i LT hotspot.count, inc(i), copy(hs,hotspot[get(i)]); if(hs.name != 'vr_cursor' AND hs.name != 'skin_webvr_prev_scene' AND hs.name != 'skin_webvr_next_scene', switch(hs.visible); ); ); </action>
+<!--  Button 3 - SOUNDS  -->
+<layer name="button-3A" parent="sb_b_container" type="container" url="sound-start.png" align="topcenter" keep="true" enabled="true" visible="true" alpha="1" zorder="99" width="35" height="prop" x="50" y="5" onhover="showtext(Sounds starten, sidebar-button);" onclick="set(layer[button-3A].visible, false); playsound(bgsnd,'%CURRENTXML%/sounds/bgmusic.mp3', 0);"/>
+<layer name="button-3B" parent="sb_b_container" type="container" url="sound-stop.png" align="topcenter" keep="true" enabled="true" visible="true" alpha="1" zorder="98" width="35" height="prop" x="50" y="5" onhover="showtext(Sounds stoppen, sidebar-button);" onclick="set(layer[button-3A].visible, true); pausesoundtoggle(bgsnd);"/>
+<style name="style_linientext" x="5" y="55" align="center" html="_____________________________________" css="text-align:center; font-family:Arial; font-size:8px; color:#333333;" vcenter="true" padding="2" wordwrap="true" bg="false" bgcolor="get:menu-settings.farbe1" bgalpha="1.0" bgborder="0" bgroundedge="0" bgshadow="" txtshadow="" mergedalpha="true" interactivecontent="false" onautosized=""/>
+
+<!--  Button 4 - VOLLBILD
+
+	<layer  name="button-4A"
+			    parent="sb_b_container"
+       		type="container"
+       		url="vollbild-an.png"
+      		align="topcenter"
+      		keep="true"
+			    enabled="true"
+			    visible="true"
+			    alpha="1"
+			    zorder="99"
+          width="30"
+          height="30"
+          x="35"
+          y="5"
+      		onhover="showtext(Vollbild an, sidebar-button);"
+			    onclick="set(layer[button-4A].visible, false); switch(fullscreen);"
+      		 />
+
+	<layer  name="button-4B"
+			    parent="sb_b_container"
+       		type="container"
+       		url="vollbild-aus.png"
+      		align="topcenter"
+      		keep="true"
+      		vr="true"
+			    enabled="true"
+			    visible="true"
+			    alpha="1"
+			    zorder="98"
+          width="30"
+          height="30"
+          x="35"
+          y="5"
+      		onhover="showtext(Vollbild aus, sidebar-button);"
+			    onclick="set(layer[button-4A].visible, true); switch(fullscreen);"
+      		 />
+ -->
+<!--  Button 5 - VR
+
+	<layer  name="button-5A"
+			    parent="sb_b_container"
+       		type="container"
+       		url="social-share-weiss.png"
+      		align="topcenter"
+      		keep="true"
+			    enabled="true"
+			    visible="true"
+          width="30"
+          height="30"
+          x="0"
+          y="5"
+      		onhover="showtext(Teilen, sidebar-button);"
+          onclick="open-social-layer();"
+           />
+
+
+<social share="txtadd(urltext,get(social.%1),%2);openurl(get(urltext),_blank);"
+        facebook="http://facebook.com/share.php?u="
+        twitter="http://twitter.com/intent/tweet?status="
+
+         -->
+<!-- /> -->
+<!--  SOCIAL SHARE LAYER
+
+  <layer  name="social-overlay"
+          parent=""
+          type="container"
+          style="style-lightbox-overlay"
+          align="center"
+          edge=""
+          keep="true"
+          enabled="true"
+          visible="false"
+          bgcapture="true"
+          alpha="1"
+          scale="1"
+          zorder="999"
+          onclick="set(visible, false); "
+           />
+  <style  name="style-social-overlay"
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+          vcenter="true"
+          padding="0"
+          bg="true"
+          bgcolor="0x000000"
+          bgalpha="0.5"
+          bgborder="0 0xFFFFFF 1.0"
+          bgroundedge="0"
+          bgshadow=""
+
+           />
+
+
+  <layer  name="social-layer"
+          parent="social-overlay"
+          type="container"
+          style="style-social-layer"
+          align="center"
+          edge=""
+          keep="true"
+          enabled="true"
+          visible="true"
+          bgcapture="true"
+          alpha="1"
+          scale="1"
+           />
+  <style  name="style-social-layer"
+          x="0"
+          y="0"
+          width="300"
+          height="120"
+          vcenter="true"
+          padding="0"
+          bg="true"
+          bgcolor="0xFFFFFF"
+          bgalpha="0.7"
+          bgborder="1 0xFFFFFF 1.0"
+          bgroundedge="0"
+          bgshadow=""
+           />
+
+            -->
+<!--  X-Button
+
+<layer  name="close-social-layer" parent="social-layer" style="close-social-layer-style"  />
+
+    <style  name="close-social-layer-style"
+            type="container"
+            url="%FIRSTXML%/logos/x-button-weiss.png"
+            bgcapture="false"
+            align="topright"
+            keep="true"
+            enabled="true"
+            visible="true"
+            width="25"
+            height="25"
+            x="-25"
+            y="-25"
+            scale="1"
+            zorder="501"
+            onhover="showtext(Schließen);"
+            onclick="set(layer[social-overlay].visible, false);"
+             />
+
+
+            <action name="open-social-layer">
+                autorotate.stop();
+                set(layer[social-overlay].visible, true);
+
+
+            </action>
+ -->
+<!--  Share Buttons
+
+  <layer  name="button-facebook"
+          parent="social-layer"
+          type="container"
+          url="facebook.png"
+          align="centercenter"
+          keep="true"
+          enabled="true"
+          visible="true"
+          alpha="1"
+          zorder="99"
+          width="50"
+          height="50"
+          x="0"
+          y="0"
+          onhover="showtext(Facebook, sidebar-button);"
+          onclick="txtadd(tourlinkwithparams,get(tourlink),get(xml.scene)); social.share(facebook,get(tourlinkwithparams));"
+           />
+
+
+  <layer  name="button-twitter"
+          parent="social-layer"
+          type="container"
+          url="twitter.png"
+          align="centercenter"
+          keep="true"
+          enabled="true"
+          visible="true"
+          alpha="1"
+          zorder="99"
+          width="50"
+          height="50"
+          x="-80"
+          y="0"
+          onhover="showtext(Twitter, sidebar-button);"
+          onclick="txtadd(tourlinkwithparams,get(tourlink),get(xml.scene)); social.share(twitter,get(tourlinkwithparams));"
+           />
+
+
+  <layer  name="button-mail"
+          parent="social-layer"
+          type="container"
+          url="email.png"
+          align="centercenter"
+          keep="true"
+          enabled="true"
+          visible="true"
+          alpha="1"
+          zorder="99"
+          width="50"
+          height="50"
+          x="80"
+          y="0"
+          onhover="showtext(E-Mail, sidebar-button);"
+          onclick="txtadd(mailtourl,'mailto: ?subject=Schau dir diese 360° Tour an&amp;body=',get(tourlink),get(xml.scene));
+openurl(get(mailtourl),_self);"
+           />
+
+
+ -->
+</krpano>

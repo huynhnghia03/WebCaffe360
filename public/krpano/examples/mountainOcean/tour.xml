@@ -1,0 +1,274 @@
+<krpano title="360° Tour" >
+<include url="skin/vtourskin.xml"/>
+<include url="skin/360skin.xml"/>
+<include url="content/hostpots/hotspots.xml"/>
+<include url="../../plugins/showtext.xml"/>
+<include url="../../plugins/webvr.xml"/>
+<include url="../../plugins/youtube-player.xml"/>
+<!--
+  <include url="content/sidebar/sidebar.xml" /> -->
+<!--  startup action - load the first scene  -->
+<action name="startup" autorun="onstart"> if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); ); loadscene(get(startscene), null, MERGE); if(startactions !== null, startactions() ); landscape-mobile(); wait(1); sidebar_zeigen(); </action>
+<!--  startup action - load the first scene ONLY VR BRILLE -->
+<action name="startup" autorun="onstart" devices="mobilevr"> if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); ); loadscene(get(startscene), null, MERGE); if(startactions !== null, startactions() ); </action>
+<!--  Standart VoV  -->
+<view limitview="range" hlookatmin="-180" hlookatmax="180" vlookatmin="-90" vlookatmax="90" fovmax="110" fovtype="HFOV" maxpixelzoom="1.5"/>
+<!--  context menu   -->
+<contextmenu versioninfo="false" fullscreen="false">
+<item name="logo" caption="calc:'[img src=[sq]'+network.currentxmlpath+'/logos/nadir.jpg[sq] style=[sq]width:proppx; height:100px; margin:0px 0px 0px 0px;[sq] /]'" separator="true" onclick="openurl('https://www.attersee.at/')" devices="html5"/>
+<item name="ws1" caption="ATTERSEE HERBST © 360 Perspektiven GmbH" onclick="openurl('https://360perspektiven.com/', _blank)"/>
+<item name="ws3" caption="Facebook - 360° Perspektiven" onclick="openurl('https://www.facebook.com/360perspektiven', _blank)"/>
+<item name="im" caption="Impressum" onclick="openurl('https://360perspektiven.com/impressum/', _blank)"/>
+<!--
+    <item name="nv" caption="Normal View"        onclick="skin_view_normal();"        showif="view.vlookatrange == 180" separator="true"      />
+    <item name="lp" caption="Little Planet View" onclick="skin_view_littleplanet();"  showif="view.vlookatrange == 180" devices="flash|webgl" />
+    <item name="sh1" caption="Teile diese Ansicht per Mail"
+          onclick="txtadd(mailtourl,'mailto: ?subject=360° Hotel Haberl #9733;#9733;#9733;#9733;  am Attersee - Urlaub im Salzkammergutamp;body=',get(tourlink),get(xml.scene)); openurl(get(mailtourl),_self);"     />
+    <item name="sh2" caption="Teile diese Ansicht in Facebook"
+          onclick="txtadd(tourlinkwithparams,get(tourlink),get(xml.scene)); social.share(facebook,get(tourlinkwithparams));"     />      -->
+</contextmenu>
+<!-- <social share="txtadd(urltext,get(social.%1),%2);openurl(get(urltext),_blank);" facebook="http://facebook.com/share.php?u=" twitter="http://twitter.com/intent/tweet?status="/> -->
+<!--  Gyro IPhone
+
+<layer  name="gyro-overlay"
+        parent=""
+        type="container"
+        style="gyro-overlay-style"
+        align="center"
+        keep="true"
+        enabled="true"
+        visible="true"
+        devices="ios"
+        />
+
+<style  name="gyro-overlay-style"
+        alpha="1.0"
+        width="100%"
+        height="100%"
+        x="0"
+        y="0"
+        bg="true"
+        bgcolor="0xFFFFFF"
+        bgalpha="0.8"
+        bgborder="0"
+        bgbordercolor="0xFFFFFF"
+        bgroundedge="0"
+        bgcapture="true"
+        zorder="999"
+        onover=""
+        onout=""
+        onclick="switch(plugin[skin_gyro].enabled); if(plugin[skin_gyro].enabled, skin_showmap(false)); tween(visible, false); "
+        />
+
+<layer name="gyro-iphone"
+           url="logos/logo-p.png"
+           devices="ios"
+           keep="true"
+           enabled="true"
+           visible="true"
+           parent="gyro-overlay"
+           width="300"
+           height="prop"
+           align="center"
+           scale="1.0"
+           alpha="1"
+           zorder="1000"
+           onclick="switch(plugin[skin_gyro].enabled); if(plugin[skin_gyro].enabled, skin_showmap(false)); tween(layer[gyro-overlay].visible, false);"
+        />
+
+
+ -->
+<!--  ..............................TITEL...............................
+
+
+<action name="skin_update_scene_infos">
+if(title, txtadd(layer[titel-text].html, <b>Aktueller Standpunkt:</b><br></br> , get(scene[get(xml.scene)].title) ); , copy(layer[titel-text].html, scene[get(xml.scene)].title ); );
+</action>
+
+ -->
+<!--  Titel   -->
+<layer name="titel-text" parent="" style="style_titeltext" type="text" align="topcenter" keep="true" enabled="false" visible="false"/>
+<!--  Titel Style  -->
+<style name="style_titeltext" x="0" y="20" html="" css="font-family: Arial; font-size:20px; color:#ffffff; text-align:center;" vcenter="true" padding="2" wordwrap="true" bg="false" bgcolor="0xFFFFFF" bgalpha="1.0" bgborder="0" bgroundedge="0" bgshadow="" txtshadow="2 2 7 0x000000 0.8" mergedalpha="true" interactivecontent="false" onautosized="" zorder="1"/>
+<!--  MOBILE SCALE -->
+<events name="orientation" keep="true" onresize="Orientation();" devices="handheld"/>
+<action name="Orientation">
+if(stagewidth LT stageheight,
+<!--  PORTRAIT  -->
+set(layer[sommer].width, 45%); set(layer[overlay-title].width, 95%); set(layer[button-1].width, 35%); set(layer[button-2].width, 35%); set(layer[button-3].width, 35%); set(layer[button-4].width, 35%); set(layer[button-1].align, centercenter); set(layer[button-2].align, centercenter); set(layer[button-3].align, centercenter); set(layer[button-4].align, centercenter); set(layer[button-1].x, -20%); set(layer[button-2].x, 20%); set(layer[button-3].x, -20%); set(layer[button-4].x, 20%); set(layer[button-1].y, -10%); set(layer[button-2].y, -10%); set(layer[button-3].y, 20%); set(layer[button-4].y, 20%); set(hotspot[info-01].width, 100); set(hotspot[info-02].width, 100); set(hotspot[info-03].width, 100); set(hotspot[info-04].width, 100); set(hotspot[info-05].width, 100); set(hotspot[info-06].width, 100); set(hotspot[info-07].width, 100); set(hotspot[info-08].width, 100); set(hotspot[info-09].width, 100); set(hotspot[info-010].width, 100); set(hotspot[info-011].width, 100); set(hotspot[info-012].width, 100); ,
+<!--  LANDSCAPE  -->
+set(layer[sommer].width, 25%); set(layer[overlay-title].width, 85%); set(layer[button-1].width, 17%); set(layer[button-2].width, 17%); set(layer[button-3].width, 17%); set(layer[button-4].width, 17%); set(layer[button-1].align, bottomcenter); set(layer[button-2].align, bottomcenter); set(layer[button-3].align, bottomcenter); set(layer[button-4].align, bottomcenter); set(layer[button-1].x, -30%); set(layer[button-2].x, -10%); set(layer[button-3].x, 10%); set(layer[button-4].x, 30%); set(layer[button-1].y, 10%); set(layer[button-2].y, 10%); set(layer[button-3].y, 10%); set(layer[button-4].y, 10%); set(hotspot[info-01].width, 100); set(hotspot[info-01].ox, 100); set(hotspot[info-text-01].ox, 100); set(hotspot[info-02].width, 100); set(hotspot[info-03].width, 100); set(hotspot[info-03].ox, 560); set(hotspot[info-text-03].ox, 560); set(hotspot[info-04].width, 100); set(hotspot[info-05].width, 100); set(hotspot[info-06].width, 100); set(hotspot[info-06].ox, 100); set(hotspot[info-text-06].ox, 100); set(hotspot[info-07].width, 100); set(hotspot[info-08].width, 100); set(hotspot[info-08].ox, 560); set(hotspot[info-text-08].ox, 560); set(hotspot[info-09].width, 100); set(hotspot[info-010].width, 100); set(hotspot[info-011].width, 100); set(hotspot[info-012].width, 100); );
+</action>
+<!--  MOBILE SCALE -->
+<events name="orientation1" keep="true" onresize="Orientation1();" devices="tablet"/>
+<action name="Orientation1">
+if(stagewidth LT stageheight,
+<!--  PORTRAIT  -->
+set(layer[sommer].width, 35%); set(layer[overlay-title].width, 95%); set(layer[overlay-title].y, 5%); set(layer[button-1].width, prop); set(layer[button-1].height, 35%); set(layer[button-2].width, prop); set(layer[button-2].height, 35%); set(layer[button-3].width, prop); set(layer[button-3].height, 35%); set(layer[button-4].width, prop); set(layer[button-4].height, 35%); set(layer[button-1].align, centercenter); set(layer[button-2].align, centercenter); set(layer[button-3].align, centercenter); set(layer[button-4].align, centercenter); set(layer[button-1].x, -20%); set(layer[button-2].x, 20%); set(layer[button-3].x, -20%); set(layer[button-4].x, 20%); set(layer[button-1].y, -13%); set(layer[button-2].y, -13%); set(layer[button-3].y, 27%); set(layer[button-4].y, 27%); set(hotspot[info-01].width, 100); set(hotspot[info-01].ox, 100); set(hotspot[info-text-01].ox, 100); set(hotspot[info-02].width, 100); set(hotspot[info-03].width, 100); set(hotspot[info-03].ox, 560); set(hotspot[info-text-03].ox, 560); set(hotspot[info-04].width, 100); set(hotspot[info-05].width, 100); set(hotspot[info-06].width, 100); set(hotspot[info-06].ox, 100); set(hotspot[info-text-06].ox, 100); set(hotspot[info-07].width, 100); set(hotspot[info-08].width, 100); set(hotspot[info-08].ox, 560); set(hotspot[info-text-08].ox, 560); set(hotspot[info-09].width, 100); set(hotspot[info-010].width, 100); set(hotspot[info-011].width, 100); set(hotspot[info-012].width, 100); ,
+<!--  LANDSCAPE  -->
+set(layer[sommer].width, 25%); set(layer[overlay-title].width, 90%); set(layer[overlay-title].y, 5%); set(layer[button-1].width, 22%); set(layer[button-1].height, prop); set(layer[button-2].width, 22%); set(layer[button-2].height, prop); set(layer[button-3].width, 22%); set(layer[button-3].height, prop); set(layer[button-4].width, 22%); set(layer[button-4].height, prop); set(layer[button-1].align, bottomcenter); set(layer[button-2].align, bottomcenter); set(layer[button-3].align, bottomcenter); set(layer[button-4].align, bottomcenter); set(layer[button-1].x, -36%); set(layer[button-2].x, -12%); set(layer[button-3].x, 12%); set(layer[button-4].x, 36%); set(layer[button-1].y, 20%); set(layer[button-2].y, 20%); set(layer[button-3].y, 20%); set(layer[button-4].y, 20%); set(hotspot[info-01].width, 100); set(hotspot[info-01].ox, 100); set(hotspot[info-text-01].ox, 100); set(hotspot[info-02].width, 100); set(hotspot[info-03].width, 100); set(hotspot[info-03].ox, 560); set(hotspot[info-text-03].ox, 560); set(hotspot[info-04].width, 100); set(hotspot[info-05].width, 100); set(hotspot[info-06].width, 100); set(hotspot[info-06].ox, 100); set(hotspot[info-text-06].ox, 100); set(hotspot[info-07].width, 100); set(hotspot[info-08].width, 100); set(hotspot[info-08].ox, 560); set(hotspot[info-text-08].ox, 560); set(hotspot[info-09].width, 100); set(hotspot[info-010].width, 100); set(hotspot[info-011].width, 100); set(hotspot[info-012].width, 100); );
+</action>
+<!--  MOBILE SCALE -->
+<events name="orientation2" keep="true" onresize="Orientation2();" devices="mobile.and.firefox"/>
+<action name="Orientation2">
+if(stagewidth LT stageheight,
+<!--  PORTRAIT  -->
+set(layer[sommer].width, 35%); set(layer[overlay-title].width, 95%); set(layer[overlay-title].y, 5%); set(layer[button-1].width, prop); set(layer[button-1].height, 15%); set(layer[button-2].width, prop); set(layer[button-2].height, 15%); set(layer[button-3].width, prop); set(layer[button-3].height, 15%); set(layer[button-4].width, prop); set(layer[button-4].height, 15%); set(layer[button-1].align, centercenter); set(layer[button-2].align, centercenter); set(layer[button-3].align, centercenter); set(layer[button-4].align, centercenter); set(layer[button-1].x, -20%); set(layer[button-2].x, 20%); set(layer[button-3].x, -20%); set(layer[button-4].x, 20%); set(layer[button-1].y, -13%); set(layer[button-2].y, -13%); set(layer[button-3].y, 27%); set(layer[button-4].y, 27%); set(hotspot[info-01].width, 100); set(hotspot[info-01].ox, 100); set(hotspot[info-text-01].ox, 100); set(hotspot[info-02].width, 100); set(hotspot[info-03].width, 100); set(hotspot[info-03].ox, 560); set(hotspot[info-text-03].ox, 560); set(hotspot[info-04].width, 100); set(hotspot[info-05].width, 100); set(hotspot[info-06].width, 100); set(hotspot[info-06].ox, 100); set(hotspot[info-text-06].ox, 100); set(hotspot[info-07].width, 100); set(hotspot[info-08].width, 100); set(hotspot[info-08].ox, 560); set(hotspot[info-text-08].ox, 560); set(hotspot[info-09].width, 100); set(hotspot[info-010].width, 100); set(hotspot[info-011].width, 100); set(hotspot[info-012].width, 100); ,
+<!--  LANDSCAPE  -->
+set(layer[sommer].width, 25%); set(layer[overlay-title].width, 90%); set(layer[overlay-title].y, 5%); set(layer[button-1].width, 18%); set(layer[button-1].height, prop); set(layer[button-2].width, 18%); set(layer[button-2].height, prop); set(layer[button-3].width, 18%); set(layer[button-3].height, prop); set(layer[button-4].width, 18%); set(layer[button-4].height, prop); set(layer[button-1].align, bottomcenter); set(layer[button-2].align, bottomcenter); set(layer[button-3].align, bottomcenter); set(layer[button-4].align, bottomcenter); set(layer[button-1].x, -36%); set(layer[button-2].x, -12%); set(layer[button-3].x, 12%); set(layer[button-4].x, 36%); set(layer[button-1].y, 20%); set(layer[button-2].y, 20%); set(layer[button-3].y, 20%); set(layer[button-4].y, 20%); set(hotspot[info-01].width, 100); set(hotspot[info-01].ox, 100); set(hotspot[info-text-01].ox, 100); set(hotspot[info-02].width, 100); set(hotspot[info-03].width, 100); set(hotspot[info-03].ox, 560); set(hotspot[info-text-03].ox, 560); set(hotspot[info-04].width, 100); set(hotspot[info-05].width, 100); set(hotspot[info-06].width, 100); set(hotspot[info-06].ox, 100); set(hotspot[info-text-06].ox, 100); set(hotspot[info-07].width, 100); set(hotspot[info-08].width, 100); set(hotspot[info-08].ox, 560); set(hotspot[info-text-08].ox, 560); set(hotspot[info-09].width, 100); set(hotspot[info-010].width, 100); set(hotspot[info-011].width, 100); set(hotspot[info-012].width, 100); );
+</action>
+<!--  MOBILE SCALE
+
+
+      <events name="orientation3" keep="true" onresize="Orientation3();" devices="firefox"/>
+ -->
+<action name="Orientation3">
+if(stagewidth LT stageheight,
+<!--  PORTRAIT  -->
+set(layer[sommer].width, 35%); set(layer[overlay-title].width, 95%); set(layer[overlay-title].y, 5%); set(layer[button-1].width, prop); set(layer[button-1].height, 25%); set(layer[button-2].width, prop); set(layer[button-2].height, 25%); set(layer[button-3].width, prop); set(layer[button-3].height, 25%); set(layer[button-4].width, prop); set(layer[button-4].height, 25%); set(layer[button-1].align, centercenter); set(layer[button-2].align, centercenter); set(layer[button-3].align, centercenter); set(layer[button-4].align, centercenter); set(layer[button-1].x, -20%); set(layer[button-2].x, 20%); set(layer[button-3].x, -20%); set(layer[button-4].x, 20%); set(layer[button-1].y, -13%); set(layer[button-2].y, -13%); set(layer[button-3].y, 27%); set(layer[button-4].y, 27%); set(hotspot[info-01].width, 100); set(hotspot[info-01].ox, 100); set(hotspot[info-text-01].ox, 100); set(hotspot[info-02].width, 100); set(hotspot[info-03].width, 100); set(hotspot[info-03].ox, 560); set(hotspot[info-text-03].ox, 560); set(hotspot[info-04].width, 100); set(hotspot[info-05].width, 100); set(hotspot[info-06].width, 100); set(hotspot[info-06].ox, 100); set(hotspot[info-text-06].ox, 100); set(hotspot[info-07].width, 100); set(hotspot[info-08].width, 100); set(hotspot[info-08].ox, 560); set(hotspot[info-text-08].ox, 560); set(hotspot[info-09].width, 100); set(hotspot[info-010].width, 100); set(hotspot[info-011].width, 100); set(hotspot[info-012].width, 100); ,
+<!--  LANDSCAPE  -->
+set(layer[sommer].width, 25%); set(layer[overlay-title].width, 90%); set(layer[overlay-title].y, 5%); set(layer[button-1].width, 18%); set(layer[button-1].height, prop); set(layer[button-2].width, 18%); set(layer[button-2].height, prop); set(layer[button-3].width, 18%); set(layer[button-3].height, prop); set(layer[button-4].width, 18%); set(layer[button-4].height, prop); set(layer[button-1].align, bottomcenter); set(layer[button-2].align, bottomcenter); set(layer[button-3].align, bottomcenter); set(layer[button-4].align, bottomcenter); set(layer[button-1].x, -36%); set(layer[button-2].x, -12%); set(layer[button-3].x, 12%); set(layer[button-4].x, 36%); set(layer[button-1].y, 20%); set(layer[button-2].y, 20%); set(layer[button-3].y, 20%); set(layer[button-4].y, 20%); set(hotspot[info-01].width, 100); set(hotspot[info-01].ox, 100); set(hotspot[info-text-01].ox, 100); set(hotspot[info-02].width, 100); set(hotspot[info-03].width, 100); set(hotspot[info-03].ox, 560); set(hotspot[info-text-03].ox, 560); set(hotspot[info-04].width, 100); set(hotspot[info-05].width, 100); set(hotspot[info-06].width, 100); set(hotspot[info-06].ox, 100); set(hotspot[info-text-06].ox, 100); set(hotspot[info-07].width, 100); set(hotspot[info-08].width, 100); set(hotspot[info-08].ox, 560); set(hotspot[info-text-08].ox, 560); set(hotspot[info-09].width, 100); set(hotspot[info-010].width, 100); set(hotspot[info-011].width, 100); set(hotspot[info-012].width, 100); );
+</action>
+<!--  LANDSCAPE BILD  -->
+<layer name="rotate-device-bild" url="logos/rotate_device.png" keep="true" enabled="true" visible="false" visible.mobilevr="false" width="160" height="prop" align="center" x="0" y="42%" alpha="1" scale="1.0" zorder="5000" onover="tween(alpha,1,1);" onout="tween(alpha,0.5,1);"/>
+<action name="landscape-mobile" devices="handheld"> set(layer[rotate-device-bild].visible, true); wait(3.0); set(layer[rotate-device-bild].visible, false); </action>
+<action name="landscape-brille" devices="mobilevr"> set(layer[rotate-device-bild].visible, false); </action>
+<!--  Default Textstyle für Hover Texte  -->
+<textstyle name="DEFAULT" origin="cursor" edge="bottom" xoffset="0" yoffset="0" fadeintime="0.0" showtime="0.1" fadetime="0.0" font="Arial" fontsize="14.0" bold="true" italic="false" textcolor="0xFFFFFF" textalign="center" padding="3" css="text-shadow: 0px 0px 2px black;" width="" height="" vcenter="" background="true" backgroundcolor="0xFFFFFF" backgroundalpha="0.0" border="true" bordercolor="0xFFFFFF" borderalpha="0.0" borderwidth="1.0" roundedge="0" shadow="0.0" shadowrange="4.0" shadowangle="45" shadowcolor="0x000000" shadowalpha="1.0" textshadow="10" textshadowrange="4.0" textshadowangle="45" textshadowcolor="0x000000" textshadowalpha="1.0" alpha="1.0" parent="" noclip="true"/>
+<!--  ..............................HOTSPOT HOVER EVENT..............................
+
+
+
+<events name="hover-hotspot" keep="true" onviewchanged="hover-hotspot();"/>
+
+<action name="hover-hotspot">
+    for(set(i,0), i LT hotspot.count, inc(i),
+        getlooktodistance(d, hotspot[get(i)].ath, hotspot[get(i)].atv);
+        if(d LT 8,
+            highlight_hotspot(get(i), get(hotspot[get(i)].name));
+          ,
+            background_hotspot(get(i), get(hotspot[get(i)].name));
+          );
+      );
+</action>
+
+<action name="highlight_hotspot">
+    if(hotspot[%1].ishighlighted != true,
+    set(activehotspot,%2);
+                set(hotspot[%1].ishighlighted, true);
+    callwith(hotspot[%2], onover);
+    callwith(plugin[%2], onover);
+    set(plugin[%2].hovering, true);
+     );
+</action>
+
+<action name="background_hotspot">
+  if(hotspot[%1].ishighlighted,
+      set(hotspot[%1].ishighlighted, false);
+    callwith(hotspot[%2], onout);
+    callwith(plugin[%2], onout);
+    set(plugin[%2].hovering, false);
+    set(activehotspot,null);
+  );
+</action>
+ -->
+<!--  ..............................HOTSPOT VR..............................
+
+      <action name="weg_hotspots">
+        for(set(i,0), i LT hotspot.count, inc(i),
+          set(hotspot[get(i)].visible,false);
+        );
+      </action>
+
+      <action name="da_hotspots">
+      for(set(i,0), i LT hotspot.count, inc(i),
+        copy(hs,hotspot[get(i)]);
+        if(hs.name != 'vr_cursor' AND hs.name != 'skin_webvr_prev_scene' AND hs.name != 'skin_webvr_next_scene',
+         set(hotspot[get(i)].visible,true);
+        );
+      );
+      </action>
+     -->
+<!--  ..............................LIGHTBOX...............................  -->
+<plugin name="easy_html_lightbox" url="../../plugins/easy_html_lightbox.js" keep="true" devices="html5" include_jquery="true" include_lightbox="true" theme="light" background_color="#1e1e1e"/>
+<!--  LAYER für Lightbox  -->
+<layer name="lightbox-overlay" parent="" type="container" style="style-lightbox-overlay" align="center" edge="" keep="true" enabled="true" visible="false" bgcapture="true" alpha="1" scale="1" zorder="999"/>
+<style name="style-lightbox-overlay" x="0" y="0" width="100%" height="100%" vcenter="true" padding="0" bg="true" bgcolor="0x000000" bgalpha="0.5" bgborder="0 0xFFFFFF 1.0" bgroundedge="0" bgshadow="" onclick="set(layer[lightbox-overlay].visible, false); tween(layer[lightbox-layer].scale, 0);"/>
+<layer name="lightbox-layer" parent="lightbox-overlay" type="container" style="style-lightbox-layer" align="center" edge="" keep="true" enabled="true" visible="true" bgcapture="true" alpha="1" scale="0"/>
+<style name="style-lightbox-layer" x="0" y="0" width="80%" height="70%" vcenter="true" padding="0" bg="true" bgcolor="0xFFFFFF" bgalpha="0.5" bgborder="1 0xFFFFFF 1.0" bgroundedge="0" bgshadow=""/>
+<!--  X-Button  -->
+<layer name="close-lightbox-layer" parent="lightbox-layer" style="close-lightbox-layer-style"/>
+<style name="close-lightbox-layer-style" type="container" url="%FIRSTXML%/logos/x-button-weiss.png" bgcapture="false" align="topright" keep="true" enabled="true" visible="true" width="25" height="25" x="-25" y="-25" scale="1" zorder="501" onhover="showtext(Schließen);" onclick="set(layer[lightbox-overlay].visible, false); tween(layer[lightbox-layer].scale, 0);"/>
+<action name="open-lightboxlayer"> autorotate.stop(); set(layer[lightbox-overlay].visible, true); tween(layer[lightbox-layer].scale, 1); </action>
+<action name="intro-weg"> set(layer[overlay-title].visible, false); set(layer[button-1].visible, false); set(layer[button-2].visible, false); set(layer[button-3].visible, false); set(layer[button-4].visible, false); set(layer[back-b].visible, true); set(layer[next-b].visible, true); set(layer[titel-text].visible, true); set(layer[sommer].visible, true); set(hotspot[info-01].visible, true); set(hotspot[info-02].visible, true); set(hotspot[info-03].visible, true); set(hotspot[info-04].visible, true); set(hotspot[info-05].visible, true); set(hotspot[info-06].visible, true); set(hotspot[info-07].visible, true); set(hotspot[info-08].visible, true); set(hotspot[info-09].visible, true); set(hotspot[info-010].visible, true); set(hotspot[info-011].visible, true); set(hotspot[info-012].visible, true); set(hotspot[info-text-01].visible, true); set(hotspot[info-text-02].visible, true); set(hotspot[info-text-03].visible, true); set(hotspot[info-text-04].visible, true); set(hotspot[info-text-05].visible, true); set(hotspot[info-text-06].visible, true); set(hotspot[info-text-07].visible, true); set(hotspot[info-text-08].visible, true); set(hotspot[info-text-09].visible, true); set(hotspot[info-text-010].visible, true); set(hotspot[info-text-011].visible, true); set(hotspot[info-text-012].visible, true); set(hotspot[nadir].visible, true); </action>
+<!--  ..............................Element 1...............................  -->
+<layer name="sommer" url="logos/sommer.png" keep="true" enabled="true" width="15%" height="prop" visible="false" align="bottomleft" x="0" y="0" alpha="1" zorder="1000" onover="" onout="" onclick="openurl('https://www.360perspektiven.com/projekte/attersee_update2022/');"/>
+<!--  ..............................Element 2...............................  -->
+<layer name="overlay-title" url="logos/Titel_neu1.jpg" keep="true" enabled="false" width="85%" height="prop" visible="true" align="topcenter" x="0" y="8%" alpha="1" zorder="1000" onover="" onout=""/>
+<!--  ..............................Element 3...............................  -->
+<layer name="button-1" url="logos/wandern.jpg" keep="true" enabled="true" width="19%" height="prop" visible="true" align="center" x="-33%" y="14%" alpha="1" zorder="1000" onover="" onout="" onclick="intro-weg(); autorotate.stop(); moveto(148.5,0); "/>
+<!--  ..............................Element 4...............................
+
+<layer name="button-2"
+           url="logos/genuss.jpg"
+           keep="true"
+           enabled="true"
+           width="19%"
+           height="prop"
+           visible="true"
+           align="center"
+           x="-11%"
+           y="14%"
+           alpha="1"
+           zorder="1000"
+           onover=""
+           onout=""
+           onclick="intro-weg(); autorotate.stop(); moveto(230.0,0); "
+        />
+
+ -->
+<!--  ..............................Element 5...............................  -->
+<layer name="button-3" url="logos/taz.jpg" keep="true" enabled="true" width="19%" height="prop" visible="true" align="center" x="0%" y="14%" alpha="1" zorder="1000" onover="" onout="" onclick="intro-weg(); autorotate.stop(); moveto(326.0,0); "/>
+<!--  ..............................Element 6...............................  -->
+<layer name="button-4" url="logos/veranstaltungen.jpg" keep="true" enabled="true" width="19%" height="prop" visible="true" align="center" x="33%" y="14%" alpha="1" zorder="1000" onover="" onout="" onclick="intro-weg(); autorotate.stop(); moveto(50.0,0); "/>
+<!--  ..............................PANOS...............................  -->
+<!--  PANO 1   -->
+<scene name="scene_UEBERSICHT_WEYREGG" title="Attersee Herbst" onstart="" thumburl="panos/UEBERSICHT_WEYREGG.tiles/thumb.jpg" lat="47.90376667" lng="13.57845833" heading="0.0">
+<control bouncinglimits="calc:image.cube ? true : false"/>
+<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+<preview url="panos/UEBERSICHT_WEYREGG.tiles/preview.jpg"/>
+<image prealign="0|0.0|0">
+<cube url="panos/UEBERSICHT_WEYREGG.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
+</image>
+<hotspot name="info-01" style="hss2" ath="120.000" atv="-6.000" ox="0" oy="0" url="%FIRSTXML%/content/hostpots/image/hotspot1.png" onclick="openurl('https://www.360perspektiven.com/projekte/attersee_update2022/?startscene=10startactions=lookat(-30.03,11.28,100,0,0);');"/>
+<hotspot name="info-text-01" style="hotspottextstyle" ath="120.000" atv="-6.000" ox="0" html="[b]Wanderung[br]Edelkastanienwald[/b]"/>
+<hotspot name="info-02" style="hss2" ath="120.000" atv="-6.000" ox="330" edge="center" url="%FIRSTXML%/content/hostpots/image/hotspot2.png" onclick="openurl('https://www.360perspektiven.com/projekte/attersee_update2022/?startscene=15startactions=lookat(-413.3,12.1,110,0,0);');"/>
+<hotspot name="info-text-02" style="hotspottextstyle" ath="120.000" atv="-6.000" ox="330" html="[b]Wanderung[br] Jagastüberl[/b]"/>
+<hotspot name="info-03" style="hss2" ath="120.000" atv="-6.000" ox="660" url="%FIRSTXML%/content/hostpots/image/hotspot3.png" onclick="openurl('https://www.360perspektiven.com/projekte/attersee_update2022/?startscene=20startactions=lookat(-386.08,12.67,100,0,0);');"/>
+<hotspot name="info-text-03" style="hotspottextstyle" ath="120.000" atv="-6.000" ox="660" html="[b]Wanderung[br] Hochlecken[/b]"/>
+<hotspot name="info-04" style="hss2" ath="120.000" atv="-6.000" ox="165" oy="200" url="%FIRSTXML%/content/hostpots/image/hotspot4.png" onclick="openurl('https://www.360perspektiven.com/projekte/attersee_update2022/?startscene=34startactions=lookat(-349.56,36.59,100,0,0);');"/>
+<hotspot name="info-text-04" style="hotspottextstyle" ath="120.000" atv="-6.000" ox="165" oy="140" html="[b]Wanderung[br] Brennerin[/b]"/>
+<hotspot name="info-05" style="hss2" ath="120.000" atv="-6.000" ox="495" oy="200" url="%FIRSTXML%/content/hostpots/image/hotspot5.png" onclick="openurl('https://www.360perspektiven.com/projekte/attersee_update2022/?startscene=19startactions=lookat(-78.8,19.14,100,0,0);');"/>
+<hotspot name="info-text-05" style="hotspottextstyle" ath="120.000" atv="-6.000" ox="495" oy="140" html="[b]Wanderung[br] Hochplettspitz[/b]"/>
+<hotspot name="info-06" style="hss2" ath="300.000" atv="-6.000" ox="0" oy="0" url="%FIRSTXML%/content/hostpots/image/taz-hotspot1.png" onclick="openurl('https://www.360perspektiven.com/projekte/attersee_update2022/?startscene=140startactions=lookat(709.19,0.11,73.94,0,0);');"/>
+<hotspot name="info-text-06" style="hotspottextstyle" ath="300.000" atv="-6.000" ox="0" html="[b]TAZ[br] Attersee Schifffahrt[/b]"/>
+<hotspot name="info-07" style="hss2" ath="300.000" atv="-6.000" ox="330" edge="center" url="%FIRSTXML%/content/hostpots/image/taz-hotspot2.png" onclick="openurl('https://www.360perspektiven.com/projekte/attersee_update2022/?startscene=116startactions=lookat(-253.09,12.98,109.22,0,0);');"/>
+<hotspot name="info-text-07" style="hotspottextstyle" ath="300.000" atv="-6.000" ox="330" html="[b]TAZ[br] Seealpakas[/b]"/>
+<hotspot name="info-08" style="hss2" ath="300.000" atv="-6.000" ox="660" url="%FIRSTXML%/content/hostpots/image/taz-hotspot3.png" onclick="openurl('https://www.360perspektiven.com/projekte/attersee_update2022/?startscene=125startactions=lookat(-1.44,-1.05,120,0,0);');"/>
+<hotspot name="info-text-08" style="hotspottextstyle" ath="300.000" atv="-6.000" ox="660" html="[b]TAZ[br] Nixenfall[/b]"/>
+<hotspot name="info-09" style="hss2" ath="300.000" atv="-6.000" ox="165" oy="200" url="%FIRSTXML%/content/hostpots/image/taz-hotspot4.png" onclick="openurl('https://www.360perspektiven.com/projekte/attersee_update2022/?startscene=101startactions=lookat(357.09,8.79,109.18,0,0);');"/>
+<hotspot name="info-text-09" style="hotspottextstyle" ath="300.000" atv="-6.000" ox="165" oy="140" html="[b]TAZ[br]Abenteuer Pfahlbau[/b]"/>
+<hotspot name="info-010" style="hss2" ath="300.000" atv="-6.000" ox="495" oy="200" url="%FIRSTXML%/content/hostpots/image/taz-hotspot5.png" onclick="openurl('https://www.360perspektiven.com/projekte/attersee_update2022/?startscene=90startactions=lookat(-330.56,5.59,100,0,0);');"/>
+<hotspot name="info-text-010" style="hotspottextstyle" ath="300.000" atv="-6.000" ox="495" oy="140" html="[b]Alle[br]TopAusflugsziele[/b]"/>
+<!--  Genuss
+
+    <hotspot name="info-011" style="hss2" ath="230.000" atv="-3.000" ox="0" oy="0" url="%FIRSTXML%/content/hotspots/image/genuss-hotspot1.png" onclick="openurl('https://attersee-attergau.salzkammergut.at/aktivitaeten/genuss/genussherbst-2022.html');" />
+    <hotspot name="info-text-011" style="hotspottextstyle" ath="230.000" atv="-3.000" ox="0"  html="[b]Genussherbst[/b]" />
+
+ -->
+<hotspot name="info-012" style="hss2" ath="50.000" atv="-3.000" ox="0" oy="0" url="%FIRSTXML%/content/hotspots/image/veranstaltung-hotspot1.png" onclick="openurl('https://attersee-attergau.salzkammergut.at/veranstaltungen.html');"/>
+<hotspot name="info-text-012" style="hotspottextstyle" ath="50.000" atv="-3.000" ox="0" html="[b]Veranstaltungen[/b]"/>
+<!--  NADIR   -->
+<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="300px" width.mobile="150px" height="prop" scale="0.8" visible="false" onover="tween(scale,1);" onout="tween(scale,0.8);" onclick="open-lightboxlayer(); plugin[easy_html_lightbox].open_url('https://attersee-attergau.salzkammergut.at/','','','','','layer[lightbox-layer]');" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == true, set(visible, false););"/>
+</scene>
+</krpano>
