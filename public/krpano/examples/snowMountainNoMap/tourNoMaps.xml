@@ -1,688 +1,547 @@
-<krpano  title="360° Tour" onstart=""
-tourlink="www.360perspektiven.com/projekte/ammergauer-alpen/?startscene=" >
-<include url="skin/vtourskin.xml"/>
-<include url="skin/360skin.xml"/>
-<include url="content/hostpots/hotspots.xml"/>
-<include url="../../plugins/showtext.xml"/>
-<include url="../../plugins/webvr.xml"/>
-<include url="../../plugins/youtube-player.xml"/>
-<include url="../../plugins/toolbox/toolbox.xml"/>
-<include url="content/sidebar/sidebar.xml"/>
-<include url="content/floorplan/floorplan.xml"/>
-<include url="pop-up.xml"/>
-<!--  startup action - load the first scene  -->
-<action name="startup" autorun="onstart"> if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); ); loadscene(get(startscene), null, MERGE); if(startactions !== null, startactions() ); landscape-mobile(); wait(1); sidebar_zeigen(); </action>
-<!--  Standart VoV  -->
-<view limitview="range" hlookatmin="-180" hlookatmax="180" vlookatmin="-90" vlookatmax="90" fovmax="100" fovtype="HFOV" maxpixelzoom="1.5"/>
-<!--  context menu   -->
-<contextmenu versioninfo="false" fullscreen="false">
-<item name="logo" caption="calc:'[img src=[sq]'+network.currentxmlpath+'/logos/logo.png[sq] style=[sq]width:proppx; height:60px; margin:20px 60px 20px 60px;[sq] /]'" separator="true" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/')" devices="html5"/>
-<item name="ws1" caption="AMMERGAUER ALPEN © 360 Perspektiven GmbH" onclick="open-lightboxlayer('https://360perspektiven.com/')"/>
-<item name="ws2" caption="WEBSITE - AMMERGAUER ALPEN" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/')"/>
-<item name="im" caption="Impressum" onclick="open-lightboxlayer('https://360perspektiven.com/impressum/')"/>
-<item name="nv" caption="Normal View" onclick="skin_view_normal();" showif="view.vlookatrange == 180" separator="true"/>
-<item name="lp" caption="Little Planet View" onclick="skin_view_littleplanet();" showif="view.vlookatrange == 180" devices="flash|webgl"/>
-<!--  context menu share
+<krpano title="360° Tour" onstart="" tourlink="www.360perspektiven.com/projekte/ammergauer-alpen/?startscene=">
+	<include url="skin/vtourskin.xml"/>
+	<include url="skin/360skin.xml"/>
+	<include url="content/hostpots/hotspots.xml"/>
+	<include url="../../plugins/showtext.xml"/>
+	<include url="../../plugins/webvr.xml"/>
+	<include url="../../plugins/youtube-player.xml"/>
+	<include url="../../plugins/toolbox/toolbox.xml"/>
+	<include url="content/sidebar/sidebar.xml"/>
+	<include url="content/floorplan/floorplan.xml"/>
+	<include url="pop-up.xml"/>
+	<!--  startup action - load the first scene  -->
+	<action name="startup" autorun="onstart"> if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); ); loadscene(get(startscene), null, MERGE); if(startactions !== null, startactions() ); landscape-mobile(); wait(1); sidebar_zeigen(); </action>
+	<!--  Standart VoV  -->
+	<view limitview="range" hlookatmin="-180" hlookatmax="180" vlookatmin="-90" vlookatmax="90" fovmax="100" fovtype="HFOV" maxpixelzoom="1.5"/>
+	<!--  context menu   -->
+	<contextmenu versioninfo="false" fullscreen="false">
+		<item name="logo" caption="calc:'[img src=[sq]'+network.currentxmlpath+'/logos/logo.png[sq] style=[sq]width:proppx; height:60px; margin:20px 60px 20px 60px;[sq] /]'" separator="true" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/')" devices="html5"/>
+		<item name="ws1" caption="AMMERGAUER ALPEN © 360 Perspektiven GmbH" onclick="open-lightboxlayer('https://360perspektiven.com/')"/>
+		<item name="ws2" caption="WEBSITE - AMMERGAUER ALPEN" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/')"/>
+		<item name="im" caption="Impressum" onclick="open-lightboxlayer('https://360perspektiven.com/impressum/')"/>
+		<item name="nv" caption="Normal View" onclick="skin_view_normal();" showif="view.vlookatrange == 180" separator="true"/>
+		<item name="lp" caption="Little Planet View" onclick="skin_view_littleplanet();" showif="view.vlookatrange == 180" devices="flash|webgl"/>
+		<!--  context menu share
 
-    <item name="sh1" caption="Teile diese Ansicht per Mail"
-          onclick="txtadd(mailtourl,'mailto: ?subject=Beeindruckendes 360° Erlebnis &amp;body=',get(tourlink),get(xml.scene)); openurl(get(mailtourl),_self);"     />
-    <item name="sh2" caption="Teile diese Ansicht in Facebook"
-          onclick="txtadd(tourlinkwithparams,get(tourlink),get(xml.scene)); social.share(facebook,get(tourlinkwithparams));"     />
-
-           <item name="ws3" caption="FACEBOOK - 360° Perspektiven"        onclick="open-lightboxlayer('https://www.facebook.com/360perspektiven')"     />
+    <item name="sh1" caption="Teile diese Ansicht per Mail" onclick="txtadd(mailtourl,'mailto: ?subject=Beeindruckendes 360° Erlebnis &amp;body=',get(tourlink),get(xml.scene)); openurl(get(mailtourl),_self);" /><item name="sh2" caption="Teile diese Ansicht in Facebook" onclick="txtadd(tourlinkwithparams,get(tourlink),get(xml.scene)); social.share(facebook,get(tourlinkwithparams));" /><item name="ws3" caption="FACEBOOK - 360° Perspektiven" onclick="open-lightboxlayer('https://www.facebook.com/360perspektiven')" />
 
  -->
-</contextmenu>
-<!--  Gyro IPhone
+	</contextmenu>
+	<!--  Gyro IPhone
 
-<layer  name="gyro-overlay"
-        parent=""
-        type="container"
-        style="gyro-overlay-style"
-        align="center"
-        keep="true"
-        enabled="true"
-        visible="true"
-        devices="ios"
-        />
-
-<style  name="gyro-overlay-style"
-        alpha="1.0"
-        width="100%"
-        height="100%"
-        x="0"
-        y="0"
-        bg="true"
-        bgcolor="0xFFFFFF"
-        bgalpha="0.8"
-        bgborder="0"
-        bgbordercolor="0xFFFFFF"
-        bgroundedge="0"
-        bgcapture="true"
-        zorder="999"
-        onover=""
-        onout=""
-        onclick="switch(plugin[skin_gyro].enabled); if(plugin[skin_gyro].enabled, skin_showmap(false)); tween(visible, false); "
-        />
-
-<layer name="gyro-iphone"
-           url="logos/logo-p.png"
-           devices="ios"
-           keep="true"
-           enabled="true"
-           visible="true"
-           parent="gyro-overlay"
-           width="300"
-           height="prop"
-           align="center"
-           scale="1.0"
-           alpha="1"
-           zorder="1000"
-           onclick="switch(plugin[skin_gyro].enabled); if(plugin[skin_gyro].enabled, skin_showmap(false)); tween(layer[gyro-overlay].visible, false);"
-        />
+<layer name="gyro-overlay" parent="" type="container" style="gyro-overlay-style" align="center" keep="true" enabled="true" visible="true" devices="ios" /><style name="gyro-overlay-style" alpha="1.0" width="100%" height="100%" x="0" y="0" bg="true" bgcolor="0xFFFFFF" bgalpha="0.8" bgborder="0" bgbordercolor="0xFFFFFF" bgroundedge="0" bgcapture="true" zorder="999" onover="" onout="" onclick="switch(plugin[skin_gyro].enabled); if(plugin[skin_gyro].enabled, skin_showmap(false)); tween(visible, false); " /><layer name="gyro-iphone" url="logos/logo-p.png" devices="ios" keep="true" enabled="true" visible="true" parent="gyro-overlay" width="300" height="prop" align="center" scale="1.0" alpha="1" zorder="1000" onclick="switch(plugin[skin_gyro].enabled); if(plugin[skin_gyro].enabled, skin_showmap(false)); tween(layer[gyro-overlay].visible, false);" />
 
  -->
-<!--  ..............................TITEL...............................  -->
-<action name="skin_update_scene_infos">
-if(title, txtadd(layer[titel-text].html,
-<b>Aktueller Standpunkt:</b>
-<br/>
-, get(scene[get(xml.scene)].title) ); , copy(layer[titel-text].html, scene[get(xml.scene)].title ); );
-</action>
-<!--  Titel   -->
-<layer name="titel-text" parent="" style="style_titeltext" type="text" align="topcenter" keep="true" enabled="false" visible="true"/>
-<!--  Titel Style  -->
-<style name="style_titeltext" x="0" y="20" html="" css="text-align:center; font-family:Arial; font-size:12px; color:#FFFFFF" vcenter="true" padding="2" wordwrap="true" bg="false" bgcolor="0xFFFFFF" bgalpha="1.0" bgborder="0" bgroundedge="0" bgshadow="" txtshadow="2 2 7 0x000000 0.8" mergedalpha="true" interactivecontent="false" onautosized="" zorder="1"/>
-<!--  MOBILE SCALE -->
-<events name="orientation" keep="true" onresize="Orientation();" devices="mobile"/>
-<action name="Orientation">
-if(stagewidth LT stageheight,
-<!--  PORTRAIT  -->
-set(layer[titel-text].align, bottomcenter); set(layer[titel-text].y, 20); set(layer[titel-text].x, 0); set(layer[next-b].align, bottomcenter); set(layer[next-b].y, 25); set(layer[next-b].x, 150); set(layer[back-b].align, bottomcenter); set(layer[back-b].y, 25); set(layer[back-b].x, -150); set(layer[logo].align, topright); set(layer[skin_scroll_container].y, -35); set(layer[grund].y, -10); set(layer[sb-container].y, -10); set(layer[map].y, 70); set(layer[map].scale, 0.8); set(layer[map2].width, 86%); set(layer[map2].x, 0); set(layer[map2].y, 20); set(layer[close-floorplan1].onclick, closemap-mobile();); set(layer[close-floorplan2].onclick, closemap-mobile();); set(layer[floorplan-overlay].onclick, ''); ,
-<!--  LANDSCAPE  -->
-set(layer[titel-text].align, bottomcenter); set(layer[titel-text].y, 20); set(layer[titel-text].x, 0); set(layer[next-b].align, bottomcenter); set(layer[next-b].y, 28); set(layer[next-b].x, 110); set(layer[back-b].align, bottomcenter); set(layer[back-b].y, 28); set(layer[back-b].x, -110); set(layer[logo].align, topright); set(layer[skin_scroll_container].y, 0); set(layer[rotate-device-bild].visible, false); set(layer[grund].y, -100); set(layer[sb-container].y, -100); set(layer[map].y, 20); set(layer[map].scale, 0.5); set(layer[map2].width, 45%); set(layer[map2].x, 20); set(layer[map2].y, 0); set(layer[close-floorplan1].onclick, closemap();); set(layer[close-floorplan2].onclick, closemap();); set(layer[floorplan-overlay].onclick, ''); );
-</action>
-<!--  LANDSCAPE BILD
+	<!--  ..............................TITEL...............................  -->
+	<action name="skin_update_scene_infos">
+if(title, txtadd(layer[titel-text].html,																																																																																																																																																																										
+		<b>Aktueller Standpunkt:</b>
+		<br/>
+, get(scene[get(xml.scene)].title) ); , copy(layer[titel-text].html, scene[get(xml.scene)].title ); );																																																																																					
+	</action>
+	<!--  Titel   -->
+	<layer name="titel-text" parent="" style="style_titeltext" type="text" align="topcenter" keep="true" enabled="false" visible="true"/>
+	<!--  Titel Style  -->
+	<style name="style_titeltext" x="0" y="20" html="" css="text-align:center; font-family:Arial; font-size:12px; color:#FFFFFF" vcenter="true" padding="2" wordwrap="true" bg="false" bgcolor="0xFFFFFF" bgalpha="1.0" bgborder="0" bgroundedge="0" bgshadow="" txtshadow="2 2 7 0x000000 0.8" mergedalpha="true" interactivecontent="false" onautosized="" zorder="1"/>
+	<!--  MOBILE SCALE -->
+	<events name="orientation" keep="true" onresize="Orientation();" devices="mobile"/>
+	<action name="Orientation">
+if(stagewidth LT stageheight,																																																																																																																																																																										
+		<!--  PORTRAIT  -->
+set(layer[titel-text].align, bottomcenter); set(layer[titel-text].y, 20); set(layer[titel-text].x, 0); set(layer[next-b].align, bottomcenter); set(layer[next-b].y, 25); set(layer[next-b].x, 150); set(layer[back-b].align, bottomcenter); set(layer[back-b].y, 25); set(layer[back-b].x, -150); set(layer[logo].align, topright); set(layer[skin_scroll_container].y, -35); set(layer[grund].y, -10); set(layer[sb-container].y, -10); set(layer[map].y, 70); set(layer[map].scale, 0.8); set(layer[map2].width, 86%); set(layer[map2].x, 0); set(layer[map2].y, 20); set(layer[close-floorplan1].onclick, closemap-mobile();); set(layer[close-floorplan2].onclick, closemap-mobile();); set(layer[floorplan-overlay].onclick, ''); ,																																																																																																																																																																										
+		<!--  LANDSCAPE  -->
+set(layer[titel-text].align, bottomcenter); set(layer[titel-text].y, 20); set(layer[titel-text].x, 0); set(layer[next-b].align, bottomcenter); set(layer[next-b].y, 28); set(layer[next-b].x, 110); set(layer[back-b].align, bottomcenter); set(layer[back-b].y, 28); set(layer[back-b].x, -110); set(layer[logo].align, topright); set(layer[skin_scroll_container].y, 0); set(layer[rotate-device-bild].visible, false); set(layer[grund].y, -100); set(layer[sb-container].y, -100); set(layer[map].y, 20); set(layer[map].scale, 0.5); set(layer[map2].width, 45%); set(layer[map2].x, 20); set(layer[map2].y, 0); set(layer[close-floorplan1].onclick, closemap();); set(layer[close-floorplan2].onclick, closemap();); set(layer[floorplan-overlay].onclick, ''); );																																																																																					
+	</action>
+	<!--  LANDSCAPE BILD
 
-<layer name="rotate-device-bild"
-           url="logos/rotate_device.png"
-           keep="true"
-           enabled="true"
-           visible="false"
-           width="200"
-           height="prop"
-           align="center"
-           x="0"
-           y="0"
-           alpha="1"
-           scale="1.0"
-           onover="tween(alpha,1,1);"
-           onout="tween(alpha,0.5,1);"
-        />
-
-      <action name="landscape-mobile" devices="mobile">
+<layer name="rotate-device-bild" url="logos/rotate_device.png" keep="true" enabled="true" visible="false" width="200" height="prop" align="center" x="0" y="0" alpha="1" scale="1.0" onover="tween(alpha,1,1);" onout="tween(alpha,0.5,1);" /><action name="landscape-mobile" devices="mobile">
         set(layer[rotate-device-bild].visible, true);
         wait(4.0);
         set(layer[rotate-device-bild].visible, false);
       </action>
 
  -->
-<!--  PILATUS KARTE Links
+	<!--  PILATUS KARTE Links
 
-<layer name="p-map"
-           url="logos/nadir.png"
-           keep="true"
-           enabled="true"
-           width="160"
-           width.mobile="200"
-           height="prop"
-           align="lefttop"
-           scale="1.0"
-           zorder="300"
-           x="10"
-           y="10"
-           alpha="1"
-           scale.normal="1.0"
-           scale.mobile="0.7"
-           onover="tween(scale,1.1);"
-           onout="tween(scale,1);"
-           onclick="openurl('https://www.pilatus.ch/',_self);"
-        />
+<layer name="p-map" url="logos/nadir.png" keep="true" enabled="true" width="160" width.mobile="200" height="prop" align="lefttop" scale="1.0" zorder="300" x="10" y="10" alpha="1" scale.normal="1.0" scale.mobile="0.7" onover="tween(scale,1.1);" onout="tween(scale,1);" onclick="openurl('https://www.pilatus.ch/',_self);" />
  -->
-<!--  Default Textstyle für Hover Texte  -->
-<textstyle name="DEFAULT" origin="cursor" edge="bottom" xoffset="0" yoffset="0" fadeintime="0.0" showtime="0.1" fadetime="0.0" font="Arial" fontsize="13.0" bold="false" italic="false" textcolor="0x000000" textalign="center" padding="2" css="font-family: Arial; font-size:13px; color:#ffffff; text-align:center;" width="" height="" vcenter="" background="true" backgroundcolor="0xFFFFFF" backgroundalpha="0.8" border="true" bordercolor="0xFFFFFF" borderalpha="0.0" borderwidth="1.0" roundedge="3" shadow="0.0" shadowrange="0.0" shadowangle="0" shadowcolor="0x000000" shadowalpha="0.0" textshadow="0" textshadowrange="0.0" textshadowangle="0" textshadowcolor="0x000000" textshadowalpha="0.0" alpha="1.0" parent="" noclip="true"/>
-<!--  ..............................HOTSPOT HOVER EVENT..............................  -->
-<events name="hover-hotspot" keep="true" onviewchanged="hover-hotspot();"/>
-<action name="hover-hotspot"> for(set(i,0), i LT hotspot.count, inc(i), getlooktodistance(d, hotspot[get(i)].ath, hotspot[get(i)].atv); if(d LT 8, highlight_hotspot(get(i), get(hotspot[get(i)].name)); , background_hotspot(get(i), get(hotspot[get(i)].name)); ); ); </action>
-<action name="highlight_hotspot"> if(hotspot[%1].ishighlighted != true, set(activehotspot,%2); set(hotspot[%1].ishighlighted, true); callwith(hotspot[%2], onover); callwith(plugin[%2], onover); set(plugin[%2].hovering, true); ); </action>
-<action name="background_hotspot"> if(hotspot[%1].ishighlighted, set(hotspot[%1].ishighlighted, false); callwith(hotspot[%2], onout); callwith(plugin[%2], onout); set(plugin[%2].hovering, false); set(activehotspot,null); ); </action>
-<!--  ..............................HOTSPOT VR..............................  -->
-<action name="weg_hotspots"> for(set(i,0), i LT hotspot.count, inc(i), set(hotspot[get(i)].visible,false); ); </action>
-<action name="da_hotspots"> for(set(i,0), i LT hotspot.count, inc(i), copy(hs,hotspot[get(i)]); if(hs.name != 'vr_cursor' AND hs.name != 'skin_webvr_prev_scene' AND hs.name != 'skin_webvr_next_scene', set(hotspot[get(i)].visible,true); ); ); </action>
-<!--  .....................................HIDDEN LAYER FÜR KARTE............................... -->
-<layer name="hidden" parent="" type="container" style="style-lightbox-overlay" align="center" edge="" keep="true" enabled="true" visible="false" bgcapture="false" alpha="1" scale="0.90" zorder="999"/>
-<!--  ..............................LIGHTBOX...............................  -->
-<plugin name="easy_html_lightbox" url="../../plugins/easy_html_lightbox.js" keep="true" devices="html5" include_jquery="true" include_lightbox="true" theme="light" background_color="#1e1e1e"/>
-<!--  LAYER für Lightbox  -->
-<layer name="lightbox-overlay" parent="" type="container" style="style-lightbox-overlay" align="center" edge="" keep="true" enabled="true" visible="false" bgcapture="true" alpha="1" scale="1" zorder="999"/>
-<style name="style-lightbox-overlay" x="0" y="0" width="100%" height="100%" vcenter="true" padding="0" bg="true" bgcolor="0x000000" bgalpha="0.5" bgborder="0 0xFFFFFF 1.0" bgroundedge="0" bgshadow="" onclick="set(layer[lightbox-overlay].visible, false); tween(layer[lightbox-layer].scale, 0);"/>
-<layer name="lightbox-layer" parent="lightbox-overlay" type="container" style="style-lightbox-layer" align="center" edge="" keep="true" enabled="true" visible="true" bgcapture="true" alpha="1" scale="0"/>
-<style name="style-lightbox-layer" x="0" y="0" width="80%" height="70%" vcenter="true" padding="0" bg="true" bgcolor="0xFFFFFF" bgalpha="0.5" bgborder="1 0xFFFFFF 1.0" bgroundedge="0" bgshadow=""/>
-<!--  X-Button  -->
-<layer name="close-lightbox-layer" parent="lightbox-layer" style="close-lightbox-layer-style"/>
-<style name="close-lightbox-layer-style" type="container" url="%FIRSTXML%/logos/x-button-weiss.png" bgcapture="false" align="topright" keep="true" enabled="true" visible="true" width="25" height="25" x="-25" y="-25" scale="1" zorder="501" onhover="showtext(Schließen);" onclick="set(layer[lightbox-overlay].visible, false); tween(layer[lightbox-layer].scale, 0);"/>
-<action name="open-lightboxlayer"> autorotate.stop(); set(layer[lightbox-overlay].visible, true); tween(layer[lightbox-layer].scale, 1); plugin[easy_html_lightbox].open_url('%1','','','','','layer[lightbox-layer]'); </action>
-<action name="close-lightboxlayer"> set(layer[lightbox-overlay].visible, false); tween(layer[lightbox-layer].scale, 0); pauseallsounds(); </action>
-<!--  ..............................PANOS...............................  -->
-<!--  PANO 1  -->
-<scene name="scene_BAD_KOHLGRUB" title="BAD KOHLGRUB" onstart="updateradar();" thumburl="panos/BAD_KOHLGRUB.tiles/thumb.jpg" lat="47.70640833" lng="11.16600556" heading="0.0">
-<action name="updateradar"> set(layer[activespot].visible, true); set(layer[activespot].parent, spot5); set(layer[spot1].scale, 1.0); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.8); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); set(layer[spot8].scale, 1.0); </action>
-<view hlookat="-77.868" vlookat="8.878" fov="109.701" fov.mobile="60.701" fovmax="140"/>
-<preview url="panos/BAD_KOHLGRUB.tiles/preview.jpg"/>
-<image prealign="0|0.0|0">
-<cube url="panos/BAD_KOHLGRUB.tiles/%s_l/%s_%0v.jpg" multires="512,640,1280,2624,5184,10368"/>
-</image>
-<!--  NADIR   -->
-<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/'););"/>
-<!--  TELEPORT   -->
-<hotspot name="scene_unterammergau_-_pulvermoos" style="hss2" ath="-39.024" atv="-10.093" tag=""/>
-<hotspot name="hst2-1" style="hotspottextstyle" ath="-39.024" atv="-10.093" visible="true" html="[b]UNTERAMMERGAU[/b]"/>
-<hotspot name="scene_saulgrub_uebersicht" style="hss2" ath="24.512" atv="0.266" tag=""/>
-<hotspot name="hst2-2" style="hotspottextstyle" ath="24.512" atv="0.266" visible="true" html="[b]SAULGRUB[/b]"/>
-<hotspot name="scene_bad_bayersoien_kapelle" style="hss2" ath="72.589" atv="1.188" tag=""/>
-<hotspot name="badbayersoien-text" style="hotspottextstyle" ath="72.589" atv="1.188" visible="true" html="[b]BAD BAYERSOIEN [/b]"/>
-<!--  BERGHÜTTE -->
-<hotspot name="hoernlehuette" style="hss4" ath="-68.557" atv="-9.965" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/hoernlehuette');"/>
-<hotspot name="hoernlehuette-text" style="hotspottextstyle" ath="-68.557" atv="-9.965" visible="true" html="[b]Hörnlehütte[/b]"/>
-<!--  SEE -->
-<hotspot name="staffelsee" style="hotspottextstyle-ammergau" ath="-156.151" atv="-2.151" visible="true" edge="bottom" oy="" enabled="false" html="[b]Staffelsee [/b]"/>
-<hotspot name="poly-staffelsee" style="hslinienstyle-ammergau">
-<point ath="-156.151" atv="-2.151"/>
-<point ath="-156.151" atv="1.388"/>
-</hotspot>
-<!--  BERG -->
-<hotspot name="vordereshoernle" style="hotspottextstyle-ammergau" ath="-76.269" atv="-15.388" visible="true" edge="bottom" oy="" enabled="false" html="[b]Vorderes Hörnle 1484m[/b]"/>
-<hotspot name="poly-vordereshoernle" style="hslinienstyle-ammergau">
-<point ath="-76.269" atv="-15.388"/>
-<point ath="-76.269" atv="-10.388"/>
-</hotspot>
-<hotspot name="zeitberg" style="hotspottextstyle-ammergau" ath="-67.614" atv="-17.838" visible="true" edge="bottom" oy="" enabled="false" html="[b]Zeitberg 1404m[/b]"/>
-<hotspot name="poly-zeitberg" style="hslinienstyle-ammergau">
-<point ath="-67.614" atv="-17.838"/>
-<point ath="-67.614" atv="-9.388"/>
-</hotspot>
-<hotspot name="hintereshoernle" style="hotspottextstyle-ammergau" ath="-88.075" atv="-11.972" visible="true" edge="bottom" oy="" enabled="false" html="[b]Hinteres Hörnle 1548m[/b]"/>
-<hotspot name="poly-hintereshoernle" style="hslinienstyle-ammergau">
-<point ath="-88.075" atv="-11.972"/>
-<point ath="-88.075" atv="-9.088"/>
-</hotspot>
-<hotspot name="heimgarten" style="hotspottextstyle-ammergau" ath="-128.921" atv="-6.168" visible="true" edge="bottom" oy="" enabled="false" html="[b]Heimgarten 1791m[/b]"/>
-<hotspot name="poly-heimgarten" style="hslinienstyle-ammergau">
-<point ath="-128.921" atv="-6.168"/>
-<point ath="-128.921" atv="3.888"/>
-</hotspot>
-<!--  POI -->
+	<!--  Default Textstyle für Hover Texte  -->
+	<textstyle name="DEFAULT" origin="cursor" edge="bottom" xoffset="0" yoffset="0" fadeintime="0.0" showtime="0.1" fadetime="0.0" font="Arial" fontsize="13.0" bold="false" italic="false" textcolor="0x000000" textalign="center" padding="2" css="font-family: Arial; font-size:13px; color:#ffffff; text-align:center;" width="" height="" vcenter="" background="true" backgroundcolor="0xFFFFFF" backgroundalpha="0.8" border="true" bordercolor="0xFFFFFF" borderalpha="0.0" borderwidth="1.0" roundedge="3" shadow="0.0" shadowrange="0.0" shadowangle="0" shadowcolor="0x000000" shadowalpha="0.0" textshadow="0" textshadowrange="0.0" textshadowangle="0" textshadowcolor="0x000000" textshadowalpha="0.0" alpha="1.0" parent="" noclip="true"/>
+	<!--  ..............................HOTSPOT HOVER EVENT..............................  -->
+	<events name="hover-hotspot" keep="true" onviewchanged="hover-hotspot();"/>
+	<action name="hover-hotspot"> for(set(i,0), i LT hotspot.count, inc(i), getlooktodistance(d, hotspot[get(i)].ath, hotspot[get(i)].atv); if(d LT 8, highlight_hotspot(get(i), get(hotspot[get(i)].name)); , background_hotspot(get(i), get(hotspot[get(i)].name)); ); ); </action>
+	<action name="highlight_hotspot"> if(hotspot[%1].ishighlighted != true, set(activehotspot,%2); set(hotspot[%1].ishighlighted, true); callwith(hotspot[%2], onover); callwith(plugin[%2], onover); set(plugin[%2].hovering, true); ); </action>
+	<action name="background_hotspot"> if(hotspot[%1].ishighlighted, set(hotspot[%1].ishighlighted, false); callwith(hotspot[%2], onout); callwith(plugin[%2], onout); set(plugin[%2].hovering, false); set(activehotspot,null); ); </action>
+	<!--  ..............................HOTSPOT VR..............................  -->
+	<action name="weg_hotspots"> for(set(i,0), i LT hotspot.count, inc(i), set(hotspot[get(i)].visible,false); ); </action>
+	<action name="da_hotspots"> for(set(i,0), i LT hotspot.count, inc(i), copy(hs,hotspot[get(i)]); if(hs.name != 'vr_cursor' AND hs.name != 'skin_webvr_prev_scene' AND hs.name != 'skin_webvr_next_scene', set(hotspot[get(i)].visible,true); ); ); </action>
+	<!--  .....................................HIDDEN LAYER FÜR KARTE............................... -->
+	<layer name="hidden" parent="" type="container" style="style-lightbox-overlay" align="center" edge="" keep="true" enabled="true" visible="false" bgcapture="false" alpha="1" scale="0.90" zorder="999"/>
+	<!--  ..............................LIGHTBOX...............................  -->
+	<plugin name="easy_html_lightbox" url="../../plugins/easy_html_lightbox.js" keep="true" devices="html5" include_jquery="true" include_lightbox="true" theme="light" background_color="#1e1e1e"/>
+	<!--  LAYER für Lightbox  -->
+	<layer name="lightbox-overlay" parent="" type="container" style="style-lightbox-overlay" align="center" edge="" keep="true" enabled="true" visible="false" bgcapture="true" alpha="1" scale="1" zorder="999"/>
+	<style name="style-lightbox-overlay" x="0" y="0" width="100%" height="100%" vcenter="true" padding="0" bg="true" bgcolor="0x000000" bgalpha="0.5" bgborder="0 0xFFFFFF 1.0" bgroundedge="0" bgshadow="" onclick="set(layer[lightbox-overlay].visible, false); tween(layer[lightbox-layer].scale, 0);"/>
+	<layer name="lightbox-layer" parent="lightbox-overlay" type="container" style="style-lightbox-layer" align="center" edge="" keep="true" enabled="true" visible="true" bgcapture="true" alpha="1" scale="0"/>
+	<style name="style-lightbox-layer" x="0" y="0" width="80%" height="70%" vcenter="true" padding="0" bg="true" bgcolor="0xFFFFFF" bgalpha="0.5" bgborder="1 0xFFFFFF 1.0" bgroundedge="0" bgshadow=""/>
+	<!--  X-Button  -->
+	<layer name="close-lightbox-layer" parent="lightbox-layer" style="close-lightbox-layer-style"/>
+	<style name="close-lightbox-layer-style" type="container" url="%FIRSTXML%/logos/x-button-weiss.png" bgcapture="false" align="topright" keep="true" enabled="true" visible="true" width="25" height="25" x="-25" y="-25" scale="1" zorder="501" onhover="showtext(Schließen);" onclick="set(layer[lightbox-overlay].visible, false); tween(layer[lightbox-layer].scale, 0);"/>
+	<action name="open-lightboxlayer"> autorotate.stop(); set(layer[lightbox-overlay].visible, true); tween(layer[lightbox-layer].scale, 1); plugin[easy_html_lightbox].open_url('%1','','','','','layer[lightbox-layer]'); </action>
+	<action name="close-lightboxlayer"> set(layer[lightbox-overlay].visible, false); tween(layer[lightbox-layer].scale, 0); pauseallsounds(); </action>
+	<!--  ..............................PANOS...............................  -->
+	<!--  PANO 1  -->
+	<scene name="scene_BAD_KOHLGRUB" title="BAD KOHLGRUB" onstart="updateradar();" thumburl="panos/BAD_KOHLGRUB.tiles/thumb.jpg" lat="47.70640833" lng="11.16600556" heading="0.0">
+		<action name="updateradar"> set(layer[activespot].visible, true); set(layer[activespot].parent, spot5); set(layer[spot1].scale, 1.0); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.8); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); set(layer[spot8].scale, 1.0); </action>
+		<view hlookat="-77.868" vlookat="8.878" fov="109.701" fov.mobile="60.701" fovmax="140"/>
+		<preview url="panos/BAD_KOHLGRUB.tiles/preview.jpg"/>
+		<image prealign="0|0.0|0">
+			<cube url="panos/BAD_KOHLGRUB.tiles/%s_l/%s_%0v.jpg" multires="512,640,1280,2624,5184,10368"/>
+		</image>
+		<!--  NADIR   -->
+		<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/'););"/>
+		<!--  TELEPORT   -->
+		<!-- <hotspot name="scene_unterammergau_-_pulvermoos" style="hss2" ath="-39.024" atv="-10.093" tag=""/><hotspot name="hst2-1" style="hotspottextstyle" ath="-39.024" atv="-10.093" visible="true" html="[b]UNTERAMMERGAU[/b]"/><hotspot name="scene_saulgrub_uebersicht" style="hss2" ath="24.512" atv="0.266" tag=""/><hotspot name="hst2-2" style="hotspottextstyle" ath="24.512" atv="0.266" visible="true" html="[b]SAULGRUB[/b]"/><hotspot name="scene_bad_bayersoien_kapelle" style="hss2" ath="72.589" atv="1.188" tag=""/><hotspot name="badbayersoien-text" style="hotspottextstyle" ath="72.589" atv="1.188" visible="true" html="[b]BAD BAYERSOIEN [/b]"/> -->
+		<!--  BERGHÜTTE -->
+		<!-- <hotspot name="hoernlehuette" style="hss4" ath="-28.557" atv="-9.965" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/hoernlehuette');"/><hotspot name="hoernlehuette-text" style="hotspottextstyle" ath="-28.557" atv="-9.965" visible="true" html="[b]Hörnlehütte[/b]"/> -->
+		<!--  BERG -->
+		<!-- <hotspot name="vordereshoernle" style="hotspottextstyle-ammergau" ath="-76.269" atv="-15.388" visible="true" edge="bottom" oy="" enabled="false" html="[b]Vorderes Hörnle 1484m[/b]"/><hotspot name="poly-vordereshoernle" style="hslinienstyle-ammergau"><point ath="-76.269" atv="-15.388"/><point ath="-76.269" atv="-10.388"/></hotspot><hotspot name="zeitberg" style="hotspottextstyle-ammergau" ath="-67.614" atv="-17.838" visible="true" edge="bottom" oy="" enabled="false" html="[b]Zeitberg 1404m[/b]"/><hotspot name="poly-zeitberg" style="hslinienstyle-ammergau"><point ath="-67.614" atv="-17.838"/><point ath="-67.614" atv="-9.388"/></hotspot> -->
+		<!-- Cà phê Arabica -->
+		<hotspot name="arabica" style="hotspottextstyle-ammergau" ath="-94.175" atv="-11.972" visible="true" edge="bottom" oy="" enabled="false" html="[b]Cà phê Arabica[/b]"/>
+		<hotspot name="poly-arabica" style="hslinienstyle-ammergau">
+			<point ath="-94.175" atv="-11.972"/>
+			<point ath="-94.175" atv="4.058"/>
+		</hotspot>
+		<!--  Cà phê Culi -->
+		<hotspot name="staffelsee" style="hotspottextstyle-ammergau" ath="-157.151" atv="-10.151" visible="true" edge="bottom" oy="" enabled="false" html="[b]Cà phê Culi[/b]"/>
+		<hotspot name="poly-staffelsee" style="hslinienstyle-ammergau">
+			<point ath="-157.151" atv="-10.151"/>
+			<point ath="-157.151" atv="5.927"/>
+		</hotspot>
+		<!-- Cà phê Robusta -->
+		<hotspot name="hintereshoernle" style="hotspottextstyle-ammergau" ath="-125.175" atv="0.972" visible="true" edge="bottom" oy="" enabled="false" html="[b]Cà phê Robusta[/b]"/>
+		<hotspot name="poly-hintereshoernle" style="hslinienstyle-ammergau">
+			<point ath="-125.175" atv="0.972"/>
+			<point ath="-125.175" atv="15.088"/>
+		</hotspot>
+		<!-- Cà phê Moka -->
+		<hotspot name="moka-coffee" style="hotspottextstyle-ammergau" ath="20.175" atv="-1.972" visible="true" edge="bottom" oy="" enabled="false" html="[b]Cà phê Moka[/b]"/>
+		<hotspot name="poly-moka" style="hslinienstyle-ammergau">
+			<point ath="20.175" atv="-1.972"/>
+			<point ath="20.175" atv="15.972"/>
+		</hotspot>
+		<!-- <hotspot name="heimgarten" style="hotspottextstyle-ammergau" ath="-128.921" atv="-6.168" visible="true" edge="bottom" oy="" enabled="false" html="[b]Heimgarten 1791m[/b]"/><hotspot name="poly-heimgarten" style="hslinienstyle-ammergau"><point ath="-128.921" atv="-6.168"/><point ath="-128.921" atv="3.888"/></hotspot> -->
+		<!--  POI -->
+		<!-- <hotspot name="murnauermoos-text" style="hotspottextstyle-ammergau" ath="-157.182" atv="1.044 " visible="true" edge="bottom" oy="" enabled="false" html="[b]Murnauer Moos[/b]"/> -->
+		<!-- <hotspot name="tibadkohlgrub" style="hss10" ath="-35.753" atv="9.696" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/tourist-information-bad-kohlgrub');"/><hotspot name="tibadkohlgrub-text" style="hotspottextstyle" ath="-35.753" atv="9.696" visible="true" html="[b]TI Bad Kohlgrub[/b]"/><hotspot name="hoernleschwebebahn" style="hss5" ath="-20.858" atv="-0.419" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/hoernle-bahn ');"/><hotspot name="hoernleschwebebahn-text" style="hotspottextstyle" ath="-20.858" atv="-0.419" visible="true" html="[b]Hörnle Schwebebahn[/b]"/><hotspot name="moorlehrpfad" style="hss3" ath="38.490" atv="6.199" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/tour/themenweg-moorlehrpfad-bad-kohlgrub');"/><hotspot name="moorlehrpfad-text" style="hotspottextstyle" ath="38.490" atv="6.199" visible="true" html="[b]Moorlehrpfad[/b]"/><hotspot name="bienenweg" style="hss3" ath="-30.827" atv="7.382" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/tour/themenweg-bienenweg-bad-kohlgrub');"/><hotspot name="bienenweg-text" style="hotspottextstyle" ath="-30.827" atv="7.382" visible="true" html="[b]Bienenweg[/b]"/> -->
+		<!-- <hotspot name="timberlandtrails" style="hotspottextstyle-circle" ath="-187.601" atv="-4.888" visible="true" edge="bottom" ox="100" oy="" enabled="false" html="[b]Heimgarten 1791m[/b]"/> -->
+		<!-- Linkk toi caphe Arabica -->
+		<hotspot name="cricle" style="hss31" ath="-94.201" atv="-6.888" tag="" onclick="open-lightboxlayer('https://vi.wikipedia.org/wiki/C%C3%A0_ph%C3%AA_ch%C3%A8');"/>
+		<hotspot name="timberlandtrail" style="hss3" ath="-94.201" atv="4.058" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/tour/themenweg-timberland-trail');"/>
+		<!-- <hotspot name="timberlandtrail-text" style="hotspottextstyle" ath="-94.601" atv="4.058" visible="true" html="[b]Timberland Trail[/b]"/> -->
+		<!-- Linkk toi caphe Culi -->
+		<hotspot name="culi" style="hss_culi" ath="-157.151" atv="-3.151" tag="" onclick="open-lightboxlayer('https://www.realbeancoffee.com/post/the-ancient-secrets-of-green-tea');"/>
+		<hotspot name="culi-icon" style="hss3" ath="-157.151" atv="6.044" tag="" onclick="open-lightboxlayer('https://www.realbeancoffee.com/post/the-ancient-secrets-of-green-tea');"/>
+		<!-- Linkk toi caphe Robusta -->
+		<hotspot name="robusta" style="css_robusta" ath="-125.175" atv="5.151" tag="" onclick="open-lightboxlayer('https://vinbarista.com/blog/ca-phe-robusta-la-gi-thread1572.html');"/>
+		<hotspot name="culi-robusta" style="hss3" ath="-125.175" atv="15.044" tag="" onclick="open-lightboxlayer('https://vinbarista.com/blog/ca-phe-robusta-la-gi-thread1572.html');"/>
+		<!-- Linkk toi caphe Moka -->
+		<hotspot name="moka" style="css_moka" ath="20.175" atv="5.151" tag="" onclick="open-lightboxlayer('https://icaphe.vn/ca-phe-moka');"/>
+		<hotspot name="culi-moka" style="hss3" ath="20.175" atv="15.044" tag="" onclick="open-lightboxlayer('https://icaphe.vn/ca-phe-moka');"/>
+		<hotspot name="heimgartens" style="hotspottextstyle-ammergau" ath="-137.182" atv="4.044" visible="true" edge="bottom" oy="" enabled="false" />
+	</scene>
+	<!--  PANO 2  -->
+	<scene name="scene_BAD_BAYERSOIEN_KAPELLE" title="BAD BAYERSOIEN" onstart="updateradar();" thumburl="panos/BAD_BAYERSOIEN_KAPELLE.tiles/thumb.jpg" lat="47.72770000" lng="11.11549722" heading="0.0">
+		<action name="updateradar"> set(layer[activespot].visible, true); set(layer[activespot].parent, spot8); set(layer[spot1].scale, 1.0); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); set(layer[spot8].scale, 1.8); </action>
+		<view hlookat="111.31" vlookat="17.7" fov="140.000" fov.mobile="60.701"/>
+		<preview url="panos/BAD_BAYERSOIEN_KAPELLE.tiles/preview.jpg"/>
+		<image prealign="0|0.0|0">
+			<cube url="panos/BAD_BAYERSOIEN_KAPELLE.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
+		</image>
+		<!--  NADIR   -->
+		<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/'););"/>
+		<!--  TELEPORT   -->
+		<hotspot name="scene_saulgrub_uebersicht" style="hss2" ath="102.898" atv="-7.081" tag=""/>
+		<hotspot name="hst2-1" style="hotspottextstyle" ath="102.898" atv="-7.081" visible="true" html="[b]SAULGRUB[/b]"/>
+		<hotspot name="scene_bad_kohlgrub" style="hss2" ath="76.514" atv="-2.900" tag=""/>
+		<hotspot name="hst2-2" style="hotspottextstyle" ath="76.514" atv="-2.900" visible="true" html="[b]BAD KOHLGRUB[/b]"/>
+		<!--  SEE   -->
+		<hotspot name="bayersoienersee" style="hotspottextstyle-ammergau" ath="53.654" atv="-3.286" visible="true" edge="bottom" oy="" enabled="false" html="[b]Soier See[/b]"/>
+		<hotspot name="poly-bayersoienersee" style="hslinienstyle-ammergau">
+			<point ath="53.654" atv="-3.286"/>
+			<point ath="53.654" atv="3.388"/>
+		</hotspot>
+		<!--  BERG   -->
+		<hotspot name="hoernle" style="hotspottextstyle-ammergau" ath="82.935" atv="-11.369" visible="true" edge="bottom" oy="" enabled="false" html="[b]Hörnle 1484m[/b]"/>
+		<hotspot name="poly-hoernle" style="hslinienstyle-ammergau">
+			<point ath="82.935" atv="-11.369"/>
+			<point ath="82.935" atv="-5.588"/>
+		</hotspot>
+		<!--  POI -->
+		<hotspot name="tibadbayersoien" style="hss10" ath="160.882" atv="8.858" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/tourist-information-bad-bayersoien');"/>
+		<hotspot name="tibadbayersoien-text" style="hotspottextstyle" ath="160.882" atv="8.858" visible="true" html="[b]TI Bad Bayersoien[/b]"/>
+		<hotspot name="kapelleaufdemkapellenberg" style="hss3" ath="-103.504" atv="14.343" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/kriegergedaechtniskapelle-bad-bayersoien');"/>
+		<hotspot name="kapelleaufdemkapellenberg-text" style="hotspottextstyle" ath="-103.504" atv="14.343" visible="true" html="[b]Kriegergedächtniskapelle Bad Bayersoien[/b]"/>
+		<hotspot name="museumimbierlinghaus" style="hss3" ath="150.880" atv="7.570" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/museum-im-bierlinghaus'););"/>
+		<hotspot name="museumimbierlinghaus-text" style="hotspottextstyle" ath="150.880" atv="7.570" visible="true" html="[b]Museum im Bierlinghaus[/b]"/>
+	</scene>
+	<!--  PANO 3  -->
+	<scene name="scene_SAULGRUB_UEBERSICHT" title="SAULGRUB" onstart="updateradar();" thumburl="panos/SAULGRUB_UEBERSICHT.tiles/thumb.jpg" lat="47.70298889" lng="11.13779722" heading="0.0">
+		<action name="updateradar"> set(layer[activespot].visible, true); set(layer[activespot].parent, spot3); set(layer[spot1].scale, 1.0); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.8); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); set(layer[spot8].scale, 1.0); </action>
+		<view hlookat="3940.070" vlookat="49.840" fovtype="MFOV" fov="82.997" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panos/SAULGRUB_UEBERSICHT.tiles/preview.jpg"/>
+		<image prealign="0|0.0|0">
+			<cube url="panos/SAULGRUB_UEBERSICHT.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
+		</image>
+		<!--  NADIR   -->
+		<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/'););"/>
+		<!--  TELEPORT  -->
+		<hotspot name="scene_oberammergau" style="hss2" ath="40.733" atv="-6.363" tag=""/>
+		<hotspot name="hst2-1" style="hotspottextstyle" ath="40.733" atv="-6.363" visible="true" html="[b]OBERAMMERGAU[/b]"/>
+		<hotspot name="scene_unterammergau_-_pulvermoos" style="hss2" ath="58.272" atv="0.351" tag=""/>
+		<hotspot name="hst2-2" style="hotspottextstyle" ath="58.272" atv="0.351" visible="true" html="[b]UNTERAMMERGAU[/b]"/>
+		<hotspot name="scene_bad_kohlgrub" style="hss2" ath="-28.566" atv="10.874" tag=""/>
+		<hotspot name="badkohlgrub-text" style="hotspottextstyle" ath="-28.566" atv="10.874" visible="true" html="[b]Bad Kohlgrub[/b]"/>
+		<hotspot name="scene_bad_bayersoien_kapelle" style="hss2" ath="-150.154" atv="7.755" tag=""/>
+		<hotspot name="badbayersoien-text" style="hotspottextstyle" ath="-150.154" atv="7.755" visible="true" html="[b]BAD BAYERSOIEN[/b]"/>
+		<!--  BERGHÜTTE -->
+		<hotspot name="hoernlehuette" style="hss4" ath="16.467" atv="-1.312" tag="" onstaffelseehsssclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/hoernlehuette');"/>
+		<hotspot name="hoernlehuette-text" style="hotspottextstyle" ath="16.467" atv="-1.312" visible="true" html="[b]Hörnlehütte[/b]"/>
+		<!--  ORT -->
+		<hotspot name="altenau" style="hotspottextstyle-ammergau-ort" ath="74.578" atv="12.084" visible="true" edge="bottom" oy="" enabled="false" html="[b]Altenau[/b]"/>
+		<hotspot name="wurmansau" style="hotspottextstyle-ammergau-ort" ath="47.356" atv="11.901" visible="true" edge="bottom" oy="" enabled="false" html="[b]Wurmansau[/b]"/>
+		<hotspot name="murnau" style="hotspottextstyle-ammergau-ort" ath="-32.136" atv="2.657" visible="true" edge="bottom" oy="" enabled="false" html="[b]Murnau[/b]"/>
+		<!--  SEE -->
+		<hotspot name="bayersoienersee" style="hotspottextstyle-ammergau" ath="-137.597" atv="7.205" visible="true" edge="bottom" oy="" enabled="false" html="[b]Soier See[/b]"/>
+		<hotspot name="poly-bayersoienersee" style="hslinienstyle-ammergau">
+			<point ath="-137.597" atv="7.205"/>
+			<point ath="-137.597" atv="9.805"/>
+		</hotspot>
+		<hotspot name="staffelsee" style="hotspottextstyle-ammergau" ath="-39.973" atv="10.312" visible="true" edge="bottom" oy="" enabled="false" html="[b]Staffelsee1[/b]"/>
+		<hotspot name="poly-staffelsee" style="hslinienstyle-ammergau">
+			<point ath="-39.973" atv="10.312"/>
+			<point ath="-39.973" atv="13.588"/>
+		</hotspot>
+		<hotspot name="ammersee" style="hotspottextstyle-ammergau" ath="-103.592" atv="-1.386" visible="true" edge="bottom" oy="" enabled="false" html="[b]Ammersee[/b]"/>
+		<hotspot name="poly-ammersee" style="hslinienstyle-ammergau">
+			<point ath="-103.592" atv="-1.386"/>
+			<point ath="-103.592" atv="1.288"/>
+		</hotspot>
+		<hotspot name="starnbergersee" style="hotspottextstyle-ammergau" ath="-79.878" atv="-1.535" visible="true" edge="bottom" oy="" enabled="false" html="[b]Starnberger See[/b]"/>
+		<hotspot name="poly-starnbergersee" style="hslinienstyle-ammergau">
+			<point ath="-79.878" atv="-1.535"/>
+			<point ath="-79.878" atv="1.288"/>
+		</hotspot>
+		<!--  BAHN -->
+		<hotspot name="hoernleschwebebahn" style="hss5" ath="-10.233" atv="9.332" tag="" visible="true" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/hoernle-bahn');"/>
+		<hotspot name="hoernleschwebebahn-text" style="hotspottextstyle" ath="-10.233" atv="9.332" visible="true" html="[b]Hörnle Schwebebahn[/b]"/>
+		<!--  BERG -->
+		<!-- <hotspot name="mittlereshoernle" style="hotspottextstyle-ammergau" ath="16.564" atv="-5.348" visible="true" edge="bottom" oy="" enabled="false" html="[b]Mittleres Hörnle 1496m[/b]"/><hotspot name="poly-mittlereshoernle" style="hslinienstyle-ammergau"><point ath="16.564" atv="-5.348"/><point ath="16.564" atv="-2.588"/></hotspot><hotspot name="zeitberg" style="hotspottextstyle-ammergau" ath="15.067" atv="-4.012" visible="true" edge="bottom" oy="" enabled="false" html="[b]Zeitberg 1404m[/b]"/><hotspot name="poly-zeitberg" style="hslinienstyle-ammergau"><point ath="15.067" atv="-4.3012"/><point ath="15.067" atv="-1.588"/></hotspot><hotspot name="vordereshoernle" style="hotspottextstyle-ammergau" ath="13.274" atv="-6.683" visible="true" edge="bottom" oy="" enabled="false" html="[b]Vorderes Hörnle 1484m[/b]"/><hotspot name="poly-vordereshoernle" style="hslinienstyle-ammergau"><point ath="13.274" atv="-6.683"/><point ath="13.274" atv="-2.588"/></hotspot> -->
+		<!-- <hotspot name="hintereshoernle" style="hotspottextstyle-ammergau" ath="13.401" atv="-8.816" visible="true" edge="bottom" oy="" enabled="false" html="[b]Hinteres Hörnle 1548m[/b]"/><hotspot name="poly-hintereshoernle" style="hslinienstyle-ammergau"><point ath="13.401" atv="-8.816"/><point ath="13.401" atv="-2.288"/></hotspot><hotspot name="teufelstaettkopf" style="hotspottextstyle-ammergau" ath="79.683" atv="-7.229" visible="true" edge="bottom" oy="" enabled="false" html="[b]Teufelstättkopf 1758m[/b]"/><hotspot name="poly-teufelstaettkopf" style="hslinienstyle-ammergau"><point ath="79.683" atv="-7.229"/><point ath="79.683" atv="-2.588"/></hotspot> -->
+		<!-- <hotspot name="heimgarten" style="hotspottextstyle-ammergau" ath="-9.029" atv="-3.853" visible="true" edge="bottom" oy="" enabled="false" html="[b]Heimgarten 1791m[/b]"/><hotspot name="poly-heimgarten" style="hslinienstyle-ammergau"><point ath="-9.029" atv="-3.853"/><point ath="-9.029" atv="-1.088"/></hotspot> -->
+		<!-- <hotspot name="zugspitze" style="hotspottextstyle-ammergau" ath="69.414" atv="-6.358" visible="true" edge="bottom" oy="" enabled="false" html="[b]Zugspitze 2962m[/b]"/><hotspot name="poly-zugspitze" style="hslinienstyle-ammergau"><point ath="69.414" atv="-6.358"/><point ath="69.414" atv="-3.288"/></hotspot> -->
+		<!--  POI -->
+		<!-- <hotspot name="murnauermoos" style="hotspottextstyle-ammergau" ath="-17.278" atv="0.987" visible="true" edge="bottom" oy="" enabled="false" html="[b]Murnauer Moos[/b]"/><hotspot name="poly-murnauermoos" style="hslinienstyle-ammergau"><point ath="-17.278" atv="0.987"/><point ath="-17.278" atv="3.288"/></hotspot> -->
+		<hotspot name="tisaulgrub" style="hss10" ath="-55.288" atv="33.024" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/tourist-information-saulgrub');"/>
+		<hotspot name="tisaulgrub-text" style="hotspottextstyle" ath="-55.288" atv="33.024" visible="true" html="[b]TI Saulgrub[/b]"/>
+		<hotspot name="wieskirche" style="hss10" ath="163.969" atv="1.950" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/wieskirche');"/>
+		<hotspot name="wieskirche-text" style="hotspottextstyle" ath="163.969" atv="1.950" visible="true" html="[b]Wieskirche[/b]"/>
+		<hotspot name="kraftwerkkammerl" style="hss10" ath="141.630" atv="10.683" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/bahnwasserkraftwerk-kammerl');"/>
+		<hotspot name="kraftwerkkammerl-text" style="hotspottextstyle" ath="141.630" atv="10.683" visible="true" html="[b]Kraftwerk Kammerl[/b]"/>
+		<hotspot name="boulderhalle" style="hss10" ath="49.356" atv="8.301" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/boulderhalle-ammerrock');"/>
+		<hotspot name="boulderhalle-text" style="hotspottextstyle" ath="49.356" atv="8.301" visible="true" html="[b]Boulderhalle Ammerrock[/b]"/>
+		<hotspot name="sinnesweg" style="hss10" ath="49.193" atv="52.130" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/tour/themenweg-sinnesweg-saulgrub');"/>
+		<hotspot name="sinnesweg-text" style="hotspottextstyle" ath="49.193" atv="52.130" visible="true" html="[b]Sinnesweg[/b]"/>
+	</scene>
+	<!--  PANO 4  -->
+	<scene name="scene_UNTERAMMERGAU_-_PULVERMOOS" title="UNTERAMMERGAU" onstart="updateradar();" thumburl="panos/UNTERAMMERGAU_-_PULVERMOOS.tiles/thumb.jpg" lat="47.64993611" lng="11.15282222" heading="0.0">
+		<action name="updateradar"> set(layer[activespot].visible, true); set(layer[activespot].parent, spot4); set(layer[spot1].scale, 1.0); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.8); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); set(layer[spot8].scale, 1.0); </action>
+		<view hlookat="278.378" vlookat="9.434" fov="94.288"/>
+		<preview url="panos/UNTERAMMERGAU_-_PULVERMOOS.tiles/preview.jpg"/>
+		<image prealign="0|0.0|0">
+			<cube url="panos/UNTERAMMERGAU_-_PULVERMOOS.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
+		</image>
+		<!--  NADIR   -->
+		<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/');"/>
+		<!--  TELEPORT   -->
+		<hotspot name="scene_oberammergau_-_kofel" style="hss2" ath="110.320" atv="-10.858" tag=""/>
+		<hotspot name="hst2-1" style="hotspottextstyle" ath="110.320" atv="-10.858" visible="true" html="[b]OBERAMMERGAU - KOFEL[/b]"/>
+		<hotspot name="scene_oberammergau" style="hss2" ath="86.230" atv="-3.724" tag=""/>
+		<hotspot name="hst2-2" style="hotspottextstyle" ath="86.230" atv="-3.724" visible="true" html="[b]OBERAMMERGAU[/b]"/>
+		<hotspot name="scene_saulgrub_uebersicht" style="hss2" ath="-56.712" atv="-5.408" tag=""/>
+		<hotspot name="hst2-3" style="hotspottextstyle" ath="-56.712" atv="-5.408" visible="true" html="[b]SAULGRUB[/b]"/>
+		<hotspot name="scene_bad_kohlgrub" style="hss2" ath="-38.056" atv="-5.528" tag=""/>
+		<hotspot name="hst2-4" style="hotspottextstyle" ath="-38.056" atv="-5.528" visible="true" html="[b]BAD KOHLGRUB[/b]"/>
+		<!--  BERGHÜTTE -->
+		<hotspot name="august-schuster-haus" style="hss4" ath="-178.225" atv="-12.627" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/august-schuster-haus-puerschling-haus'););"/>
+		<hotspot name="august-schuster-haus-text" style="hotspottextstyle" ath="-178.225" atv="-12.627" visible="true" html="[b]August-Schuster Haus[/b]"/>
+		<!--  ORT -->
+		<hotspot name="altenau" style="hotspottextstyle-ammergau-ort" ath="-58.495" atv="1.355" visible="true" edge="bottom" oy="" enabled="false" html="[b]Altenau[/b]"/>
+		<hotspot name="wurmansau" style="hotspottextstyle-ammergau-ort" ath="-45.908" atv="1.410" visible="true" edge="bottom" oy="" enabled="false" html="[b]Wurmansau[/b]"/>
+		<!--  BERG -->
+		<hotspot name="puerschling" style="hotspottextstyle-ammergau" ath="-178.225" atv="-18.157" visible="true" edge="bottom" oy="" enabled="false" html="[b]Pürschling 1566m[/b]"/>
+		<hotspot name="poly-puerschling" style="hslinienstyle-ammergau">
+			<point ath="-178.225" atv="-18.157"/>
+			<point ath="-178.225" atv="-8.988"/>
+		</hotspot>
+		<hotspot name="mittlereshoernle" style="hotspottextstyle-ammergau" ath="-6.928" atv="-10.959" visible="true" edge="bottom" oy="" enabled="false" html="[b]Mittleres Hörnle 1496m[/b]"/>
+		<hotspot name="poly-mittlereshoernle" style="hslinienstyle-ammergau">
+			<point ath="-6.928" atv="-10.959"/>
+			<point ath="-6.928" atv="-7.388"/>
+		</hotspot>
+		<!--  ausgeblendet
 
-<hotspot name="murnauermoos" style="hss3" ath="-137.182" atv="1.044" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/murnauer-moos');"/>
-<!-- <hotspot name="poly-murnauermoos" style="hslinienstyle-ammergau">
-<point ath="-17.278" atv="0.987"/>
-<point ath="-17.278" atv="3.288"/>
-</hotspot> -->
-<hotspot name="murnauermoos-text" style="hotspottextstyle-ammergau" ath="-137.182" atv="1.044 " visible="true" edge="bottom" oy="" enabled="false" html="[b]Murnauer Moos[/b]"/>
-<hotspot name="tibadkohlgrub" style="hss10" ath="-80.753" atv="9.696" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/tourist-information-bad-kohlgrub');"/>
-<hotspot name="tibadkohlgrub-text" style="hotspottextstyle" ath="-80.753" atv="9.696" visible="true" html="[b]TI Bad Kohlgrub[/b]"/>
-<hotspot name="hoernleschwebebahn" style="hss5" ath="-61.858" atv="-0.419" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/hoernle-bahn ');"/>
-<hotspot name="hoernleschwebebahn-text" style="hotspottextstyle" ath="-61.858" atv="-0.419" visible="true" html="[b]Hörnle Schwebebahn[/b]"/>
-<hotspot name="moorlehrpfad" style="hss3" ath="38.490" atv="6.199" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/tour/themenweg-moorlehrpfad-bad-kohlgrub');"/>
-<hotspot name="moorlehrpfad-text" style="hotspottextstyle" ath="38.490" atv="6.199" visible="true" html="[b]Moorlehrpfad[/b]"/>
-
-<hotspot name="bienenweg" style="hss3" ath="-85.827" atv="7.382" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/tour/themenweg-bienenweg-bad-kohlgrub');"/>
-<hotspot name="bienenweg-text" style="hotspottextstyle" ath="-85.827" atv="7.382" visible="true" html="[b]Bienenweg[/b]"/>
-<hotspot name="timberlandtrails" style="hotspottextstyle-circle"  ath="-94.601" atv="-4.888" visible="true" edge="bottom" ox="100" oy="" enabled="false" html="[b]Heimgarten 1791m[/b]"/>
-<hotspot name="poly-timberlandtrails" style="hslinienstyle-ammergau">
-<point ath="-94.601" atv="1.558"/>
-<point ath="-94.601" atv="-6.888"/>
-</hotspot>
-<hotspot name="cricle" style="hss31" ath="-94.601" atv="-6.888" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/tour/themenweg-timberland-trail');"/>
-<hotspot name="timberlandtrail" style="hss3" ath="-94.601" atv="4.058" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/tour/themenweg-timberland-trail');"/>
-<!-- <hotspot name="timberlandtrail-text" style="hotspottextstyle" ath="-94.601" atv="4.058" visible="true" html="[b]Timberland Trail[/b]"/> -->
-<hotspot name="heimgartens" style="hotspottextstyle-ammergau" ath="-137.182" atv="4.044" visible="true" edge="bottom" oy="" enabled="false" />
-
-</scene>
-<!--  PANO 2  -->
-<scene name="scene_BAD_BAYERSOIEN_KAPELLE" title="BAD BAYERSOIEN" onstart="updateradar();" thumburl="panos/BAD_BAYERSOIEN_KAPELLE.tiles/thumb.jpg" lat="47.72770000" lng="11.11549722" heading="0.0">
-<action name="updateradar"> set(layer[activespot].visible, true); set(layer[activespot].parent, spot8); set(layer[spot1].scale, 1.0); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); set(layer[spot8].scale, 1.8); </action>
-<view hlookat="111.31" vlookat="17.7" fov="140.000" fov.mobile="60.701"/>
-<preview url="panos/BAD_BAYERSOIEN_KAPELLE.tiles/preview.jpg"/>
-<image prealign="0|0.0|0">
-<cube url="panos/BAD_BAYERSOIEN_KAPELLE.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
-</image>
-<!--  NADIR   -->
-<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/'););"/>
-<!--  TELEPORT   -->
-<hotspot name="scene_saulgrub_uebersicht" style="hss2" ath="102.898" atv="-7.081" tag=""/>
-<hotspot name="hst2-1" style="hotspottextstyle" ath="102.898" atv="-7.081" visible="true" html="[b]SAULGRUB[/b]"/>
-<hotspot name="scene_bad_kohlgrub" style="hss2" ath="76.514" atv="-2.900" tag=""/>
-<hotspot name="hst2-2" style="hotspottextstyle" ath="76.514" atv="-2.900" visible="true" html="[b]BAD KOHLGRUB[/b]"/>
-<!--  SEE   -->
-<hotspot name="bayersoienersee" style="hotspottextstyle-ammergau" ath="53.654" atv="-3.286" visible="true" edge="bottom" oy="" enabled="false" html="[b]Soier See[/b]"/>
-<hotspot name="poly-bayersoienersee" style="hslinienstyle-ammergau">
-<point ath="53.654" atv="-3.286"/>
-<point ath="53.654" atv="3.388"/>
-</hotspot>
-<!--  BERG   -->
-<hotspot name="hoernle" style="hotspottextstyle-ammergau" ath="82.935" atv="-11.369" visible="true" edge="bottom" oy="" enabled="false" html="[b]Hörnle 1484m[/b]"/>
-<hotspot name="poly-hoernle" style="hslinienstyle-ammergau">
-<point ath="82.935" atv="-11.369"/>
-<point ath="82.935" atv="-5.588"/>
-</hotspot>
-<!--  POI -->
-<hotspot name="tibadbayersoien" style="hss10" ath="160.882" atv="8.858" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/tourist-information-bad-bayersoien');"/>
-<hotspot name="tibadbayersoien-text" style="hotspottextstyle" ath="160.882" atv="8.858" visible="true" html="[b]TI Bad Bayersoien[/b]"/>
-<hotspot name="kapelleaufdemkapellenberg" style="hss3" ath="-103.504" atv="14.343" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/kriegergedaechtniskapelle-bad-bayersoien');"/>
-<hotspot name="kapelleaufdemkapellenberg-text" style="hotspottextstyle" ath="-103.504" atv="14.343" visible="true" html="[b]Kriegergedächtniskapelle Bad Bayersoien[/b]"/>
-<hotspot name="museumimbierlinghaus" style="hss3" ath="150.880" atv="7.570" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/museum-im-bierlinghaus'););"/>
-<hotspot name="museumimbierlinghaus-text" style="hotspottextstyle" ath="150.880" atv="7.570" visible="true" html="[b]Museum im Bierlinghaus[/b]"/>
-</scene>
-<!--  PANO 3  -->
-<scene name="scene_SAULGRUB_UEBERSICHT" title="SAULGRUB" onstart="updateradar();" thumburl="panos/SAULGRUB_UEBERSICHT.tiles/thumb.jpg" lat="47.70298889" lng="11.13779722" heading="0.0">
-<action name="updateradar"> set(layer[activespot].visible, true); set(layer[activespot].parent, spot3); set(layer[spot1].scale, 1.0); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.8); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); set(layer[spot8].scale, 1.0); </action>
-<view hlookat="3940.070" vlookat="49.840" fovtype="MFOV" fov="82.997" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
-<preview url="panos/SAULGRUB_UEBERSICHT.tiles/preview.jpg"/>
-<image prealign="0|0.0|0">
-<cube url="panos/SAULGRUB_UEBERSICHT.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
-</image>
-<!--  NADIR   -->
-<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/'););"/>
-<!--  TELEPORT  -->
-<hotspot name="scene_oberammergau" style="hss2" ath="40.733" atv="-6.363" tag=""/>
-<hotspot name="hst2-1" style="hotspottextstyle" ath="40.733" atv="-6.363" visible="true" html="[b]OBERAMMERGAU[/b]"/>
-<hotspot name="scene_unterammergau_-_pulvermoos" style="hss2" ath="58.272" atv="0.351" tag=""/>
-<hotspot name="hst2-2" style="hotspottextstyle" ath="58.272" atv="0.351" visible="true" html="[b]UNTERAMMERGAU[/b]"/>
-<hotspot name="scene_bad_kohlgrub" style="hss2" ath="-28.566" atv="10.874" tag=""/>
-<hotspot name="badkohlgrub-text" style="hotspottextstyle" ath="-28.566" atv="10.874" visible="true" html="[b]Bad Kohlgrub[/b]"/>
-<hotspot name="scene_bad_bayersoien_kapelle" style="hss2" ath="-150.154" atv="7.755" tag=""/>
-<hotspot name="badbayersoien-text" style="hotspottextstyle" ath="-150.154" atv="7.755" visible="true" html="[b]BAD BAYERSOIEN[/b]"/>
-<!--  BERGHÜTTE -->
-<hotspot name="hoernlehuette" style="hss4" ath="16.467" atv="-1.312" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/hoernlehuette');"/>
-<hotspot name="hoernlehuette-text" style="hotspottextstyle" ath="16.467" atv="-1.312" visible="true" html="[b]Hörnlehütte[/b]"/>
-<!--  ORT -->
-<hotspot name="altenau" style="hotspottextstyle-ammergau-ort" ath="74.578" atv="12.084" visible="true" edge="bottom" oy="" enabled="false" html="[b]Altenau[/b]"/>
-<hotspot name="wurmansau" style="hotspottextstyle-ammergau-ort" ath="47.356" atv="11.901" visible="true" edge="bottom" oy="" enabled="false" html="[b]Wurmansau[/b]"/>
-<hotspot name="murnau" style="hotspottextstyle-ammergau-ort" ath="-32.136" atv="2.657" visible="true" edge="bottom" oy="" enabled="false" html="[b]Murnau[/b]"/>
-<!--  SEE -->
-<hotspot name="bayersoienersee" style="hotspottextstyle-ammergau" ath="-137.597" atv="7.205" visible="true" edge="bottom" oy="" enabled="false" html="[b]Soier See[/b]"/>
-<hotspot name="poly-bayersoienersee" style="hslinienstyle-ammergau">
-<point ath="-137.597" atv="7.205"/>
-<point ath="-137.597" atv="9.805"/>
-</hotspot>
-<hotspot name="staffelsee" style="hotspottextstyle-ammergau" ath="-39.973" atv="1.312" visible="true" edge="bottom" oy="" enabled="false" html="[b]Staffelsee[/b]"/>
-<hotspot name="poly-staffelsee" style="hslinienstyle-ammergau">
-<point ath="-39.973" atv="1.312"/>
-<point ath="-39.973" atv="3.588"/>
-</hotspot>
-<hotspot name="ammersee" style="hotspottextstyle-ammergau" ath="-103.592" atv="-1.386" visible="true" edge="bottom" oy="" enabled="false" html="[b]Ammersee[/b]"/>
-<hotspot name="poly-ammersee" style="hslinienstyle-ammergau">
-<point ath="-103.592" atv="-1.386"/>
-<point ath="-103.592" atv="1.288"/>
-</hotspot>
-<hotspot name="starnbergersee" style="hotspottextstyle-ammergau" ath="-79.878" atv="-1.535" visible="true" edge="bottom" oy="" enabled="false" html="[b]Starnberger See[/b]"/>
-<hotspot name="poly-starnbergersee" style="hslinienstyle-ammergau">
-<point ath="-79.878" atv="-1.535"/>
-<point ath="-79.878" atv="1.288"/>
-</hotspot>
-<!--  BAHN -->
-<hotspot name="hoernleschwebebahn" style="hss5" ath="-10.233" atv="9.332" tag="" visible="true" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/hoernle-bahn');"/>
-<hotspot name="hoernleschwebebahn-text" style="hotspottextstyle" ath="-10.233" atv="9.332" visible="true" html="[b]Hörnle Schwebebahn[/b]"/>
-<!--  BERG -->
-<hotspot name="mittlereshoernle" style="hotspottextstyle-ammergau" ath="16.564" atv="-5.348" visible="true" edge="bottom" oy="" enabled="false" html="[b]Mittleres Hörnle 1496m[/b]"/>
-<hotspot name="poly-mittlereshoernle" style="hslinienstyle-ammergau">
-<point ath="16.564" atv="-5.348"/>
-<point ath="16.564" atv="-2.588"/>
-</hotspot>
-<hotspot name="zeitberg" style="hotspottextstyle-ammergau" ath="15.067" atv="-4.012" visible="true" edge="bottom" oy="" enabled="false" html="[b]Zeitberg 1404m[/b]"/>
-<hotspot name="poly-zeitberg" style="hslinienstyle-ammergau">
-<point ath="15.067" atv="-4.3012"/>
-<point ath="15.067" atv="-1.588"/>
-</hotspot>
-<hotspot name="vordereshoernle" style="hotspottextstyle-ammergau" ath="13.274" atv="-6.683" visible="true" edge="bottom" oy="" enabled="false" html="[b]Vorderes Hörnle 1484m[/b]"/>
-<hotspot name="poly-vordereshoernle" style="hslinienstyle-ammergau">
-<point ath="13.274" atv="-6.683"/>
-<point ath="13.274" atv="-2.588"/>
-</hotspot>
-<hotspot name="hintereshoernle" style="hotspottextstyle-ammergau" ath="10.401" atv="-8.816" visible="true" edge="bottom" oy="" enabled="false" html="[b]Hinteres Hörnle 1548m[/b]"/>
-<hotspot name="poly-hintereshoernle" style="hslinienstyle-ammergau">
-<point ath="10.401" atv="-8.816"/>
-<point ath="10.401" atv="-2.288"/>
-</hotspot>
-<hotspot name="teufelstaettkopf" style="hotspottextstyle-ammergau" ath="79.683" atv="-7.229" visible="true" edge="bottom" oy="" enabled="false" html="[b]Teufelstättkopf 1758m[/b]"/>
-<hotspot name="poly-teufelstaettkopf" style="hslinienstyle-ammergau">
-<point ath="79.683" atv="-7.229"/>
-<point ath="79.683" atv="-2.588"/>
-</hotspot>
-<hotspot name="heimgarten" style="hotspottextstyle-ammergau" ath="-9.029" atv="-3.853" visible="true" edge="bottom" oy="" enabled="false" html="[b]Heimgarten 1791m[/b]"/>
-<hotspot name="poly-heimgarten" style="hslinienstyle-ammergau">
-<point ath="-9.029" atv="-3.853"/>
-<point ath="-9.029" atv="-1.088"/>
-</hotspot>
-<hotspot name="zugspitze" style="hotspottextstyle-ammergau" ath="69.414" atv="-6.358" visible="true" edge="bottom" oy="" enabled="false" html="[b]Zugspitze 2962m[/b]"/>
-<hotspot name="poly-zugspitze" style="hslinienstyle-ammergau">
-<point ath="69.414" atv="-6.358"/>
-<point ath="69.414" atv="-3.288"/>
-</hotspot>
-<!--  POI -->
-<hotspot name="murnauermoos" style="hotspottextstyle-ammergau" ath="-17.278" atv="0.987" visible="true" edge="bottom" oy="" enabled="false" html="[b]Murnauer Moos[/b]"/>
-<hotspot name="poly-murnauermoos" style="hslinienstyle-ammergau">
-<point ath="-17.278" atv="0.987"/>
-<point ath="-17.278" atv="3.288"/>
-</hotspot>
-<hotspot name="tisaulgrub" style="hss10" ath="-55.288" atv="33.024" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/tourist-information-saulgrub');"/>
-<hotspot name="tisaulgrub-text" style="hotspottextstyle" ath="-55.288" atv="33.024" visible="true" html="[b]TI Saulgrub[/b]"/>
-<hotspot name="wieskirche" style="hss3" ath="163.969" atv="1.950" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/wieskirche');"/>
-<hotspot name="wieskirche-text" style="hotspottextstyle" ath="163.969" atv="1.950" visible="true" html="[b]Wieskirche[/b]"/>
-<hotspot name="kraftwerkkammerl" style="hss3" ath="141.630" atv="10.683" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/bahnwasserkraftwerk-kammerl');"/>
-<hotspot name="kraftwerkkammerl-text" style="hotspottextstyle" ath="141.630" atv="10.683" visible="true" html="[b]Kraftwerk Kammerl[/b]"/>
-<hotspot name="boulderhalle" style="hss3" ath="49.356" atv="8.301" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/boulderhalle-ammerrock');"/>
-<hotspot name="boulderhalle-text" style="hotspottextstyle" ath="49.356" atv="8.301" visible="true" html="[b]Boulderhalle Ammerrock[/b]"/>
-<hotspot name="sinnesweg" style="hss3" ath="49.193" atv="52.130" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/tour/themenweg-sinnesweg-saulgrub');"/>
-<hotspot name="sinnesweg-text" style="hotspottextstyle" ath="49.193" atv="52.130" visible="true" html="[b]Sinnesweg[/b]"/>
-</scene>
-<!--  PANO 4  -->
-<scene name="scene_UNTERAMMERGAU_-_PULVERMOOS" title="UNTERAMMERGAU" onstart="updateradar();" thumburl="panos/UNTERAMMERGAU_-_PULVERMOOS.tiles/thumb.jpg" lat="47.64993611" lng="11.15282222" heading="0.0">
-<action name="updateradar"> set(layer[activespot].visible, true); set(layer[activespot].parent, spot4); set(layer[spot1].scale, 1.0); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.8); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); set(layer[spot8].scale, 1.0); </action>
-<view hlookat="278.378" vlookat="9.434" fov="94.288"/>
-<preview url="panos/UNTERAMMERGAU_-_PULVERMOOS.tiles/preview.jpg"/>
-<image prealign="0|0.0|0">
-<cube url="panos/UNTERAMMERGAU_-_PULVERMOOS.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
-</image>
-<!--  NADIR   -->
-<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/');"/>
-<!--  TELEPORT   -->
-<hotspot name="scene_oberammergau_-_kofel" style="hss2" ath="110.320" atv="-10.858" tag=""/>
-<hotspot name="hst2-1" style="hotspottextstyle" ath="110.320" atv="-10.858" visible="true" html="[b]OBERAMMERGAU - KOFEL[/b]"/>
-<hotspot name="scene_oberammergau" style="hss2" ath="86.230" atv="-3.724" tag=""/>
-<hotspot name="hst2-2" style="hotspottextstyle" ath="86.230" atv="-3.724" visible="true" html="[b]OBERAMMERGAU[/b]"/>
-<hotspot name="scene_saulgrub_uebersicht" style="hss2" ath="-56.712" atv="-5.408" tag=""/>
-<hotspot name="hst2-3" style="hotspottextstyle" ath="-56.712" atv="-5.408" visible="true" html="[b]SAULGRUB[/b]"/>
-<hotspot name="scene_bad_kohlgrub" style="hss2" ath="-38.056" atv="-5.528" tag=""/>
-<hotspot name="hst2-4" style="hotspottextstyle" ath="-38.056" atv="-5.528" visible="true" html="[b]BAD KOHLGRUB[/b]"/>
-<!--  BERGHÜTTE -->
-<hotspot name="august-schuster-haus" style="hss4" ath="-178.225" atv="-12.627" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/august-schuster-haus-puerschling-haus'););"/>
-<hotspot name="august-schuster-haus-text" style="hotspottextstyle" ath="-178.225" atv="-12.627" visible="true" html="[b]August-Schuster Haus[/b]"/>
-<!--  ORT -->
-<hotspot name="altenau" style="hotspottextstyle-ammergau-ort" ath="-58.495" atv="1.355" visible="true" edge="bottom" oy="" enabled="false" html="[b]Altenau[/b]"/>
-<hotspot name="wurmansau" style="hotspottextstyle-ammergau-ort" ath="-45.908" atv="1.410" visible="true" edge="bottom" oy="" enabled="false" html="[b]Wurmansau[/b]"/>
-<!--  BERG -->
-<hotspot name="puerschling" style="hotspottextstyle-ammergau" ath="-178.225" atv="-18.157" visible="true" edge="bottom" oy="" enabled="false" html="[b]Pürschling 1566m[/b]"/>
-<hotspot name="poly-puerschling" style="hslinienstyle-ammergau">
-<point ath="-178.225" atv="-18.157"/>
-<point ath="-178.225" atv="-8.988"/>
-</hotspot>
-<hotspot name="mittlereshoernle" style="hotspottextstyle-ammergau" ath="-6.928" atv="-10.959" visible="true" edge="bottom" oy="" enabled="false" html="[b]Mittleres Hörnle 1496m[/b]"/>
-<hotspot name="poly-mittlereshoernle" style="hslinienstyle-ammergau">
-<point ath="-6.928" atv="-10.959"/>
-<point ath="-6.928" atv="-7.388"/>
-</hotspot>
-<!--  ausgeblendet
-
-<hotspot name="zeitberg" style="hotspottextstyle-ammergau"  ath="-25.260" atv="-8.792" visible="true" edge="bottom" oy="" enabled="false" html="[b]Zeitberg 1404m[/b]"/>
-<hotspot  name="poly-zeitberg" style="hslinienstyle-ammergau"  >
-    <point ath="-25.260" atv="-8.792" />
-    <point ath="-25.260" atv="-4.588" />
-</hotspot>
+<hotspot name="zeitberg" style="hotspottextstyle-ammergau" ath="-25.260" atv="-8.792" visible="true" edge="bottom" oy="" enabled="false" html="[b]Zeitberg 1404m[/b]"/><hotspot name="poly-zeitberg" style="hslinienstyle-ammergau"><point ath="-25.260" atv="-8.792" /><point ath="-25.260" atv="-4.588" /></hotspot>
 
  -->
-<hotspot name="vordereshoernle" style="hotspottextstyle-ammergau" ath="-11.397" atv="-8.457" visible="true" edge="bottom" oy="" enabled="false" html="[b]Vorderes Hörnle 1484m[/b]"/>
-<hotspot name="poly-vordereshoernle" style="hslinienstyle-ammergau">
-<point ath="-11.397" atv="-8.457"/>
-<point ath="-11.397" atv="-6.588"/>
-</hotspot>
-<hotspot name="hintereshoernle" style="hotspottextstyle-ammergau" ath="5.033" atv="-13.809" visible="true" edge="bottom" oy="" enabled="false" html="[b]Hinteres Hörnle 1548m[/b]"/>
-<hotspot name="poly-hintereshoernle" style="hslinienstyle-ammergau">
-<point ath="5.033" atv="-13.809"/>
-<point ath="5.033" atv="-7.288"/>
-</hotspot>
-<hotspot name="teufelstaettkopf" style="hotspottextstyle-ammergau" ath="-166.653" atv="-14.974" visible="true" edge="bottom" oy="" enabled="false" html="[b]Teufelstättkopf 1758m[/b]"/>
-<hotspot name="poly-teufelstaettkopf" style="hslinienstyle-ammergau">
-<point ath="-166.653" atv="-14.974"/>
-<point ath="-166.653" atv="-9.088"/>
-</hotspot>
-<hotspot name="laber" style="hotspottextstyle-ammergau" ath="79.575" atv="-8.789" visible="true" edge="bottom" oy="" enabled="false" html="[b]Laber 1686m[/b]"/>
-<hotspot name="poly-laber" style="hslinienstyle-ammergau">
-<point ath="79.575" atv="-8.789"/>
-<point ath="79.575" atv="-6.388"/>
-</hotspot>
-<hotspot name="kofel" style="hotspottextstyle-ammergau" ath="106.198" atv="-7.513" visible="true" edge="bottom" oy="" enabled="false" html="[b]Kofel 1342m[/b]"/>
-<hotspot name="poly-kofel" style="hslinienstyle-ammergau">
-<point ath="106.198" atv="-7.513"/>
-<point ath="106.198" atv="-5.588"/>
-</hotspot>
-<!--  POI -->
-<hotspot name="pulvermoos" style="hss3" ath="93.279" atv="34.682" onclick="open-lightboxlayer('https://www.naturpark-ammergauer-alpen.de/naturpark-vielfalt/moor/pulvermoos');"/>
-<hotspot name="pulvermoos-text" style="hotspottextstyle" ath="93.279" atv="34.682" visible="true" html="[b]Pulvermoos[/b]"/>
-<hotspot name="schleifmuehlklamm" style="hss3" ath="-141.183" atv="4.364" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/schleifmuehlklamm');"/>
-<hotspot name="schleifmuehlklamm-text" style="hotspottextstyle" ath="-141.183" atv="4.364" visible="true" html="[b]Schleifmühlklamm[/b]"/>
-<hotspot name="msekunsthalle" style="hss3" ath="-31.737" atv="10.924" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/mse-kunsthalle-und-skulpturenpark'););"/>
-<hotspot name="msekunsthalle-text" style="hotspottextstyle" ath="-31.737" atv="10.924" visible="true" html="[b]mSE Kunsthalle[/b]"/>
-<hotspot name="dorfmuseum" style="hss3" ath="-92.219" atv="11.426" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/dorf-und-wetzstoa-museum-unterammergau'););"/>
-<hotspot name="dorfmuseum-text" style="hotspottextstyle" ath="-92.219" atv="11.426" visible="true" html="[b]Dorfmuseum Unterammergau[/b]"/>
-<hotspot name="tiunterammergau" style="hss10" ath="-93.592" atv="14.693" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/tourist-information-unterammergau');"/>
-<hotspot name="tiunterammergau-text" style="hotspottextstyle" ath="-93.592" atv="14.693" visible="true" html="[b]TI Unterammergau[/b]"/>
-<hotspot name="boulderhalle" style="hss3" ath="-45.908" atv="1.410" oy="-5" ox="-70" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/boulderhalle-ammerrock');"/>
-<hotspot name="boulderhalle-text" style="hotspottextstyle" ath="-45.908" atv="1.410" oy="-65" ox="-70" visible="true" html="[b]Boulderhalle[br]Ammerrock[/b]"/>
-</scene>
-<!--  PANO 5  -->
-<scene name="scene_OBERAMMERGAU" title="OBERAMMERGAU" onstart="updateradar();" thumburl="panos/OBERAMMERGAU.tiles/thumb.jpg" lat="47.63338889" lng="11.18106389" heading="0.0">
-<action name="updateradar"> set(layer[activespot].visible, true); set(layer[activespot].parent, spot1); set(layer[spot1].scale, 1.8); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); </action>
-<view hlookat="68.980" vlookat="31.350" fovtype="MFOV" fov="113.088" fov.mobile="100.701" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
-<preview url="panos/OBERAMMERGAU.tiles/preview.jpg"/>
-<image prealign="0|0.0|0">
-<cube url="panos/OBERAMMERGAU.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
-</image>
-<!--  NADIR   -->
-<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/'););"/>
-<!--  TELEPORT  -->
-<hotspot name="scene_oberammergau_-_kofel" style="hss2" ath="-104.657" atv="-23.476" tag=""/>
-<hotspot name="hst1-1" style="hotspottextstyle" ath="-104.657" atv="-23.476" visible="true" html="[b]OBERAMMERGAU - KOFEL[/b]"/>
-<hotspot name="scene_saulgrub_uebersicht" style="hss2" ath="21.123" atv="-12.793" tag=""/>
-<hotspot name="hst1-2" style="hotspottextstyle" ath="21.123" atv="-12.793" visible="true" html="[b]SAULGRUB[/b]"/>
-<hotspot name="scene_unterammergau_-_pulvermoos" style="hss2" ath="-0.906" atv="-5.728" tag=""/>
-<hotspot name="hst1-3" style="hotspottextstyle" ath="-0.906" atv="-5.728" visible="true" html="[b]UNTERAMMERGAU[/b]"/>
-<hotspot name="scene_ettal_benediktinerabtei_uebersicht" style="hss2" ath="-165.445" atv="-11.915" tag=""/>
-<hotspot name="hst1-4" style="hotspottextstyle" ath="-165.445" atv="-11.915" visible="true" html="[b]ETTAL[/b]"/>
-<!--  BERGBAHN  -->
-<hotspot name="kolbensesselbahn" style="hss5" ath="-49.880" atv="-0.110" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/aktivarena-am-kolben-kolbensesselbahn');"/>
-<hotspot name="kolbensesselbahn-text" style="hotspottextstyle" ath="-49.880" atv="-0.110" visible="true" html="[b]Kolbensesselbahn[/b]"/>
-<hotspot name="laberbergbahn" style="hss5" ath="117.512" atv="1.297" tag="" onclick="open-lightboxlayer(' https://www.ammergauer-alpen.de/poi/laber-bergbahn');"/>
-<hotspot name="laberbergbahn-text" style="hotspottextstyle" ath="117.512" atv="1.297" visible="true" html="[b]Laber Bergbahn[/b]"/>
-<!--  BERGHÜTTE -->
-<hotspot name="berggaststaette-romanshoehe" style="hss4" ath="46.012" atv="-0.401" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/gastro/berggasthof-romanshoehe');"/>
-<hotspot name="berggaststaette-romanshoehe-text" style="hotspottextstyle" oy="-65" ath="46.012" atv="-0.401" visible="true" html="[b]Berggaststätte[br]Romanshöhe[/b]"/>
-<hotspot name="kolbensattelhuette" style="hss4" ath="-58.170" atv="-7.786" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/kolbensattelhuette');"/>
-<hotspot name="kolbensattelhuette-text" style="hotspottextstyle" ath="-58.170" atv="-7.786" visible="true" html="[b]Kolbensattelhütte[/b]"/>
-<hotspot name="laberei" style="hss4" ath="148.049" atv="-13.235" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/die-laberei');"/>
-<hotspot name="laberei-text" style="hotspottextstyle" ath="148.049" atv="-13.235" visible="true" html="[b]Laberei[/b]"/>
-<!--  BERG -->
-<hotspot name="mittlereshoernle" style="hotspottextstyle-ammergau" ath="38.530" atv="-10.413" visible="true" edge="bottom" oy="" enabled="false" html="[b]Mittleres Hörnle 1496m[/b]"/>
-<hotspot name="poly-mittlereshoernle" style="hslinienstyle-ammergau">
-<point ath="38.530" atv="-10.413"/>
-<point ath="38.530" atv="-5.888"/>
-</hotspot>
-<hotspot name="laber" style="hotspottextstyle-ammergau" ath="148.036" atv="-19.465" visible="true" edge="bottom" oy="" enabled="false" html="[b]Laber 1686m[/b]"/>
-<hotspot name="poly-laber" style="hslinienstyle-ammergau">
-<point ath="148.036" atv="-19.465"/>
-<point ath="148.036" atv="-13.388"/>
-</hotspot>
-<hotspot name="kofel" style="hotspottextstyle-ammergau" ath="-117.145" atv="-30.466" visible="true" edge="bottom" oy="" enabled="false" html="[b]Kofel 1342m[/b]"/>
-<hotspot name="poly-kofel" style="hslinienstyle-ammergau">
-<point ath="-117.145" atv="-30.466"/>
-<point ath="-117.145" atv="-22.588"/>
-</hotspot>
-<hotspot name="schartenkopf" style="hotspottextstyle-ammergau" ath="167.354" atv="-16.865" visible="true" edge="bottom" oy="" enabled="false" html="[b]Schartenkopf 1636m[/b]"/>
-<hotspot name="poly-schartenkopf" style="hslinienstyle-ammergau">
-<point ath="167.354" atv="-16.865"/>
-<point ath="167.354" atv="-13.088"/>
-</hotspot>
-<!--  POI -->
-<hotspot name="alpinecoaster" style="hss3" ath="-54.319" atv="-5.231" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/alpine-coaster-oberammergau');"/>
-<hotspot name="alpinecoaster-text" style="hotspottextstyle" ath="-54.319" atv="-5.231" visible="true" html="[b]Alpine Coaster[/b]"/>
-<hotspot name="bikepark" style="hss3" ath="-42.027" atv="3.320" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/scott-bikepark-oberammergau');"/>
-<hotspot name="bikepark-text" style="hotspottextstyle" ath="-42.027" atv="3.320" visible="true" html="[b]Bikepark[/b]"/>
-<hotspot name="bogenschiessen" style="hss3" ath="-38.565" atv="2.621" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/3d-bogenschiessen');"/>
-<hotspot name="bogenschiessen-text" style="hotspottextstyle" ath="-38.565" atv="2.621" visible="true" html="[b]Bogenschießen[/b]"/>
-<hotspot name="oberammergaumuseum" style="hss3" ath="24.674" atv="13.560" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/oberammergau-museum');"/>
-<hotspot name="oberammergaumuseum-text" style="hotspottextstyle" ath="24.674" atv="13.560" visible="true" html="[b]Oberammergau Museum[/b]"/>
-<hotspot name="passionstheater" style="hss3" ath="22.147" atv="8.010" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/passionstheater');"/>
-<hotspot name="passionstheater-text" style="hotspottextstyle" ath="22.147" atv="8.010" visible="true" html="[b]Passionstheater[/b]"/>
-<hotspot name="stpeterundpaul" style="hss3" ath="76.213" atv="23.130" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/pfarrkirche-st-peter-und-paul');"/>
-<hotspot name="stpeterundpaul-text" style="hotspottextstyle" ath="76.213" atv="23.130" visible="true" html="[b]St. Peter und Paul[/b]"/>
-<hotspot name="wellenberg" style="hss3" ath="110.077" atv="2.366" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/freibad-wellenberg');"/>
-<hotspot name="wellenberg-text" style="hotspottextstyle" ath="110.077" atv="2.366" visible="true" html="[b]Freibad WellenBerg[/b]"/>
-<hotspot name="tioberammergau" style="hss10" ath="19.101" atv="22.085" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/tourist-information-oberammergau');"/>
-<hotspot name="tioberammergau-text" style="hotspottextstyle" ath="19.101" atv="22.085" visible="true" html="[b]TI Oberammergau[/b]"/>
-<hotspot name="reptilienhaus" style="hss3" ath="78.074" atv="38.720" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/reptilienhaus-oberammergau');"/>
-<hotspot name="reptilienhaus-text" style="hotspottextstyle" ath="78.074" atv="38.720" visible="true" html="[b]Reptilienhaus[/b]"/>
-</scene>
-<!--  PANO 6  -->
-<scene name="scene_OBERAMMERGAU_-_KOFEL" title="KOFEL" onstart="updateradar();" thumburl="panos/OBERAMMERGAU_-_KOFEL.tiles/thumb.jpg" lat="47.62638333" lng="11.17513611" heading="0.0">
-<action name="updateradar"> set(layer[activespot].visible, false); set(layer[spot1].scale, 1.0); set(layer[spot2].scale, 1.8); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); set(layer[spot8].scale, 1.0); </action>
-<view hlookat="56.780" vlookat="17.980" fov="126.277" fov.mobile="60.701"/>
-<preview url="panos/OBERAMMERGAU_-_KOFEL.tiles/preview.jpg"/>
-<image prealign="0|0.0|0">
-<cube url="panos/OBERAMMERGAU_-_KOFEL.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
-</image>
-<!--  NADIR   -->
-<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/'););"/>
-<!--  TELEPORT   -->
-<hotspot name="scene_oberammergau" style="hss2" ath="29.719" atv="23.482" tag=""/>
-<hotspot name="hst2-1" style="hotspottextstyle" ath="29.719" atv="23.482" visible="true" html="[b]OBERAMMERGAU[/b]"/>
-<hotspot name="scene_unterammergau_-_pulvermoos" style="hss2" ath="-50.919" atv="5.923" tag=""/>
-<hotspot name="hst2-2" style="hotspottextstyle" ath="-50.919" atv="5.923" visible="true" html="[b]UNTERAMMERGAU[/b]"/>
-<hotspot name="scene_ettal_benediktinerabtei_uebersicht" style="hss2" ath="119.417" atv="1.379" tag=""/>
-<hotspot name="hst2-4" style="hotspottextstyle" ath="119.417" atv="1.379" visible="true" html="[b]ETTAL[/b]"/>
-<hotspot name="scene_saulgrub_uebersicht" style="hss2" ath="-47.248" atv="1.320" tag=""/>
-<hotspot name="hst2-5" style="hotspottextstyle" ath="-47.248" atv="1.320" visible="true" html="[b]SAULGRUB[/b]"/>
-<!--  BERGHÜTTE -->
-<hotspot name="kolbensattelhuette" style="hss4" ath="-93.701" atv="1.416" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/kolbensattelhuette');"/>
-<hotspot name="kolbensattelhuette-text" style="hotspottextstyle" ath="-93.701" atv="1.416" visible="true" html="[b]Kolbensattelhütte[/b]"/>
-<!--  BERGBAHN -->
-<hotspot name="kolbensesselbahn" style="hss5" ath="-61.907" atv="17.982" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/aktivarena-am-kolben-kolbensesselbahn');"/>
-<hotspot name="kolbensesselbahn-text" style="hotspottextstyle" ath="-61.907" atv="17.982" visible="true" html="[b]Kolbensesselbahn[/b]"/>
-<!--  BERG -->
-<hotspot name="notkarspitze" style="hotspottextstyle-ammergau" ath="169.765" atv="-11.954" visible="true" edge="bottom" oy="" enabled="false" html="[b]Notkarspitze 1888m[/b]"/>
-<hotspot name="poly-notkarspitze" style="hslinienstyle-ammergau">
-<point ath="169.765" atv="-11.954"/>
-<point ath="169.765" atv="-7.988"/>
-</hotspot>
-<hotspot name="laber" style="hotspottextstyle-ammergau" ath="79.066" atv="-11.287" visible="true" edge="bottom" oy="" enabled="false" html="[b]Laber 1686m[/b]"/>
-<hotspot name="poly-laber" style="hslinienstyle-ammergau">
-<point ath="79.066" atv="-11.287"/>
-<point ath="79.066" atv="-5.388"/>
-</hotspot>
-<hotspot name="kofel" style="hotspottextstyle-ammergau" ath="90.557" atv="-6.712" visible="true" edge="bottom" oy="" enabled="false" html="[b]Kofel 1342m[/b]"/>
-<hotspot name="poly-kofel" style="hslinienstyle-ammergau">
-<point ath="90.557" atv="-6.712"/>
-<point ath="90.557" atv="-2.088"/>
-</hotspot>
-<hotspot name="mittlereshoernle" style="hotspottextstyle-ammergau" ath="-10.174" atv="-6.037" visible="true" edge="bottom" oy="" enabled="false" html="[b]Mittleres Hörnle 1496m[/b]"/>
-<hotspot name="poly-mittlereshoernle" style="hslinienstyle-ammergau">
-<point ath="-10.174" atv="-6.037"/>
-<point ath="-10.174" atv="-1.588"/>
-</hotspot>
-<hotspot name="vordereshoernle" style="hotspottextstyle-ammergau" ath="-11.457" atv="-2.992" visible="true" edge="bottom" oy="" enabled="false" html="[b]Vorderes Hörnle 1484m[/b]"/>
-<hotspot name="poly-vordereshoernle" style="hslinienstyle-ammergau">
-<point ath="-11.457" atv="-2.992"/>
-<point ath="-11.457" atv="-1.488"/>
-</hotspot>
-<hotspot name="hintereshoernle" style="hotspottextstyle-ammergau" ath="-0.813" atv="-8.856" visible="true" edge="bottom" oy="" enabled="false" html="[b]Hinteres Hörnle 1548m[/b]"/>
-<hotspot name="poly-hintereshoernle" style="hslinienstyle-ammergau">
-<point ath="-1.113" atv="-8.856"/>
-<point ath="-1.113" atv="-2.088"/>
-</hotspot>
-<hotspot name="teufelstaettkopf" style="hotspottextstyle-ammergau" ath="-103.751" atv="-7.874" visible="true" edge="bottom" oy="" enabled="false" html="[b]Teufelstättkopf 1758m[/b]"/>
-<hotspot name="poly-teufelstaettkopf" style="hslinienstyle-ammergau">
-<point ath="-103.751" atv="-7.874"/>
-<point ath="-103.751" atv="-4.088"/>
-</hotspot>
-<!--  POI -->
-<hotspot name="alpinecoaster" style="hss3" ath="-84.623" atv="3.282" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/alpine-coaster-oberammergau');"/>
-<hotspot name="alpinecoaster-text" style="hotspottextstyle" ath="-84.623" atv="3.282" visible="true" html="[b]Alpine Coaster[/b]"/>
-<hotspot name="bikepark" style="hss3" ath="-47.082" atv="22.058" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/scott-bikepark-oberammergau');"/>
-<hotspot name="bikepark-text" style="hotspottextstyle" ath="-47.082" atv="22.058" visible="true" html="[b]Bikepark[/b]"/>
-<hotspot name="bogenschiessen" style="hss3" ath="-45.426" atv="19.501" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/3d-bogenschiessen');"/>
-<hotspot name="bogenschiessen-text" style="hotspottextstyle" ath="-45.426" atv="19.501" visible="true" html="[b]Bogenschießen[/b]"/>
-<hotspot name="passionstheater" style="hss3" ath="-2.887" atv="18.706" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/passionstheater');"/>
-<hotspot name="passionstheater-text" style="hotspottextstyle" ath="-2.887" atv="18.706" visible="true" html="[b]Passionstheater[/b]"/>
-</scene>
-<!--  PANO 7  -->
-<scene name="scene_ETTAL_BENEDIKTINERABTEI_UEBERSICHT" title="ETTAL" onstart="updateradar();" thumburl="panos/ETTAL_BENEDIKTINERABTEI_UEBERSICHT.tiles/thumb.jpg" lat="47.61026389" lng="11.20795278" heading="0.0">
-<action name="updateradar"> set(layer[activespot].visible, true); set(layer[activespot].parent, spot6); set(layer[spot1].scale, 1.0); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.8); set(layer[spot7].scale, 1.0); set(layer[spot8].scale, 1.0); </action>
-<view hlookat="59.315" vlookat="42.255" fov="109.936" fov.mobile="60.701"/>
-<preview url="panos/ETTAL_BENEDIKTINERABTEI_UEBERSICHT.tiles/preview.jpg"/>
-<image prealign="0|0.0|0">
-<cube url="panos/ETTAL_BENEDIKTINERABTEI_UEBERSICHT.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
-</image>
-<!--  NADIR   -->
-<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/'););"/>
-<!--  TELEPORT   -->
-<hotspot name="scene_oberammergau" style="hss2" ath="-167.231" atv="-13.317" tag=""/>
-<hotspot name="hst2-1" style="hotspottextstyle" ath="-167.231" atv="-13.317" visible="true" html="[b]OBERAMMERGAU[/b]"/>
-<hotspot name="scene_benediktinerabtei_ettal" style="hss3" onclick="loadscene(get(name),null, MERGE, ZOOMBLEND(2, 2, easeInOutSine));" ath="-3.724" atv="18.095" tag=""/>
-<hotspot name="hst2-2" style="hotspottextstyle" ath="-3.724" atv="18.095" visible="true" html="[b]BENEDIKTINERABTEI ETTAL[/b]"/>
-<!--  ORT MIT FOTO  -->
-<hotspot name="graswang" style="hotspottextstyle-ammergau-ort" ath="150.821" atv="1.543" visible="true" edge="bottom" oy="" enabled="true" html="[b]Graswang[/b]" onclick="open-foto(01);"/>
-<!--  BERG   -->
-<hotspot name="estergebirge" style="hotspottextstyle-ammergau" ath="10.014" atv="-12.681" visible="true" edge="bottom" oy="" enabled="false" html="[b]Estergebirge[/b]"/>
-<hotspot name="poly-estergebirge" style="hslinienstyle-ammergau">
-<point ath="10.014" atv="-12.681"/>
-<point ath="10.014" atv="-8.988"/>
-</hotspot>
-<hotspot name="grosse-klammspitze" style="hotspottextstyle-ammergau" ath="152.569" atv="-13.353" visible="true" edge="bottom" oy="" enabled="false" html="[b]Große Klammspitze 1924m[/b]"/>
-<hotspot name="poly-grosse-klammspitze" style="hslinienstyle-ammergau">
-<point ath="152.569" atv="-13.353"/>
-<point ath="152.569" atv="-3.388"/>
-</hotspot>
-<hotspot name="scheinbergspitze" style="hotspottextstyle-ammergau" ath="141.221" atv="-8.086" visible="true" edge="bottom" oy="" enabled="false" html="[b]Scheinbergspitze 1929m[/b]"/>
-<hotspot name="poly-scheinbergspitze" style="hslinienstyle-ammergau">
-<point ath="141.221" atv="-8.086"/>
-<point ath="141.221" atv="-2.988"/>
-</hotspot>
-<hotspot name="notkarspitze" style="hotspottextstyle-ammergau" ath="101.811" atv="-22.604" visible="true" edge="bottom" oy="" enabled="false" html="[b]Notkarspitze 1888m[/b]"/>
-<hotspot name="poly-notkarspitze" style="hslinienstyle-ammergau">
-<point ath="101.811" atv="-22.604"/>
-<point ath="101.811" atv="-18.388"/>
-</hotspot>
-<hotspot name="schartenkopf" style="hotspottextstyle-ammergau" ath="-134.358" atv="-27.169" visible="true" edge="bottom" oy="" enabled="false" html="[b]Schartenkopf 1636m[/b]"/>
-<hotspot name="poly-schartenkopf" style="hslinienstyle-ammergau">
-<point ath="-134.358" atv="-27.169"/>
-<point ath="-134.358" atv="-22.288"/>
-</hotspot>
-<!--  POI -->
-<hotspot name="schaukaeserei" style="hss3" ath="-10.614" atv="6.295" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/schaukaeserei-ettal');"/>
-<hotspot name="schaukaeserei-text" style="hotspottextstyle" ath="-10.614" atv="6.295" visible="true" html="[b]Schaukäserei[/b]"/>
-<hotspot name="tiettal" style="hss10" ath="97.741" atv="21.891" tag="" enabled="true" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/tourist-information-ettal');"/>
-<hotspot name="tiettal-text" style="hotspottextstyle" ath="97.741" atv="21.891" visible="true" html="[b]TI Ettal[/b]"/>
-<!--  POI MIT FOTO -->
-<hotspot name="schlosslinderhof" style="hss3" ath="146.209" atv="0.196" tag="" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/schloss-park-linderhof');"/>
-<hotspot name="schlosslinderhof-text" style="hotspottextstyle" ath="146.209" atv="-0.196" visible="true" html="[b]Schloss Linderhof[/b]"/>
-<!--  POI MIT FOTO
-
-
-onclick="open-foto(02);"
+		<hotspot name="vordereshoernle" style="hotspottextstyle-ammergau" ath="-11.397" atv="-8.457" visible="true" edge="bottom" oy="" enabled="false" html="[b]Vorderes Hörnle 1484m[/b]"/>
+		<hotspot name="poly-vordereshoernle" style="hslinienstyle-ammergau">
+			<point ath="-11.397" atv="-8.457"/>
+			<point ath="-11.397" atv="-6.588"/>
+		</hotspot>
+		<hotspot name="hintereshoernle" style="hotspottextstyle-ammergau" ath="32.033" atv="-13.809" visible="true" edge="bottom" oy="" enabled="false" html="[b]Hinteres Hörnle 1548m[/b]"/>
+		<hotspot name="poly-hintereshoernle" style="hslinienstyle-ammergau">
+			<point ath="32.033" atv="-13.809"/>
+			<point ath="32.033" atv="-7.288"/>
+		</hotspot>
+		<hotspot name="teufelstaettkopf" style="hotspottextstyle-ammergau" ath="-166.653" atv="-14.974" visible="true" edge="bottom" oy="" enabled="false" html="[b]Teufelstättkopf 1758m[/b]"/>
+		<hotspot name="poly-teufelstaettkopf" style="hslinienstyle-ammergau">
+			<point ath="-166.653" atv="-14.974"/>
+			<point ath="-166.653" atv="-9.088"/>
+		</hotspot>
+		<hotspot name="laber" style="hotspottextstyle-ammergau" ath="79.575" atv="-8.789" visible="true" edge="bottom" oy="" enabled="false" html="[b]Laber 1686m[/b]"/>
+		<hotspot name="poly-laber" style="hslinienstyle-ammergau">
+			<point ath="79.575" atv="-8.789"/>
+			<point ath="79.575" atv="-6.388"/>
+		</hotspot>
+		<hotspot name="kofel" style="hotspottextstyle-ammergau" ath="106.198" atv="-7.513" visible="true" edge="bottom" oy="" enabled="false" html="[b]Kofel 1342m[/b]"/>
+		<hotspot name="poly-kofel" style="hslinienstyle-ammergau">
+			<point ath="106.198" atv="-7.513"/>
+			<point ath="106.198" atv="-5.588"/>
+		</hotspot>
+		<!--  POI -->
+		<hotspot name="pulvermoos" style="hss3" ath="93.279" atv="34.682" onclick="open-lightboxlayer('https://www.naturpark-ammergauer-alpen.de/naturpark-vielfalt/moor/pulvermoos');"/>
+		<hotspot name="pulvermoos-text" style="hotspottextstyle" ath="93.279" atv="34.682" visible="true" html="[b]Pulvermoos[/b]"/>
+		<hotspot name="schleifmuehlklamm" style="hss3" ath="-141.183" atv="4.364" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/schleifmuehlklamm');"/>
+		<hotspot name="schleifmuehlklamm-text" style="hotspottextstyle" ath="-141.183" atv="4.364" visible="true" html="[b]Schleifmühlklamm[/b]"/>
+		<hotspot name="msekunsthalle" style="hss3" ath="-31.737" atv="10.924" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/mse-kunsthalle-und-skulpturenpark'););"/>
+		<hotspot name="msekunsthalle-text" style="hotspottextstyle" ath="-31.737" atv="10.924" visible="true" html="[b]mSE Kunsthalle[/b]"/>
+		<hotspot name="dorfmuseum" style="hss3" ath="-92.219" atv="11.426" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/dorf-und-wetzstoa-museum-unterammergau'););"/>
+		<hotspot name="dorfmuseum-text" style="hotspottextstyle" ath="-92.219" atv="11.426" visible="true" html="[b]Dorfmuseum Unterammergau[/b]"/>
+		<hotspot name="tiunterammergau" style="hss10" ath="-93.592" atv="14.693" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/tourist-information-unterammergau');"/>
+		<hotspot name="tiunterammergau-text" style="hotspottextstyle" ath="-93.592" atv="14.693" visible="true" html="[b]TI Unterammergau[/b]"/>
+		<hotspot name="boulderhalle" style="hss3" ath="-45.908" atv="1.410" oy="-5" ox="-70" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/boulderhalle-ammerrock');"/>
+		<hotspot name="boulderhalle-text" style="hotspottextstyle" ath="-45.908" atv="1.410" oy="-65" ox="-70" visible="true" html="[b]Boulderhalle[br]Ammerrock[/b]"/>
+	</scene>
+	<!--  PANO 5  -->
+	<scene name="scene_OBERAMMERGAU" title="OBERAMMERGAU" onstart="updateradar();" thumburl="panos/OBERAMMERGAU.tiles/thumb.jpg" lat="47.63338889" lng="11.18106389" heading="0.0">
+		<action name="updateradar"> set(layer[activespot].visible, true); set(layer[activespot].parent, spot1); set(layer[spot1].scale, 1.8); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); </action>
+		<view hlookat="68.980" vlookat="31.350" fovtype="MFOV" fov="113.088" fov.mobile="100.701" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panos/OBERAMMERGAU.tiles/preview.jpg"/>
+		<image prealign="0|0.0|0">
+			<cube url="panos/OBERAMMERGAU.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
+		</image>
+		<!--  NADIR   -->
+		<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/'););"/>
+		<!--  TELEPORT  -->
+		<hotspot name="scene_oberammergau_-_kofel" style="hss2" ath="-104.657" atv="-23.476" tag=""/>
+		<hotspot name="hst1-1" style="hotspottextstyle" ath="-104.657" atv="-23.476" visible="true" html="[b]OBERAMMERGAU - KOFEL[/b]"/>
+		<hotspot name="scene_saulgrub_uebersicht" style="hss2" ath="21.123" atv="-12.793" tag=""/>
+		<hotspot name="hst1-2" style="hotspottextstyle" ath="21.123" atv="-12.793" visible="true" html="[b]SAULGRUB[/b]"/>
+		<hotspot name="scene_unterammergau_-_pulvermoos" style="hss2" ath="-0.906" atv="-5.728" tag=""/>
+		<hotspot name="hst1-3" style="hotspottextstyle" ath="-0.906" atv="-5.728" visible="true" html="[b]UNTERAMMERGAU[/b]"/>
+		<hotspot name="scene_ettal_benediktinerabtei_uebersicht" style="hss2" ath="-165.445" atv="-11.915" tag=""/>
+		<hotspot name="hst1-4" style="hotspottextstyle" ath="-165.445" atv="-11.915" visible="true" html="[b]ETTAL[/b]"/>
+		<!--  BERGBAHN  -->
+		<hotspot name="kolbensesselbahn" style="hss5" ath="-49.880" atv="-0.110" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/aktivarena-am-kolben-kolbensesselbahn');"/>
+		<hotspot name="kolbensesselbahn-text" style="hotspottextstyle" ath="-49.880" atv="-0.110" visible="true" html="[b]Kolbensesselbahn[/b]"/>
+		<hotspot name="laberbergbahn" style="hss5" ath="117.512" atv="1.297" tag="" onclick="open-lightboxlayer(' https://www.ammergauer-alpen.de/poi/laber-bergbahn');"/>
+		<hotspot name="laberbergbahn-text" style="hotspottextstyle" ath="117.512" atv="1.297" visible="true" html="[b]Laber Bergbahn[/b]"/>
+		<!--  BERGHÜTTE -->
+		<hotspot name="berggaststaette-romanshoehe" style="hss4" ath="46.012" atv="-0.401" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/gastro/berggasthof-romanshoehe');"/>
+		<hotspot name="berggaststaette-romanshoehe-text" style="hotspottextstyle" oy="-65" ath="46.012" atv="-0.401" visible="true" html="[b]Berggaststätte[br]Romanshöhe[/b]"/>
+		<hotspot name="kolbensattelhuette" style="hss4" ath="-58.170" atv="-7.786" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/kolbensattelhuette');"/>
+		<hotspot name="kolbensattelhuette-text" style="hotspottextstyle" ath="-58.170" atv="-7.786" visible="true" html="[b]Kolbensattelhütte[/b]"/>
+		<hotspot name="laberei" style="hss4" ath="148.049" atv="-13.235" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/die-laberei');"/>
+		<hotspot name="laberei-text" style="hotspottextstyle" ath="148.049" atv="-13.235" visible="true" html="[b]Laberei[/b]"/>
+		<!--  BERG -->
+		<hotspot name="mittlereshoernle" style="hotspottextstyle-ammergau" ath="38.530" atv="-10.413" visible="true" edge="bottom" oy="" enabled="false" html="[b]Mittleres Hörnle 1496m[/b]"/>
+		<hotspot name="poly-mittlereshoernle" style="hslinienstyle-ammergau">
+			<point ath="38.530" atv="-10.413"/>
+			<point ath="38.530" atv="-5.888"/>
+		</hotspot>
+		<hotspot name="laber" style="hotspottextstyle-ammergau" ath="148.036" atv="-19.465" visible="true" edge="bottom" oy="" enabled="false" html="[b]Laber 1686m[/b]"/>
+		<hotspot name="poly-laber" style="hslinienstyle-ammergau">
+			<point ath="148.036" atv="-19.465"/>
+			<point ath="148.036" atv="-13.388"/>
+		</hotspot>
+		<hotspot name="kofel" style="hotspottextstyle-ammergau" ath="-117.145" atv="-30.466" visible="true" edge="bottom" oy="" enabled="false" html="[b]Kofel 1342m[/b]"/>
+		<hotspot name="poly-kofel" style="hslinienstyle-ammergau">
+			<point ath="-117.145" atv="-30.466"/>
+			<point ath="-117.145" atv="-22.588"/>
+		</hotspot>
+		<hotspot name="schartenkopf" style="hotspottextstyle-ammergau" ath="167.354" atv="-16.865" visible="true" edge="bottom" oy="" enabled="false" html="[b]Schartenkopf 1636m[/b]"/>
+		<hotspot name="poly-schartenkopf" style="hslinienstyle-ammergau">
+			<point ath="167.354" atv="-16.865"/>
+			<point ath="167.354" atv="-13.088"/>
+		</hotspot>
+		<!--  POI -->
+		<hotspot name="alpinecoaster" style="hss3" ath="-54.319" atv="-5.231" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/alpine-coaster-oberammergau');"/>
+		<hotspot name="alpinecoaster-text" style="hotspottextstyle" ath="-54.319" atv="-5.231" visible="true" html="[b]Alpine Coaster[/b]"/>
+		<hotspot name="bikepark" style="hss3" ath="-42.027" atv="3.320" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/scott-bikepark-oberammergau');"/>
+		<hotspot name="bikepark-text" style="hotspottextstyle" ath="-42.027" atv="3.320" visible="true" html="[b]Bikepark[/b]"/>
+		<hotspot name="bogenschiessen" style="hss3" ath="-38.565" atv="2.621" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/3d-bogenschiessen');"/>
+		<hotspot name="bogenschiessen-text" style="hotspottextstyle" ath="-38.565" atv="2.621" visible="true" html="[b]Bogenschießen[/b]"/>
+		<hotspot name="oberammergaumuseum" style="hss3" ath="24.674" atv="13.560" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/oberammergau-museum');"/>
+		<hotspot name="oberammergaumuseum-text" style="hotspottextstyle" ath="24.674" atv="13.560" visible="true" html="[b]Oberammergau Museum[/b]"/>
+		<hotspot name="passionstheater" style="hss3" ath="22.147" atv="8.010" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/passionstheater');"/>
+		<hotspot name="passionstheater-text" style="hotspottextstyle" ath="22.147" atv="8.010" visible="true" html="[b]Passionstheater[/b]"/>
+		<hotspot name="stpeterundpaul" style="hss3" ath="76.213" atv="23.130" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/pfarrkirche-st-peter-und-paul');"/>
+		<hotspot name="stpeterundpaul-text" style="hotspottextstyle" ath="76.213" atv="23.130" visible="true" html="[b]St. Peter und Paul[/b]"/>
+		<hotspot name="wellenberg" style="hss3" ath="110.077" atv="2.366" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/freibad-wellenberg');"/>
+		<hotspot name="wellenberg-text" style="hotspottextstyle" ath="110.077" atv="2.366" visible="true" html="[b]Freibad WellenBerg[/b]"/>
+		<hotspot name="tioberammergau" style="hss10" ath="19.101" atv="22.085" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/tourist-information-oberammergau');"/>
+		<hotspot name="tioberammergau-text" style="hotspottextstyle" ath="19.101" atv="22.085" visible="true" html="[b]TI Oberammergau[/b]"/>
+		<hotspot name="reptilienhaus" style="hss3" ath="78.074" atv="38.720" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/reptilienhaus-oberammergau');"/>
+		<hotspot name="reptilienhaus-text" style="hotspottextstyle" ath="78.074" atv="38.720" visible="true" html="[b]Reptilienhaus[/b]"/>
+	</scene>
+	<!--  PANO 6  -->
+	<scene name="scene_OBERAMMERGAU_-_KOFEL" title="KOFEL" onstart="updateradar();" thumburl="panos/OBERAMMERGAU_-_KOFEL.tiles/thumb.jpg" lat="47.62638333" lng="11.17513611" heading="0.0">
+		<action name="updateradar"> set(layer[activespot].visible, false); set(layer[spot1].scale, 1.0); set(layer[spot2].scale, 1.8); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.0); set(layer[spot8].scale, 1.0); </action>
+		<view hlookat="56.780" vlookat="17.980" fov="126.277" fov.mobile="60.701"/>
+		<preview url="panos/OBERAMMERGAU_-_KOFEL.tiles/preview.jpg"/>
+		<image prealign="0|0.0|0">
+			<cube url="panos/OBERAMMERGAU_-_KOFEL.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
+		</image>
+		<!--  NADIR   -->
+		<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/'););"/>
+		<!--  TELEPORT   -->
+		<hotspot name="scene_oberammergau" style="hss2" ath="29.719" atv="23.482" tag=""/>
+		<hotspot name="hst2-1" style="hotspottextstyle" ath="29.719" atv="23.482" visible="true" html="[b]OBERAMMERGAU[/b]"/>
+		<hotspot name="scene_unterammergau_-_pulvermoos" style="hss2" ath="-50.919" atv="5.923" tag=""/>
+		<hotspot name="hst2-2" style="hotspottextstyle" ath="-50.919" atv="5.923" visible="true" html="[b]UNTERAMMERGAU[/b]"/>
+		<hotspot name="scene_ettal_benediktinerabtei_uebersicht" style="hss2" ath="119.417" atv="1.379" tag=""/>
+		<hotspot name="hst2-4" style="hotspottextstyle" ath="119.417" atv="1.379" visible="true" html="[b]ETTAL[/b]"/>
+		<hotspot name="scene_saulgrub_uebersicht" style="hss2" ath="-47.248" atv="1.320" tag=""/>
+		<hotspot name="hst2-5" style="hotspottextstyle" ath="-47.248" atv="1.320" visible="true" html="[b]SAULGRUB[/b]"/>
+		<!--  BERGHÜTTE -->
+		<hotspot name="kolbensattelhuette" style="hss4" ath="-93.701" atv="1.416" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/kolbensattelhuette');"/>
+		<hotspot name="kolbensattelhuette-text" style="hotspottextstyle" ath="-93.701" atv="1.416" visible="true" html="[b]Kolbensattelhütte[/b]"/>
+		<!--  BERGBAHN -->
+		<hotspot name="kolbensesselbahn" style="hss5" ath="-61.907" atv="17.982" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/aktivarena-am-kolben-kolbensesselbahn');"/>
+		<hotspot name="kolbensesselbahn-text" style="hotspottextstyle" ath="-61.907" atv="17.982" visible="true" html="[b]Kolbensesselbahn[/b]"/>
+		<!--  BERG -->
+		<hotspot name="notkarspitze" style="hotspottextstyle-ammergau" ath="169.765" atv="-11.954" visible="true" edge="bottom" oy="" enabled="false" html="[b]Notkarspitze 1888m[/b]"/>
+		<hotspot name="poly-notkarspitze" style="hslinienstyle-ammergau">
+			<point ath="169.765" atv="-11.954"/>
+			<point ath="169.765" atv="-7.988"/>
+		</hotspot>
+		<hotspot name="laber" style="hotspottextstyle-ammergau" ath="79.066" atv="-11.287" visible="true" edge="bottom" oy="" enabled="false" html="[b]Laber 1686m[/b]"/>
+		<hotspot name="poly-laber" style="hslinienstyle-ammergau">
+			<point ath="79.066" atv="-11.287"/>
+			<point ath="79.066" atv="-5.388"/>
+		</hotspot>
+		<hotspot name="kofel" style="hotspottextstyle-ammergau" ath="90.557" atv="-6.712" visible="true" edge="bottom" oy="" enabled="false" html="[b]Kofel 1342m[/b]"/>
+		<hotspot name="poly-kofel" style="hslinienstyle-ammergau">
+			<point ath="90.557" atv="-6.712"/>
+			<point ath="90.557" atv="-2.088"/>
+		</hotspot>
+		<hotspot name="mittlereshoernle" style="hotspottextstyle-ammergau" ath="-10.174" atv="-6.037" visible="true" edge="bottom" oy="" enabled="false" html="[b]Mittleres Hörnle 1496m[/b]"/>
+		<hotspot name="poly-mittlereshoernle" style="hslinienstyle-ammergau">
+			<point ath="-10.174" atv="-6.037"/>
+			<point ath="-10.174" atv="-1.588"/>
+		</hotspot>
+		<hotspot name="vordereshoernle" style="hotspottextstyle-ammergau" ath="-11.457" atv="-2.992" visible="true" edge="bottom" oy="" enabled="false" html="[b]Vorderes Hörnle 1484m[/b]"/>
+		<hotspot name="poly-vordereshoernle" style="hslinienstyle-ammergau">
+			<point ath="-11.457" atv="-2.992"/>
+			<point ath="-11.457" atv="-1.488"/>
+		</hotspot>
+		<hotspot name="hintereshoernle" style="hotspottextstyle-ammergau" ath="-13.813" atv="-8.856" visible="true" edge="bottom" oy="" enabled="false" html="[b]Hinteres Hörnle 1548m[/b]"/>
+		<hotspot name="poly-hintereshoernle" style="hslinienstyle-ammergau">
+			<point ath="-14.113" atv="-8.856"/>
+			<point ath="-14.113" atv="-2.088"/>
+		</hotspot>
+		<hotspot name="teufelstaettkopf" style="hotspottextstyle-ammergau" ath="-103.751" atv="-7.874" visible="true" edge="bottom" oy="" enabled="false" html="[b]Teufelstättkopf 1758m[/b]"/>
+		<hotspot name="poly-teufelstaettkopf" style="hslinienstyle-ammergau">
+			<point ath="-103.751" atv="-7.874"/>
+			<point ath="-103.751" atv="-4.088"/>
+		</hotspot>
+		<!--  POI -->
+		<hotspot name="alpinecoaster" style="hss3" ath="-84.623" atv="3.282" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/alpine-coaster-oberammergau');"/>
+		<hotspot name="alpinecoaster-text" style="hotspottextstyle" ath="-84.623" atv="3.282" visible="true" html="[b]Alpine Coaster[/b]"/>
+		<hotspot name="bikepark" style="hss3" ath="-47.082" atv="22.058" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/scott-bikepark-oberammergau');"/>
+		<hotspot name="bikepark-text" style="hotspottextstyle" ath="-47.082" atv="22.058" visible="true" html="[b]Bikepark[/b]"/>
+		<hotspot name="bogenschiessen" style="hss3" ath="-45.426" atv="19.501" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/3d-bogenschiessen');"/>
+		<hotspot name="bogenschiessen-text" style="hotspottextstyle" ath="-45.426" atv="19.501" visible="true" html="[b]Bogenschießen[/b]"/>
+		<hotspot name="passionstheater" style="hss3" ath="-2.887" atv="18.706" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/passionstheater');"/>
+		<hotspot name="passionstheater-text" style="hotspottextstyle" ath="-2.887" atv="18.706" visible="true" html="[b]Passionstheater[/b]"/>
+	</scene>
+	<!--  PANO 7  -->
+	<scene name="scene_ETTAL_BENEDIKTINERABTEI_UEBERSICHT" title="ETTAL" onstart="updateradar();" thumburl="panos/ETTAL_BENEDIKTINERABTEI_UEBERSICHT.tiles/thumb.jpg" lat="47.61026389" lng="11.20795278" heading="0.0">
+		<action name="updateradar"> set(layer[activespot].visible, true); set(layer[activespot].parent, spot6); set(layer[spot1].scale, 1.0); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.8); set(layer[spot7].scale, 1.0); set(layer[spot8].scale, 1.0); </action>
+		<view hlookat="59.315" vlookat="42.255" fov="109.936" fov.mobile="60.701"/>
+		<preview url="panos/ETTAL_BENEDIKTINERABTEI_UEBERSICHT.tiles/preview.jpg"/>
+		<image prealign="0|0.0|0">
+			<cube url="panos/ETTAL_BENEDIKTINERABTEI_UEBERSICHT.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2624,5184,10368"/>
+		</image>
+		<!--  NADIR   -->
+		<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/'););"/>
+		<!--  TELEPORT   -->
+		<hotspot name="scene_oberammergau" style="hss2" ath="-167.231" atv="-13.317" tag=""/>
+		<hotspot name="hst2-1" style="hotspottextstyle" ath="-167.231" atv="-13.317" visible="true" html="[b]OBERAMMERGAU[/b]"/>
+		<hotspot name="scene_benediktinerabtei_ettal" style="hss3" onclick="loadscene(get(name),null, MERGE, ZOOMBLEND(2, 2, easeInOutSine));" ath="-3.724" atv="18.095" tag=""/>
+		<hotspot name="hst2-2" style="hotspottextstyle" ath="-3.724" atv="18.095" visible="true" html="[b]BENEDIKTINERABTEI ETTAL[/b]"/>
+		<!--  ORT MIT FOTO  -->
+		<hotspot name="graswang" style="hotspottextstyle-ammergau-ort" ath="150.821" atv="1.543" visible="true" edge="bottom" oy="" enabled="true" html="[b]Graswang[/b]" onclick="open-foto(01);"/>
+		<!--  BERG   -->
+		<hotspot name="estergebirge" style="hotspottextstyle-ammergau" ath="10.014" atv="-12.681" visible="true" edge="bottom" oy="" enabled="false" html="[b]Estergebirge[/b]"/>
+		<hotspot name="poly-estergebirge" style="hslinienstyle-ammergau">
+			<point ath="10.014" atv="-12.681"/>
+			<point ath="10.014" atv="-8.988"/>
+		</hotspot>
+		<hotspot name="grosse-klammspitze" style="hotspottextstyle-ammergau" ath="152.569" atv="-13.353" visible="true" edge="bottom" oy="" enabled="false" html="[b]Große Klammspitze 1924m[/b]"/>
+		<hotspot name="poly-grosse-klammspitze" style="hslinienstyle-ammergau">
+			<point ath="152.569" atv="-13.353"/>
+			<point ath="152.569" atv="-3.388"/>
+		</hotspot>
+		<hotspot name="scheinbergspitze" style="hotspottextstyle-ammergau" ath="141.221" atv="-8.086" visible="true" edge="bottom" oy="" enabled="false" html="[b]Scheinbergspitze 1929m[/b]"/>
+		<hotspot name="poly-scheinbergspitze" style="hslinienstyle-ammergau">
+			<point ath="141.221" atv="-8.086"/>
+			<point ath="141.221" atv="-2.988"/>
+		</hotspot>
+		<hotspot name="notkarspitze" style="hotspottextstyle-ammergau" ath="101.811" atv="-22.604" visible="true" edge="bottom" oy="" enabled="false" html="[b]Notkarspitze 1888m[/b]"/>
+		<hotspot name="poly-notkarspitze" style="hslinienstyle-ammergau">
+			<point ath="101.811" atv="-22.604"/>
+			<point ath="101.811" atv="-18.388"/>
+		</hotspot>
+		<hotspot name="schartenkopf" style="hotspottextstyle-ammergau" ath="-134.358" atv="-27.169" visible="true" edge="bottom" oy="" enabled="false" html="[b]Schartenkopf 1636m[/b]"/>
+		<hotspot name="poly-schartenkopf" style="hslinienstyle-ammergau">
+			<point ath="-134.358" atv="-27.169"/>
+			<point ath="-134.358" atv="-22.288"/>
+		</hotspot>
+		<!--  POI -->
+		<hotspot name="schaukaeserei" style="hss3" ath="-10.614" atv="6.295" tag="" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/schaukaeserei-ettal');"/>
+		<hotspot name="schaukaeserei-text" style="hotspottextstyle" ath="-10.614" atv="6.295" visible="true" html="[b]Schaukäserei[/b]"/>
+		<hotspot name="tiettal" style="hss10" ath="97.741" atv="21.891" tag="" enabled="true" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/tourist-information-ettal');"/>
+		<hotspot name="tiettal-text" style="hotspottextstyle" ath="97.741" atv="21.891" visible="true" html="[b]TI Ettal[/b]"/>
+		<!--  POI MIT FOTO -->
+		<hotspot name="schlosslinderhof" style="hss3" ath="146.209" atv="0.196" tag="" novrspot="yes" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/poi/schloss-park-linderhof');"/>
+		<hotspot name="schlosslinderhof-text" style="hotspottextstyle" ath="146.209" atv="-0.196" visible="true" html="[b]Schloss Linderhof[/b]"/>
+		<!--  POI MIT FOTO onclick="open-foto(02);"
  -->
-</scene>
-<!--  PANO 8  -->
-<scene name="scene_BENEDIKTINERABTEI_ETTAL" title="KLOSTER ETTAL" onstart="updateradar();" thumburl="panos/BENEDIKTINERABTEI_ETTAL.tiles/thumb.jpg" lat="" lng="" heading="">
-<action name="updateradar"> set(layer[activespot].visible, false); set(layer[activespot].parent, spot7); set(layer[spot1].scale, 1.0); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.8); set(layer[spot8].scale, 1.0); </action>
-<view hlookat="69.44" vlookat="-5.22" fov="98.64" fov.mobile="60.701"/>
-<preview url="panos/BENEDIKTINERABTEI_ETTAL.tiles/preview.jpg"/>
-<image prealign="0|0.0|0">
-<cube url="panos/BENEDIKTINERABTEI_ETTAL.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,768,1536,3072,6144"/>
-</image>
-<!--  NADIR   -->
-<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/'););"/>
-<!--  HOTSPOTS   -->
-<hotspot name="scene_ettal_benediktinerabtei_uebersicht" style="hss2" ath="-107.225" atv="0.134" tag=""/>
-<hotspot name="hst2-1" style="hotspottextstyle" ath="-107.225" atv="0.134" visible="true" html="[b]ETTAL[/b]"/>
-</scene>
+	</scene>
+	<!--  PANO 8  -->
+	<scene name="scene_BENEDIKTINERABTEI_ETTAL" title="KLOSTER ETTAL" onstart="updateradar();" thumburl="panos/BENEDIKTINERABTEI_ETTAL.tiles/thumb.jpg" lat="" lng="" heading="">
+		<action name="updateradar"> set(layer[activespot].visible, false); set(layer[activespot].parent, spot7); set(layer[spot1].scale, 1.0); set(layer[spot2].scale, 1.0); set(layer[spot3].scale, 1.0); set(layer[spot4].scale, 1.0); set(layer[spot5].scale, 1.0); set(layer[spot6].scale, 1.0); set(layer[spot7].scale, 1.8); set(layer[spot8].scale, 1.0); </action>
+		<view hlookat="69.44" vlookat="-5.22" fov="98.64" fov.mobile="60.701"/>
+		<preview url="panos/BENEDIKTINERABTEI_ETTAL.tiles/preview.jpg"/>
+		<image prealign="0|0.0|0">
+			<cube url="panos/BENEDIKTINERABTEI_ETTAL.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,768,1536,3072,6144"/>
+		</image>
+		<!--  NADIR   -->
+		<hotspot name="NADIR" url="logos/nadir.png" ath="0.000" atv="90.000" tag="" width="250px" width.mobile="200px" height="prop" scale="0.8" visible="true" onover="tween(scale,1);" onout="tween(scale,0.8);" novrspot="yes" zorder="2" onloaded="if(webvr.isenabled == true, set(visible, false);); if(webvr.isenabled == false, set(visible, true););" onclick="open-lightboxlayer('https://www.ammergauer-alpen.de/'););"/>
+		<!--  HOTSPOTS   -->
+		<hotspot name="scene_ettal_benediktinerabtei_uebersicht" style="hss2" ath="-107.225" atv="0.134" tag=""/>
+		<hotspot name="hst2-1" style="hotspottextstyle" ath="-107.225" atv="0.134" visible="true" html="[b]ETTAL[/b]"/>
+	</scene>
 </krpano>
